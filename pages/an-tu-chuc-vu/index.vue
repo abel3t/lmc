@@ -6,12 +6,12 @@
         <p>Hãy trả lời 140 câu hỏi (5 nhóm) bằng cách chấm mức độ đúng với khả năng/xu hướng/tâm tình của bạn. Đúng nhất
           với mình là điểm 10, không đúng nhất với mình là điểm 1. Chấm điểm ngay cho các câu mô tả được đưa ra. Đừng
           suy nghĩ cẩn thận quá, đây là chỉ là khảo sát.</p>
-        <nuxt-link to="an-tu-chuc-vu/khao-sat">
-          <t-button>
-            Làm khảo sát
-          </t-button>
-        </nuxt-link>
       </div>
+      <nuxt-link to="an-tu-chuc-vu/khao-sat">
+        <t-button>
+          Làm khảo sát
+        </t-button>
+      </nuxt-link>
     </div>
   </div>
 </template>
