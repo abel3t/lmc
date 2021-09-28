@@ -3,7 +3,7 @@
     <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
     <div class="personality-test__wrapper">
       <div class="personality-test__questions">
-        <div v-for="question in questions" :key="question.id" class="py-2">
+        <div v-for="question in questions" :key="question.id" class="py-2 flex items-start">
           <span>Câu {{ question.id }}:</span>
           <div class="inline-flex">
             <div v-for="answer in question.answers" :key="answer.type" class="ml-3">
