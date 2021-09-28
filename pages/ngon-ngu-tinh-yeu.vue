@@ -1,6 +1,6 @@
 <template>
   <div>
-    <QuestionBar />
+    <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
     <div class="questions">
       <div v-for="question in questions" :key="question.id">
         <div class="py-2">
@@ -58,7 +58,13 @@
 
 <script>
 import QuestionBar from '../components/QuestionBar';
+import { TabQuestionType } from '../store';
 export default {
+  data() {
+    return {
+      tabQuestionType: TabQuestionType.LoveLanguage
+    }
+  },
   components: { QuestionBar },
   computed: {
     questions: function () {

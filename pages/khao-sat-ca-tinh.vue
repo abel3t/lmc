@@ -1,6 +1,6 @@
 <template>
   <div>
-    <QuestionBar/>
+    <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
     <div class="questions">
       <div v-for="question in questions" :key="question.id">
         <span>Câu {{question.id}}:</span>
@@ -18,8 +18,14 @@
 </template>
 <script>
 import QuestionBar from '../components/QuestionBar';
+import { TabQuestionType } from '../store';
 
 export default {
+  data() {
+    return {
+      tabQuestionType: TabQuestionType.Personality
+    }
+  },
   components: { QuestionBar },
   computed: {
     questions: function () {
