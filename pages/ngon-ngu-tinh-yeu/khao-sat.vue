@@ -1,22 +1,22 @@
 <template>
   <div>
     <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
-    <div class="love-language__wrapper">
-      <div class="questions">
+    <div class="love-language-test__wrapper">
+      <div class="love-language-test__questions">
         <div v-for="question in questions" :key="question.id">
           <div class="py-2">
-            {{question.text}}
+            {{ question.text }}
             <div v-for="answer in question.answers" :key="answer.type">
-              <div class="questions__answer">
+              <div class="love-language-test__questions__answer">
                 <div v-if="answer.text" class="inline-flex">
-                  <t-input min="1" max="5" type="number" class="questions__input"/>
-                  <span class="ml-2">{{answer.text}}</span>
+                  <t-input min="1" max="5" type="number" class="love-language-test__questions__input"/>
+                  <span class="ml-2">{{ answer.text }}</span>
                 </div>
                 <div v-else class="inline-flex">
-                  <t-input min="1" max="5" type="number" class="questions__input"/>
+                  <t-input min="1" max="5" type="number" class="love-language-test__questions__input"/>
                   <div class="ml-2">
-                    <p>{{answer.textFemale}}</p>
-                    <p>{{answer.textMale}}</p>
+                    <p>{{ answer.textFemale }}</p>
+                    <p>{{ answer.textMale }}</p>
                   </div>
                 </div>
               </div>
@@ -33,11 +33,11 @@
 
 <style lang="scss">
 
-.love-language__wrapper {
+.love-language-test__wrapper {
   @apply flex flex-col justify-center items-center;
 }
 
-.questions {
+.love-language-test__questions {
   @apply border-0 shadow-2xl text-justify sm:p-1 md:p-3 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3;
   margin: 0 auto;
 
@@ -103,7 +103,7 @@ export default {
           }
         }
       }
-    }
+    };
   },
   computed: {
     questions: function () {

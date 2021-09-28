@@ -1,5 +1,5 @@
 <template>
-  <QuestionBar />
+  <QuestionBar/>
 </template>
 
 <style lang="scss">
@@ -9,10 +9,10 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
 import QuestionBar from '~/components/QuestionBar.vue';
 
 export default Vue.extend({
   components: { QuestionBar }
-})
+});
 </script>

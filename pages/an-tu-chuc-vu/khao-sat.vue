@@ -1,12 +1,12 @@
 <template>
   <div>
-    <QuestionBar v-bind:tab-question-type="tabQuestionType" />
-    <div class="gift__questions">
+    <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
+    <div class="gift-test__questions">
       <div v-for="question in questions" :key="question.id" class="py-2">
-        <div><strong>Câu {{question.id}}:</strong></div>
+        <div><strong>Câu {{ question.id }}:</strong></div>
         <div class="inline-flex">
-          <t-input min="1" max="5" type="number" class="gift__questions_input"/>
-          <span class="ml-2">{{question.text}}</span>
+          <t-input min="1" max="5" type="number" class="gift-test__questions_input"/>
+          <span class="ml-2">{{ question.text }}</span>
         </div>
       </div>
     </div>
@@ -14,7 +14,7 @@
 </template>
 
 <style lang="scss">
-.gift__questions {
+.gift-test__questions {
   @apply border-0 shadow-2xl text-justify sm:p-1 md:p-3 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3;
   margin: 0 auto;
 
@@ -41,11 +41,12 @@
 <script>
 import QuestionBar from '../../components/QuestionBar';
 import { TabQuestionType } from '../../store';
+
 export default {
   data() {
     return {
       tabQuestionType: TabQuestionType.Gift
-    }
+    };
   },
   components: { QuestionBar },
   computed: {

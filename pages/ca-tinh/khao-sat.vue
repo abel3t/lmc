@@ -1,8 +1,8 @@
 <template>
   <div>
     <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
-    <div class="personality__wrapper">
-      <div class="personality__questions">
+    <div class="personality-test__wrapper">
+      <div class="personality-test__questions">
         <div v-for="question in questions" :key="question.id" class="py-2">
           <span>Câu {{ question.id }}:</span>
           <div class="inline-flex">
@@ -24,11 +24,11 @@
 </template>
 
 <style lang="scss">
-.personality__wrapper {
+.personality-test__wrapper {
   @apply flex flex-col justify-center items-center;
 }
 
-.personality__questions {
+.personality-test__questions {
   @apply border-0 shadow-2xl text-justify sm:w-full md:w-3/4 lg:w-2/3 sm:p-1 md:p-3 lg:p-6;
   margin: 0 auto;
 }
