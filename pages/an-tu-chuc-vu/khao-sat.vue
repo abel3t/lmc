@@ -39,8 +39,8 @@
 </style>
 
 <script>
-import QuestionBar from '../components/QuestionBar';
-import { TabQuestionType } from '../store';
+import QuestionBar from '../../components/QuestionBar';
+import { TabQuestionType } from '../../store';
 export default {
   data() {
     return {

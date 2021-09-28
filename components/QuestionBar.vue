@@ -1,7 +1,7 @@
 <template>
   <ul class="flex">
     <li class="flex-1 mr-2">
-      <NuxtLink to="/khao-sat-ca-tinh">
+      <NuxtLink to="/ca-tinh">
         <a class="text-center block border"
            href="#"
            v-bind:class="{[active]: tabQuestionType === tabQuestionTypes.Personality, [inActive]: tabQuestionType !== tabQuestionTypes.Personality}"
