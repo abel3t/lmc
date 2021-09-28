@@ -1,13 +1,15 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex';
 
 import { questions as loveLanguagesQuestions } from './love-languages';
-import { questions as discQuestions } from '~/store/disc';
+import { questions as discQuestions } from './disc';
+import { questions as giftQuestions } from './gift';
 
 export type RootState = ReturnType<typeof state>
 
 const state = () => ({
   loveLanguagesQuestions,
-  discQuestions
+  discQuestions,
+  giftQuestions
 });
 
 const mutations: MutationTree<RootState> = {};
@@ -20,6 +22,9 @@ const getters: GetterTree<RootState, RootState> = {
   },
   discQuestions(state) {
     return state.discQuestions
+  },
+  giftQuestions(state) {
+    return state.giftQuestions
   }
 };
 
