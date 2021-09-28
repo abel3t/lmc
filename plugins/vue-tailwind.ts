@@ -5,7 +5,7 @@ import {
   TAlert,
   TButton,
   TModal,
-  TDropdown, TTag
+  TDropdown, TTag, TInput
 } from 'vue-tailwind/dist/components';
 
 const settings = {
@@ -133,6 +133,17 @@ const settings = {
         error: 'text-red-500',
         badge: 'inline-flex items-center px-3 rounded-full text-xs font-medium leading-4 bg-gray-100 text-gray-800',
         avatar: 'inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-500 overflow-hidden leading-none text-center'
+      }
+    }
+  },
+  't-input': {
+    component: TInput,
+    props: {
+      fixedClasses: 'block w-full text-center transition duration-100 ease-in-out border rounded shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed',
+      classes: 'text-black placeholder-gray-400 bg-white border-gray-300 focus:border-blue-500 ',
+      variants: {
+        danger: 'border-red-300 bg-red-50 placeholder-red-200 text-red-900',
+        success: 'border-green-300 bg-green-50 placeholder-gray-400 text-green-900'
       }
     }
   }
