@@ -38,7 +38,7 @@
 }
 
 .love-language-test__questions {
-  @apply border-0 shadow-2xl text-justify sm:p-1 md:p-3 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3;
+  @apply border-0 shadow-2xl text-justify p-3 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3;
   margin: 0 auto;
 
   &__answer {
