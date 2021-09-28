@@ -5,7 +5,7 @@ import {
   TAlert,
   TButton,
   TModal,
-  TDropdown, TTag, TInput
+  TDropdown, TTag, TInput, TCheckbox
 } from 'vue-tailwind/dist/components';
 
 const settings = {
@@ -144,6 +144,17 @@ const settings = {
       variants: {
         danger: 'border-red-300 bg-red-50 placeholder-red-200 text-red-900',
         success: 'border-green-300 bg-green-50 placeholder-gray-400 text-green-900'
+      }
+    }
+  },
+  't-checkbox': {
+    component: TCheckbox,
+    props: {
+      fixedClasses: 'transition duration-100 ease-in-out rounded shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed',
+      classes: 'text-blue-500 border-gray-300 ',
+      variants: {
+        error: 'text-red-500 border-red-300',
+        success: 'text-green-500 border-green-300'
       }
     }
   }

@@ -1,9 +1,9 @@
 export const enum LoveLanguageType {
-  A = 'Words_of_Affirmation',
-  B = 'Acts_of_Service',
-  C = 'Receiving_Gifts',
-  D = 'Quality_Time',
-  E = 'Physical_Touch'
+  A,
+  B,
+  C,
+  D,
+  E
 }
 
 export const LoveLanguageTitle = {
@@ -12,7 +12,7 @@ export const LoveLanguageTitle = {
   [LoveLanguageType.C]: 'Nhận quà',
   [LoveLanguageType.D]: 'Thời gian chất lượng',
   [LoveLanguageType.E]: 'Tiếp xúc đụng chạm'
-}
+};
 
 export const questions = [
   {
