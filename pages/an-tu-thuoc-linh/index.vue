@@ -7,7 +7,7 @@
           với mình là điểm 10, không đúng nhất với mình là điểm 1. Chấm điểm ngay cho các câu mô tả được đưa ra. Đừng
           suy nghĩ cẩn thận quá, đây là chỉ là khảo sát.</p>
       </div>
-      <nuxt-link to="an-tu-chuc-vu/khao-sat">
+      <nuxt-link to="an-tu-thuoc-linh/khao-sat">
         <t-button>
           Làm khảo sát
         </t-button>

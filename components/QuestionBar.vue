@@ -20,12 +20,12 @@
       </NuxtLink>
     </li>
     <li class="flex-1 mr-2">
-      <NuxtLink to="/an-tu-chuc-vu">
+      <NuxtLink to="/an-tu-thuoc-linh">
         <a
           class="text-center block border"
           href="#"
           v-bind:class="{[active]: tabQuestionType === tabQuestionTypes.Gift, [inActive]: tabQuestionType !== tabQuestionTypes.Gift}">Ân
-          tứ chức vụ</a>
+          tứ thuộc linh</a>
       </NuxtLink>
     </li>
   </ul>
