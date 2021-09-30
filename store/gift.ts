@@ -429,7 +429,7 @@ export const questions = [
   },
   {
     id: 114,
-    text: 'Đức Chúa Trời đã sử dụng tôi để đem Phúc  m đến với những người chưa từng nghe về Chúa',
+    text: 'Đức Chúa Trời đã sử dụng tôi để đem Phúc âm đến với những người chưa từng nghe về Chúa',
     type: GiftType.B
   },
   { id: 115, text: 'Tôi độc thân và thấy không hứng thú về việc kết hôn', type: GiftType.C },

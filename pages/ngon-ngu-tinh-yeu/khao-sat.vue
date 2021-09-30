@@ -3,13 +3,13 @@
     <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
     <div class="love-language-test__wrapper">
       <div class="love-language-test__questions">
-        <div v-for="question in questions" :key="question.id">
+        <div v-for="(question, qIndex) in questions" :key="question.id">
           <div class="py-2">
             {{ question.text }}
-            <div v-for="answer in question.answers" :key="answer.type">
+            <div v-for="(answer, aIndex) in question.answers" :key="answer.type">
               <div class="love-language-test__questions__answer">
                 <div v-if="answer.text" class="inline-flex">
-                  <t-input min="1" max="5" type="number" class="love-language-test__questions__input"/>
+                  <t-input min="1" max="5" type="number" class="love-language-test__questions__input" @blur="updateMark({qIndex, aIndex }, $event)" @keyup.enter="updateMark({qIndex, aIndex }, $event)" :value="answer.mark"/>
                   <span class="ml-2">{{ answer.text }}</span>
                 </div>
                 <div v-else class="inline-flex">
@@ -67,13 +67,14 @@
 
 <script>
 import QuestionBar from '../../components/QuestionBar';
-import { TabQuestionType } from '../../store';
+import { TabQuestionType, UPDATE_LOVE_LANGUAGE_QUESTIONS } from '../../store';
 import PieChart from '../../components/pie-chart';
 
 export default {
   components: { QuestionBar, PieChart },
   data() {
     return {
+      marks: [],
       tabQuestionType: TabQuestionType.LoveLanguage,
       pieChartData: {
         labels: [
@@ -108,6 +109,15 @@ export default {
   computed: {
     questions: function () {
       return this.$store.getters.loveLanguagesQuestions;
+    }
+  },
+  methods: {
+    updateMark({ qIndex, aIndex }, e) {
+      const _question = JSON.parse(JSON.stringify(this.questions));
+
+      _question[qIndex].answers[aIndex].mark = parseInt(e.target?.value) || 0;
+
+      this.$store.dispatch(UPDATE_LOVE_LANGUAGE_QUESTIONS, _question);
     }
   }
 };

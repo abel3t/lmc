@@ -16,12 +16,22 @@ const state = () => ({
   loveLanguagesQuestions,
   discQuestions,
   giftQuestions
-
 });
 
-const mutations: MutationTree<RootState> = {};
+export const UPDATE_LOVE_LANGUAGE_QUESTIONS = 'updateLoveLangeQuestions';
 
-const actions: ActionTree<RootState, RootState> = {};
+const mutations: MutationTree<RootState> = {
+  [`${UPDATE_LOVE_LANGUAGE_QUESTIONS}`](state, questions: any[]) {
+    console.log(questions)
+    state.loveLanguagesQuestions = questions;
+  }
+};
+
+const actions: ActionTree<RootState, RootState> = {
+  [`${UPDATE_LOVE_LANGUAGE_QUESTIONS}`]({ commit }, payload) {
+    commit(UPDATE_LOVE_LANGUAGE_QUESTIONS, payload);
+  },
+};
 
 const getters: GetterTree<RootState, RootState> = {
   loveLanguagesQuestions(state) {
