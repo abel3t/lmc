@@ -2,10 +2,12 @@
   <div>
     <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
     <div class="gift-test__questions">
-      <div v-for="question in questions" :key="question.id" class="py-2">
+      <div v-for="(question, qIndex) in questions" :key="question.id" class="py-2">
         <div><strong>Câu {{ question.id }}:</strong></div>
         <div class="inline-flex">
-          <t-input min="1" max="5" type="number" class="gift-test__questions_input"/>
+          <t-input min="1" max="5" type="number" class="gift-test__questions_input"
+                   :variant="question.error ? 'danger': ''" @blur="updateMark(qIndex, $event)"
+                   @keyup.enter="updateMark(qIndex, $event)" :value="question.mark || ''"/>
           <span class="ml-2">{{ question.text }}</span>
         </div>
       </div>
@@ -40,11 +42,12 @@
 
 <script>
 import QuestionBar from '../../components/QuestionBar';
-import { TabQuestionType } from '../../store';
+import { TabQuestionType, UPDATE_GIFT_QUESTIONS } from '../../store';
 
 export default {
   data() {
     return {
+      errorQuestionIds: {  },
       tabQuestionType: TabQuestionType.Gift
     };
   },
@@ -52,6 +55,22 @@ export default {
   computed: {
     questions: function () {
       return this.$store.getters.giftQuestions;
+    }
+  },
+  methods: {
+    updateMark(qIndex, e) {
+      const value = parseInt(e.target?.value) || 0;
+
+      const _questions = JSON.parse(JSON.stringify(this.questions));
+
+      const isValid = value > 0 && value <= 10;
+
+      this.errorQuestionIds = { qIndex: isValid };
+
+      _questions[qIndex].mark = value;
+      _questions[qIndex].error = !isValid;
+
+      this.$store.dispatch(UPDATE_GIFT_QUESTIONS, _questions);
     }
   }
 };

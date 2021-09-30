@@ -117,19 +117,19 @@ export default {
     updateMark({ qIndex, aIndex }, e) {
       const value = parseInt(e.target?.value) || 0;
 
-      const _question = JSON.parse(JSON.stringify(this.questions));
-      _question[qIndex].answers[aIndex].mark = value;
+      const _questions = JSON.parse(JSON.stringify(this.questions));
+      _questions[qIndex].answers[aIndex].mark = value;
 
-      const answerMarks = _question[qIndex].answers.map(answer => answer.mark);
+      const answerMarks = _questions[qIndex].answers.map(answer => answer.mark);
 
       answerMarks.forEach((answerMark, idx) => {
         const isValid = answerMark >= 0 && answerMark <= 5 && answerMarks.indexOf(answerMark) === idx;
 
         this.hasError = !isValid;
-        _question[qIndex].answers[idx].error = !isValid;
+        _questions[qIndex].answers[idx].error = !isValid;
       });
 
-      this.$store.dispatch(UPDATE_LOVE_LANGUAGE_QUESTIONS, _question);
+      this.$store.dispatch(UPDATE_LOVE_LANGUAGE_QUESTIONS, _questions);
     }
   }
 };
