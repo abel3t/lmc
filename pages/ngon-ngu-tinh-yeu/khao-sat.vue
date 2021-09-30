@@ -9,7 +9,9 @@
             <div v-for="(answer, aIndex) in question.answers" :key="answer.type">
               <div class="love-language-test__questions__answer">
                 <div v-if="answer.text" class="inline-flex">
-                  <t-input min="1" max="5" type="number" class="love-language-test__questions__input" @blur="updateMark({qIndex, aIndex }, $event)" @keyup.enter="updateMark({qIndex, aIndex }, $event)" :value="answer.mark"/>
+                  <t-input min="1" max="5" type="number" class="love-language-test__questions__input"
+                           :variant="answer.error ? 'danger': ''" @blur="updateMark({qIndex, aIndex }, $event)"
+                           @keyup.enter="updateMark({qIndex, aIndex }, $event)" :value="answer.mark || ''"/>
                   <span class="ml-2">{{ answer.text }}</span>
                 </div>
                 <div v-else class="inline-flex">
@@ -74,7 +76,7 @@ export default {
   components: { QuestionBar, PieChart },
   data() {
     return {
-      marks: [],
+      hasError: false,
       tabQuestionType: TabQuestionType.LoveLanguage,
       pieChartData: {
         labels: [
@@ -113,9 +115,19 @@ export default {
   },
   methods: {
     updateMark({ qIndex, aIndex }, e) {
-      const _question = JSON.parse(JSON.stringify(this.questions));
+      const value = parseInt(e.target?.value) || 0;
 
-      _question[qIndex].answers[aIndex].mark = parseInt(e.target?.value) || 0;
+      const _question = JSON.parse(JSON.stringify(this.questions));
+      _question[qIndex].answers[aIndex].mark = value;
+
+      const answerMarks = _question[qIndex].answers.map(answer => answer.mark);
+
+      answerMarks.forEach((answerMark, idx) => {
+        const isValid = answerMark >= 0 && answerMark <= 5 && answerMarks.indexOf(answerMark) === idx;
+
+        this.hasError = !isValid;
+        _question[qIndex].answers[idx].error = !isValid;
+      });
 
       this.$store.dispatch(UPDATE_LOVE_LANGUAGE_QUESTIONS, _question);
     }
