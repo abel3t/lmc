@@ -22,7 +22,6 @@ export const UPDATE_LOVE_LANGUAGE_QUESTIONS = 'updateLoveLangeQuestions';
 
 const mutations: MutationTree<RootState> = {
   [`${UPDATE_LOVE_LANGUAGE_QUESTIONS}`](state, questions: any[]) {
-    console.log(questions)
     state.loveLanguagesQuestions = questions;
   }
 };
