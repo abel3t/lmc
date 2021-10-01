@@ -12,6 +12,8 @@
         </div>
       </div>
     </div>
+
+    <t-button v-on:click="submit()">Gửi kết quả</t-button>
   </div>
 </template>
 
@@ -42,7 +44,7 @@
 
 <script>
 import QuestionBar from '../../components/QuestionBar';
-import { TabQuestionType, UPDATE_GIFT_QUESTIONS } from '../../store';
+import { TabQuestionType, UPDATE_GIFT_QUESTIONS, UPDATE_GIFT_RESULT } from '../../store';
 
 export default {
   data() {
@@ -71,6 +73,16 @@ export default {
       _questions[qIndex].error = !isValid;
 
       this.$store.dispatch(UPDATE_GIFT_QUESTIONS, _questions);
+    },
+    submit() {
+      const questionMarkGroups = this.questions.reduce((acc, question) => {
+        acc[question.type] = (acc[question.type] || 0) + question.mark || 0;
+        return acc;
+      }, []);
+
+      this.$store.dispatch(UPDATE_GIFT_RESULT, questionMarkGroups);
+
+      window.open('/an-tu-thuoc-linh', '_self')
     }
   }
 };

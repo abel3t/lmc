@@ -15,11 +15,13 @@ export enum TabQuestionType {
 const state = () => ({
   loveLanguagesQuestions,
   discQuestions,
-  giftQuestions
+  giftQuestions,
+  giftResult: [] as any[],
 });
 
 export const UPDATE_LOVE_LANGUAGE_QUESTIONS = 'updateLoveLangeQuestions';
 export const UPDATE_GIFT_QUESTIONS = 'updateGiftQuestions';
+export const UPDATE_GIFT_RESULT = 'updateGiftResult';
 
 const mutations: MutationTree<RootState> = {
   [`${UPDATE_LOVE_LANGUAGE_QUESTIONS}`](state, questions: any[]) {
@@ -27,6 +29,9 @@ const mutations: MutationTree<RootState> = {
   },
   [`${UPDATE_GIFT_QUESTIONS}`](state, questions: any[]) {
     state.giftQuestions = questions;
+  },
+  [`${UPDATE_GIFT_RESULT}`](state, result: any[]) {
+    state.giftResult = result;
   }
 };
 
@@ -36,6 +41,9 @@ const actions: ActionTree<RootState, RootState> = {
   },
   [`${UPDATE_GIFT_QUESTIONS}`]({ commit }, payload) {
     commit(UPDATE_GIFT_QUESTIONS, payload);
+  },
+  [`${UPDATE_GIFT_RESULT}`]({ commit }, payload) {
+    commit(UPDATE_GIFT_RESULT, payload);
   }
 };
 
