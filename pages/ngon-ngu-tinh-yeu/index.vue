@@ -73,12 +73,12 @@
 
 <script>
 import QuestionBar from '../../components/QuestionBar';
-import { TabQuestionType } from '../../store';
 import { LoveLanguageTitle } from '../../store/love-languages';
 import { resultViewTitle } from '../../constant';
 import LineChart from '../../components/line-chart';
 import PieChart from '../../components/pie-chart';
 import RadarChart from '../../components/radar-chart';
+import { TabQuestionType } from '../../store';
 
 export default {
   components: { RadarChart, PieChart, LineChart, QuestionBar },
@@ -87,6 +87,7 @@ export default {
       resultViewTitle,
       viewType: resultViewTitle.Table,
       result: [],
+      tabQuestionType: TabQuestionType.LoveLanguage,
       tableData: [],
       datasets: [],
       chartOptions: {
