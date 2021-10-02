@@ -89,35 +89,7 @@ export default {
   data() {
     return {
       hasError: false,
-      tabQuestionType: TabQuestionType.LoveLanguage,
-      pieChartData: {
-        labels: [
-          'D',
-          'I',
-          'S',
-          'C'
-        ],
-        datasets: [
-          {
-            label: 'DISC',
-            data: [ 70, 10, 10, 10 ],
-            backgroundColor: [ '#F16284', '#F49F41', '#F8CD56', '#42A2EB' ],
-            borderWidth: 1
-          }
-        ]
-      },
-      pieChartOptions: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top'
-          },
-          title: {
-            display: true,
-            text: 'DISC'
-          }
-        }
-      }
+      tabQuestionType: TabQuestionType.LoveLanguage
     };
   },
   computed: {
