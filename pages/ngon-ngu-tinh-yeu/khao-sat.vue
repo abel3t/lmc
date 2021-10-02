@@ -35,6 +35,9 @@
         <div class="flex justify-center">
           <t-button class="mt-3" v-on:click="submit()">Gửi kết quả</t-button>
         </div>
+
+        <t-dialog>
+        </t-dialog>
       </div>
     </div>
   </div>
@@ -141,19 +144,34 @@ export default {
 
     },
     submit() {
+      let hasError = false;
       const markGroups = this.questions.reduce((acc, question) => {
         question.answers.forEach(answer => {
+          if (answer.mark <= 0 || answer.mark > 5) {
+            hasError = true;
+          }
           acc[answer.type] = (acc[answer.type] || 0) + (answer.mark || 0);
         })
 
         return acc;
       }, []);
 
-      localStorage.setItem('loveLanguageResult', JSON.stringify(markGroups));
-      localStorage.setItem('loveLanguageQuestions', JSON.stringify(this.questions));
-      this.$store.dispatch(UPDATE_GIFT_RESULT, markGroups);
+      if (hasError) {
+        this.$dialog.alert({
+          variant: 'error',
+          title: '',
+          text: 'Điểm của bạn chưa hợp lệ!',
+          icon: ''
+        }).then((result) => {
+          console.log(result)
+        })
+      } else {
+        localStorage.setItem('loveLanguageResult', JSON.stringify(markGroups));
+        localStorage.setItem('loveLanguageQuestions', JSON.stringify(this.questions));
+        this.$store.dispatch(UPDATE_GIFT_RESULT, markGroups);
 
-      window.open('/ngon-ngu-tinh-yeu', '_self');
+        window.open('/ngon-ngu-tinh-yeu', '_self');
+      }
     },
     focusInput(id) {
       document.getElementById(id).focus();

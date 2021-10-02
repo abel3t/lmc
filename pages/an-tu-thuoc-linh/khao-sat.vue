@@ -79,16 +79,31 @@ export default {
       this.$store.dispatch(UPDATE_GIFT_QUESTIONS, _questions);
     },
     submit() {
+      let hasError = false;
       const questionMarkGroups = this.questions.reduce((acc, question) => {
+        if (question.mark <= 0 || question.mark > 10) {
+          hasError = true;
+        }
         acc[question.type] = (acc[question.type] || 0) + (question.mark || 0);
         return acc;
       }, []);
 
-      localStorage.setItem('giftResult', JSON.stringify(questionMarkGroups));
-      localStorage.setItem('giftQuestions', JSON.stringify(this.questions));
-      this.$store.dispatch(UPDATE_GIFT_RESULT, questionMarkGroups);
+      if (hasError) {
+        this.$dialog.alert({
+          variant: 'error',
+          title: '',
+          text: 'Điểm của bạn chưa hợp lệ!',
+          icon: ''
+        }).then((result) => {
+          console.log(result)
+        })
+      } else {
+        localStorage.setItem('giftResult', JSON.stringify(questionMarkGroups));
+        localStorage.setItem('giftQuestions', JSON.stringify(this.questions));
+        this.$store.dispatch(UPDATE_GIFT_RESULT, questionMarkGroups);
 
-      window.open('/an-tu-thuoc-linh', '_self');
+        window.open('/an-tu-thuoc-linh', '_self');
+      }
     },
     focusInput(id) {
       document.getElementById(id).focus();
