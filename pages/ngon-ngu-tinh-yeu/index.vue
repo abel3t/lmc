@@ -138,11 +138,7 @@ export default {
               label: 'Kết Quả',
               data: this.result,
               backgroundColor: [
-                '#F16284', '#F49F41', '#F8CD56', '#42A2EB', '#283D3B', '#197278', '#EDDDD4',
-                '#C44536', '#772E25', '#5465FF', '#788BFF', '#9BB1FF', '#BFD7FF', '#E2FDFF',
-                '#2E0E02', '#581908', '#983628', '#E2AEDD', '#EBCBF4', '#E5BEED', '#9593D9',
-                '#7C90DB', '#736B92', '#7D5C65', '#795C5F', '#A69658', '#D9B26F', '#FADF7F'
-              ],
+                '#F16284', '#F49F41', '#F8CD56', '#42A2EB', '#283D3B' ],
               hoverOffset: 4
             }
           ]
