@@ -49,7 +49,7 @@ import { TabQuestionType, UPDATE_GIFT_QUESTIONS, UPDATE_GIFT_RESULT } from '../.
 export default {
   data() {
     return {
-      errorQuestionIds: {  },
+      errorQuestionIds: {},
       tabQuestionType: TabQuestionType.Gift
     };
   },
@@ -81,9 +81,16 @@ export default {
       }, []);
 
       localStorage.setItem('giftResult', JSON.stringify(questionMarkGroups));
+      localStorage.setItem('giftQuestions', JSON.stringify(this.questions));
       this.$store.dispatch(UPDATE_GIFT_RESULT, questionMarkGroups);
 
-      window.open('/an-tu-thuoc-linh', '_self')
+      window.open('/an-tu-thuoc-linh', '_self');
+    }
+  },
+  mounted() {
+    const questions = localStorage.getItem('giftQuestions');
+    if (questions) {
+      this.$store.dispatch(UPDATE_GIFT_QUESTIONS, JSON.parse(questions));
     }
   }
 };

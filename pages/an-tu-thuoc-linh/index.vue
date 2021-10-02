@@ -14,10 +14,13 @@
       </nuxt-link>
 
       <div class="result">
-        <t-table
+        <t-table v-if="result.length"
           :headers="['ID', 'Name', 'Mark']"
           :data="data">
         </t-table>
+        <div v-else>
+          Chưa có kết quả
+        </div>
       </div>
     </div>
   </div>
@@ -52,13 +55,16 @@ export default {
   },
   computed: {},
   mounted() {
-    this.result = JSON.parse(localStorage.getItem('giftResult'));
+    const result = localStorage.getItem('giftResult');
+    if (result) {
+      this.result = JSON.parse(result);
 
-    this.data = this.result
-      .sort((a, b) => b - a)
-      .map((x, index) => {
-        return [ index + 1, GiftTitle[index], x ];
-      });
+      this.data = this.result
+        .sort((a, b) => b - a)
+        .map((x, index) => {
+          return [ index + 1, GiftTitle[index], x ];
+        });
+    }
   }
 };
 </script>
