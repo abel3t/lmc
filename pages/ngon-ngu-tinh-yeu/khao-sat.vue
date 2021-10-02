@@ -9,14 +9,18 @@
             <div v-for="(answer, aIndex) in question.answers" :key="answer.type">
               <div class="love-language-test__questions__answer">
                 <div v-if="answer.text" class="inline-flex">
-                  <t-input min="1" max="5" type="number" class="love-language-test__questions__input"
+                  <t-input :id="`q-${qIndex}-a-${aIndex}`" min="1" max="5" type="number"
+                           class="love-language-test__questions__input"
                            :variant="answer.error ? 'danger': ''" @blur="updateMark({qIndex, aIndex }, $event)"
                            @keyup.enter="updateMark({qIndex, aIndex }, $event)" :value="answer.mark || ''"/>
-                  <span class="ml-2">{{ answer.text }}</span>
+                  <span class="ml-2  cursor-pointer" v-on:click="focusInput(`q-${qIndex}-a-${aIndex}`)">{{
+                      answer.text
+                    }}</span>
                 </div>
                 <div v-else class="inline-flex">
-                  <t-input min="1" max="5" type="number" class="love-language-test__questions__input"/>
-                  <div class="ml-2">
+                  <t-input :id="`q-${qIndex}-a-${aIndex}`" min="1" max="5" type="number"
+                           class="love-language-test__questions__input"/>
+                  <div class="ml-2 cursor-pointer" v-on:click="focusInput(`q-${qIndex}-a-${aIndex}`)">
                     <p>{{ answer.textFemale }}</p>
                     <p>{{ answer.textMale }}</p>
                   </div>
@@ -116,7 +120,6 @@ export default {
   methods: {
     updateMark({ qIndex, aIndex }, e) {
       const value = parseInt(e.target?.value) || 0;
-
       const _questions = JSON.parse(JSON.stringify(this.questions));
       _questions[qIndex].answers[aIndex].mark = value;
 
@@ -130,6 +133,10 @@ export default {
       });
 
       this.$store.dispatch(UPDATE_LOVE_LANGUAGE_QUESTIONS, _questions);
+
+    },
+    focusInput(id) {
+      document.getElementById(id).focus();
     }
   }
 };

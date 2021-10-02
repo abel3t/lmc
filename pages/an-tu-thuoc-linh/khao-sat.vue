@@ -5,10 +5,10 @@
       <div v-for="(question, qIndex) in questions" :key="question.id" class="py-2">
         <div><strong>Câu {{ question.id }}:</strong></div>
         <div class="inline-flex">
-          <t-input min="1" max="5" type="number" class="gift-test__questions_input"
+          <t-input :id="`q-${question.id}`" min="1" max="5" type="number" class="gift-test__questions_input"
                    :variant="question.error ? 'danger': ''" @blur="updateMark(qIndex, $event)"
                    @keyup.enter="updateMark(qIndex, $event)" :value="question.mark || ''"/>
-          <span class="ml-2">{{ question.text }}</span>
+          <span class="ml-2 cursor-pointer" v-on:click="focusInput(`q-${question.id}`)">{{ question.text }}</span>
         </div>
       </div>
     </div>
@@ -85,6 +85,9 @@ export default {
       this.$store.dispatch(UPDATE_GIFT_RESULT, questionMarkGroups);
 
       window.open('/an-tu-thuoc-linh', '_self');
+    },
+    focusInput(id) {
+      document.getElementById(id).focus();
     }
   },
   mounted() {
