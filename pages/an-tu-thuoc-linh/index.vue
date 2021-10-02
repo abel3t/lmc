@@ -9,7 +9,7 @@
       </div>
       <nuxt-link to="an-tu-thuoc-linh/khao-sat">
         <t-button>
-          Làm khảo sát
+          Làm {{result.length ? 'lại' : ''}} khảo sát
         </t-button>
       </nuxt-link>
 

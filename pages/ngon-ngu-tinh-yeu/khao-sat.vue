@@ -30,9 +30,8 @@
           </div>
         </div>
       </div>
-      <div class="w-1/4">
-        <PieChart :data="pieChartData" :options="pieChartOptions"/>
-      </div>
+
+      <t-button v-on:click="submit()">Gửi kết quả</t-button>
     </div>
   </div>
 </template>
@@ -73,11 +72,14 @@
 
 <script>
 import QuestionBar from '../../components/QuestionBar';
-import { TabQuestionType, UPDATE_LOVE_LANGUAGE_QUESTIONS } from '../../store';
-import PieChart from '../../components/pie-chart';
+import {
+  TabQuestionType,
+  UPDATE_GIFT_RESULT,
+  UPDATE_LOVE_LANGUAGE_QUESTIONS
+} from '../../store';
 
 export default {
-  components: { QuestionBar, PieChart },
+  components: { QuestionBar },
   data() {
     return {
       hasError: false,
@@ -135,8 +137,29 @@ export default {
       this.$store.dispatch(UPDATE_LOVE_LANGUAGE_QUESTIONS, _questions);
 
     },
+    submit() {
+      const markGroups = this.questions.reduce((acc, question) => {
+        question.answers.forEach(answer => {
+          acc[answer.type] = (acc[answer.type] || 0) + (answer.mark || 0);
+        })
+
+        return acc;
+      }, []);
+
+      localStorage.setItem('loveLanguageResult', JSON.stringify(markGroups));
+      localStorage.setItem('loveLanguageQuestions', JSON.stringify(this.questions));
+      this.$store.dispatch(UPDATE_GIFT_RESULT, markGroups);
+
+      window.open('/ngon-ngu-tinh-yeu', '_self');
+    },
     focusInput(id) {
       document.getElementById(id).focus();
+    }
+  },
+  mounted() {
+    const questions = localStorage.getItem('loveLanguageQuestions');
+    if (questions) {
+      this.$store.dispatch(UPDATE_LOVE_LANGUAGE_QUESTIONS, JSON.parse(questions));
     }
   }
 };

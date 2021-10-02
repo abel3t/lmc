@@ -11,8 +11,18 @@
         </p>
       </div>
       <nuxt-link to="/ngon-ngu-tinh-yeu/khao-sat">
-        <t-button>Làm khảo sát</t-button>
+        <t-button>Làm {{result.length ? 'lại' : ''}} khảo sát</t-button>
       </nuxt-link>
+
+      <div class="result">
+        <t-table v-if="result.length"
+                 :headers="['ID', 'Name', 'Mark']"
+                 :data="data">
+        </t-table>
+        <div v-else>
+          Chưa có kết quả
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -33,13 +43,28 @@
 <script>
 import QuestionBar from '../../components/QuestionBar';
 import { TabQuestionType } from '../../store';
+import { LoveLanguageTitle } from '../../store/love-languages';
 
 export default {
   components: { QuestionBar },
   data() {
     return {
+      result: [],
+      data: [],
       tabQuestionType: TabQuestionType.LoveLanguage
     };
+  },
+  mounted() {
+    const result = localStorage.getItem('loveLanguageResult');
+    if (result) {
+      this.result = JSON.parse(result);
+
+      this.data = this.result
+        .sort((a, b) => b - a)
+        .map((x, index) => {
+          return [ index + 1, LoveLanguageTitle[index], x ];
+        });
+    }
   }
 };
 </script>
