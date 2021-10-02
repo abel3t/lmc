@@ -7,20 +7,28 @@
           với mình là điểm 10, không đúng nhất với mình là điểm 1. Chấm điểm ngay cho các câu mô tả được đưa ra. Đừng
           suy nghĩ cẩn thận quá, đây là chỉ là khảo sát.</p>
       </div>
-      <nuxt-link to="an-tu-thuoc-linh/khao-sat">
-        <t-button>
-          Làm {{result.length ? 'lại' : ''}} khảo sát
-        </t-button>
-      </nuxt-link>
 
       <div class="result">
-        <t-table v-if="result.length"
-          :headers="['ID', 'Name', 'Mark']"
-          :data="data">
-        </t-table>
+        <div v-if="result.length">
+          <div>
+            <strong>Kết quả của bạn</strong>
+          </div>
+          <t-table
+                   :headers="['ID', 'Name', 'Mark']"
+                   :data="data">
+          </t-table>
+        </div>
         <div v-else>
           Chưa có kết quả
         </div>
+      </div>
+
+      <div class="mt-3">
+        <nuxt-link class="mt-3" to="an-tu-thuoc-linh/khao-sat">
+          <t-button>
+            Làm {{result.length ? 'lại' : ''}} khảo sát
+          </t-button>
+        </nuxt-link>
       </div>
     </div>
   </div>

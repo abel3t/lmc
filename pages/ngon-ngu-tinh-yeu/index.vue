@@ -10,19 +10,28 @@
           sẽ giúp bạn!
         </p>
       </div>
-      <nuxt-link to="/ngon-ngu-tinh-yeu/khao-sat">
-        <t-button>Làm {{result.length ? 'lại' : ''}} khảo sát</t-button>
-      </nuxt-link>
 
       <div class="result">
-        <t-table v-if="result.length"
-                 :headers="['ID', 'Name', 'Mark']"
-                 :data="data">
-        </t-table>
+        <div v-if="result.length">
+          <div>
+            <strong>Kết quả của bạn</strong>
+          </div>
+          <t-table
+            :headers="['ID', 'Name', 'Mark']"
+            :data="data">
+          </t-table>
+        </div>
         <div v-else>
           Chưa có kết quả
         </div>
       </div>
+
+      <div class="mt-3">
+        <nuxt-link to="/ngon-ngu-tinh-yeu/khao-sat">
+          <t-button>Làm {{result.length ? 'lại' : ''}} khảo sát</t-button>
+        </nuxt-link>
+      </div>
+
     </div>
   </div>
 </template>

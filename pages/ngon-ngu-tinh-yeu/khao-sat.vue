@@ -3,9 +3,11 @@
     <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
     <div class="love-language-test__wrapper">
       <div class="love-language-test__questions">
+        <div class="text-center text-3xl">Bài khảo sát ngôn ngữ tình yêu</div>
+
         <div v-for="(question, qIndex) in questions" :key="question.id">
           <div class="py-2">
-            {{ question.text }}
+            <strong>{{ question.text }}:</strong>
             <div v-for="(answer, aIndex) in question.answers" :key="answer.type">
               <div class="love-language-test__questions__answer">
                 <div v-if="answer.text" class="inline-flex">
@@ -29,9 +31,11 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <t-button v-on:click="submit()">Gửi kết quả</t-button>
+        <div class="flex justify-center">
+          <t-button class="mt-3" v-on:click="submit()">Gửi kết quả</t-button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -43,8 +47,7 @@
 }
 
 .love-language-test__questions {
-  @apply border-0 shadow-2xl text-justify p-3 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3;
-  margin: 0 auto;
+  @apply border-0 shadow-2xl text-justify p-3 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3 my-5 bg-white;
 
   &__answer {
     @apply p-1;

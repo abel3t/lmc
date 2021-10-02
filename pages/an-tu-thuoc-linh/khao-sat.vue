@@ -1,27 +1,31 @@
 <template>
   <div>
     <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
-    <div class="gift-test__questions">
-      <div v-for="(question, qIndex) in questions" :key="question.id" class="py-2">
-        <div><strong>Câu {{ question.id }}:</strong></div>
-        <div class="inline-flex">
-          <t-input :id="`q-${question.id}`" min="1" max="5" type="number" class="gift-test__questions_input"
-                   :variant="question.error ? 'danger': ''" @blur="updateMark(qIndex, $event)"
-                   @keyup.enter="updateMark(qIndex, $event)" :value="question.mark || ''"/>
-          <span class="ml-2 cursor-pointer" v-on:click="focusInput(`q-${question.id}`)">{{ question.text }}</span>
+    <div class="flex flex-col items-center">
+      <div class="gift-test__questions">
+        <div class="text-center text-3xl">Bài khảo sát ân tứ thuộc linh</div>
+
+        <div v-for="(question, qIndex) in questions" :key="question.id" class="py-2">
+          <div><strong>Câu {{ question.id }}:</strong></div>
+          <div class="inline-flex">
+            <t-input :id="`q-${question.id}`" min="1" max="5" type="number" class="gift-test__questions_input"
+                     :variant="question.error ? 'danger': ''" @blur="updateMark(qIndex, $event)"
+                     @keyup.enter="updateMark(qIndex, $event)" :value="question.mark || ''"/>
+            <span class="ml-2 cursor-pointer" v-on:click="focusInput(`q-${question.id}`)">{{ question.text }}</span>
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <t-button class="mt-3" v-on:click="submit()">Gửi kết quả</t-button>
         </div>
       </div>
     </div>
-
-    <t-button v-on:click="submit()">Gửi kết quả</t-button>
   </div>
 </template>
 
 <style lang="scss">
 .gift-test__questions {
-  @apply border-0 shadow-2xl text-justify p-3 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3;
-  margin: 0 auto;
-
+  @apply border-0 shadow-2xl text-justify p-3 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3 my-5 bg-white;
   &_input {
     width: 25px;
     height: 25px;
