@@ -56,6 +56,9 @@ const getters: GetterTree<RootState, RootState> = {
   },
   giftQuestions(state) {
     return state.giftQuestions;
+  },
+  giftResult(state) {
+    return state.giftResult;
   }
 };
 

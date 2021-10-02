@@ -12,6 +12,13 @@
           Làm khảo sát
         </t-button>
       </nuxt-link>
+
+      <div class="result">
+        <t-table
+          :headers="['ID', 'Name', 'Mark']"
+          :data="data">
+        </t-table>
+      </div>
     </div>
   </div>
 </template>
@@ -32,13 +39,26 @@
 <script>
 import QuestionBar from '../../components/QuestionBar';
 import { TabQuestionType } from '../../store';
+import { GiftTitle } from '../../store/gift';
 
 export default {
   components: { QuestionBar },
   data() {
     return {
-      tabQuestionType: TabQuestionType.Gift
+      tabQuestionType: TabQuestionType.Gift,
+      result: [],
+      data: []
     };
+  },
+  computed: {},
+  mounted() {
+    this.result = JSON.parse(localStorage.getItem('giftResult'));
+
+    this.data = this.result
+      .sort((a, b) => b - a)
+      .map((x, index) => {
+        return [ index + 1, GiftTitle[index], x ];
+      });
   }
 };
 </script>

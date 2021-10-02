@@ -76,10 +76,11 @@ export default {
     },
     submit() {
       const questionMarkGroups = this.questions.reduce((acc, question) => {
-        acc[question.type] = (acc[question.type] || 0) + question.mark || 0;
+        acc[question.type] = (acc[question.type] || 0) + (question.mark || 0);
         return acc;
       }, []);
 
+      localStorage.setItem('giftResult', JSON.stringify(questionMarkGroups));
       this.$store.dispatch(UPDATE_GIFT_RESULT, questionMarkGroups);
 
       window.open('/an-tu-thuoc-linh', '_self')

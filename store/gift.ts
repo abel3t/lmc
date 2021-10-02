@@ -29,6 +29,37 @@ export const enum GiftType {
   AB
 }
 
+export const GiftTitle = {
+  [GiftType.A]: 'Quản trị /Điều phối',
+  [GiftType.B]: 'Sứ đồ',
+  [GiftType.C]: 'Độc thân',
+  [GiftType.D]: 'Thủ công /Hội họa',
+  [GiftType.E]: 'Phân biệt các linh',
+  [GiftType.F]: 'Khích lệ',
+  [GiftType.G]: 'Truyền giáo',
+  [GiftType.H]: 'Vận động/Cổ vũ',
+  [GiftType.I]: 'Đức tin',
+  [GiftType.J]: 'Ban cho',
+  [GiftType.K]: 'Chữa lành',
+  [GiftType.L]: 'Giúp đỡ/Phục vụ',
+  [GiftType.M]: 'Tiếp khách',
+  [GiftType.N]: 'Cầu nguyện/Cầu thay',
+  [GiftType.O]: 'Hiểu biết',
+  [GiftType.P]: 'Lãnh đạo',
+  [GiftType.Q]: 'Nhân đức/Thương xót',
+  [GiftType.R]: 'Phép lạ',
+  [GiftType.S]: 'Giáo sĩ',
+  [GiftType.T]: 'Âm nhạc',
+  [GiftType.U]: 'Chăn bầy',
+  [GiftType.V]: 'Nghèo vì nước Đức Chúa Trời',
+  [GiftType.W]: 'Tiên tri',
+  [GiftType.X]: 'Dạy dỗ',
+  [GiftType.Y]: 'Tiếng lạ (thông giải)',
+  [GiftType.Z]: 'Tiếng lạ (nói/cầu nguyện)',
+  [GiftType.AA]: 'Khôn ngoan',
+  [GiftType.AB]: 'Viết lách',
+}
+
 export const questions = [
   {
     id: 1,
