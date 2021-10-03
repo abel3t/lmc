@@ -126,7 +126,7 @@ export default {
           this.chartData = [
             {
               label: 'Kết Quả',
-              data: this.result,
+              data: this.result.map(x => x.mark),
               borderColor: 'rgb(75, 192, 192)',
               backgroundColor: 'rgba(54, 162, 235, 0.2)'
             }
@@ -139,7 +139,7 @@ export default {
           this.chartData = [
             {
               label: 'Kết Quả',
-              data: this.result,
+              data: this.result.map(x => x.mark),
               fill: true,
               backgroundColor: 'rgba(54, 162, 235, 0.2)',
               borderColor: 'rgb(54, 162, 235)',
@@ -163,7 +163,7 @@ export default {
     if (result) {
       this.result = JSON.parse(result);
 
-      this.tableData = this.result
+      this.tableData = JSON.parse(result)
         .sort((a, b) => b?.mark - a?.mark)
         .map((x, index) => {
           return [ index + 1, GiftTitle[x.type], x.mark ];
