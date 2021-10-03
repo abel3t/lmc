@@ -154,8 +154,6 @@ export default {
         default:
           break;
       }
-
-      console.log(this.chartData);
     }
   },
   mounted() {

@@ -10,7 +10,7 @@
             <strong>Câu {{ question.id }}:</strong>
             <span class="ml-2 cursor-pointer">{{ question.text }}</span>
           </div>
-          <star-rating :animate="true" :rtl="false" :increment="0.5"
+          <star-rating :animate="true" :rtl="false" :increment="1"
                        :max-rating="10" :rating="question.mark || 0"
                        @rating-selected="setRating(qIndex, $event)"></star-rating>
         </div>
