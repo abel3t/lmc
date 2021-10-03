@@ -28,15 +28,15 @@
           </t-table>
 
           <div v-if="viewType === resultViewTitle.Line">
-            <LineChart :data="chartData" :options="chartOptions" :height="150"/>
+            <LineChart id="chart" :data="chartData" :options="chartOptions" :height="150"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Pie">
-            <PieChart :data="chartData" :options="chartOptions" :height="150"/>
+            <PieChart id="chart" :data="chartData" :options="chartOptions" :height="150"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Radar">
-            <RadarChart :data="chartData" :options="chartOptions" :height="150"/>
+            <RadarChart id="chart" :data="chartData" :options="chartOptions" :height="150"/>
           </div>
 
         </div>

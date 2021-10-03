@@ -30,16 +30,16 @@
                    :data="tableData">
           </t-table>
 
-          <div v-if="viewType === resultViewTitle.Line">
-            <LineChart :data="chartData" :options="chartOptions" :height="150"/>
+          <div class="w-2/3" v-if="viewType === resultViewTitle.Line">
+            <LineChart id="chart" :data="chartData" :options="chartOptions"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Pie">
-            <PieChart :data="chartData" :options="chartOptions" :height="150"/>
+            <PieChart id="chart"  :data="chartData" :options="chartOptions" :height="150"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Radar">
-            <RadarChart :data="chartData" :options="chartOptions" :height="150"/>
+            <RadarChart id="chart"  :data="chartData" :options="chartOptions" :height="150"/>
           </div>
 
         </div>
@@ -69,6 +69,15 @@
     @apply px-2 py-5;
   }
 }
+#chart {
+  @media only screen and (min-width: 200px) {
+    height: 350px;
+  }
+
+  @media only screen and (min-width: 600px) {
+    height: 300px;
+  }
+}
 </style>
 
 <script>
@@ -91,7 +100,8 @@ export default {
       tableData: [],
       datasets: [],
       chartOptions: {
-        responsive: true
+        responsive: true,
+        maintainAspectRatio: false
       }
     };
   },
