@@ -28,15 +28,15 @@
           </t-table>
 
           <div v-if="viewType === resultViewTitle.Line">
-            <LineChart id="chart" :data="chartData" :options="chartOptions" :height="150"/>
+            <LineChart class="chart" :data="chartData" :options="chartOptions"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Pie">
-            <PieChart id="chart" :data="chartData" :options="chartOptions" :height="150"/>
+            <PieChart class="chart" :data="chartData" :options="chartOptions"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Radar">
-            <RadarChart id="chart" :data="chartData" :options="chartOptions" :height="150"/>
+            <RadarChart class="chart" :data="chartData" :options="chartOptions"/>
           </div>
 
         </div>
@@ -57,6 +57,7 @@
 </template>
 
 <style lang="scss">
+
 .gift {
   &__wrapper {
     @apply border-0 shadow-2xl text-justify p-3 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3 pt-3;
@@ -77,14 +78,14 @@ import RadarChart from '../../components/radar-chart';
 
 import { TabQuestionType } from '../../store';
 import { GiftTitle } from '../../store/gift';
-import { resultViewTitle } from '../../constant';
+import { resultViewGiftTitle } from '../../constant';
 
 export default {
   components: { RadarChart, PieChart, QuestionBar, LineChart },
   data() {
     return {
-      resultViewTitle,
-      viewType: resultViewTitle.Table,
+      resultViewTitle: resultViewGiftTitle,
+      viewType: resultViewGiftTitle.Table,
       tabQuestionType: TabQuestionType.Gift,
       result: [],
       tableData: [],
@@ -119,7 +120,7 @@ export default {
   methods: {
     onChangeView() {
       switch (this.viewType) {
-        case resultViewTitle.Line: {
+        case resultViewGiftTitle.Line: {
           this.chartData = [
             {
               label: 'Kết Quả',
@@ -132,24 +133,7 @@ export default {
           break;
         }
 
-        case resultViewTitle.Pie: {
-          this.chartData = [
-            {
-              label: 'Kết Quả',
-              data: this.result,
-              backgroundColor: [
-                '#F16284', '#F49F41', '#F8CD56', '#42A2EB', '#283D3B', '#197278', '#EDDDD4',
-                '#C44536', '#772E25', '#5465FF', '#788BFF', '#9BB1FF', '#BFD7FF', '#E2FDFF',
-                '#2E0E02', '#581908', '#983628', '#E2AEDD', '#EBCBF4', '#E5BEED', '#9593D9',
-                '#7C90DB', '#736B92', '#7D5C65', '#795C5F', '#A69658', '#D9B26F', '#FADF7F'
-              ],
-              hoverOffset: 4
-            }
-          ];
-          break;
-        }
-
-        case resultViewTitle.Radar: {
+        case resultViewGiftTitle.Radar: {
           this.chartData = [
             {
               label: 'Kết Quả',

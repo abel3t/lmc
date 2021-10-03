@@ -30,16 +30,16 @@
                    :data="tableData">
           </t-table>
 
-          <div class="w-2/3" v-if="viewType === resultViewTitle.Line">
-            <LineChart id="chart" :data="chartData" :options="chartOptions"/>
+          <div v-if="viewType === resultViewTitle.Line">
+            <LineChart class="chart" :data="chartData" :options="chartOptions"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Pie">
-            <PieChart id="chart"  :data="chartData" :options="chartOptions" :height="150"/>
+            <PieChart class="chart"  :data="chartData" :options="chartOptions"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Radar">
-            <RadarChart id="chart"  :data="chartData" :options="chartOptions" :height="150"/>
+            <RadarChart class="chart"  :data="chartData" :options="chartOptions"/>
           </div>
 
         </div>
@@ -69,7 +69,7 @@
     @apply px-2 py-5;
   }
 }
-#chart {
+.chart {
   @media only screen and (min-width: 200px) {
     height: 350px;
   }
@@ -83,7 +83,7 @@
 <script>
 import QuestionBar from '../../components/QuestionBar';
 import { LoveLanguageTitle } from '../../store/love-languages';
-import { resultViewTitle } from '../../constant';
+import { resultViewLoveLanguageTitle } from '../../constant';
 import LineChart from '../../components/line-chart';
 import PieChart from '../../components/pie-chart';
 import RadarChart from '../../components/radar-chart';
@@ -93,8 +93,8 @@ export default {
   components: { RadarChart, PieChart, LineChart, QuestionBar },
   data() {
     return {
-      resultViewTitle,
-      viewType: resultViewTitle.Table,
+      resultViewTitle: resultViewLoveLanguageTitle,
+      viewType: resultViewLoveLanguageTitle.Table,
       result: [],
       tabQuestionType: TabQuestionType.LoveLanguage,
       tableData: [],
@@ -121,7 +121,7 @@ export default {
   methods: {
     onChangeView() {
       switch (this.viewType) {
-        case resultViewTitle.Line: {
+        case resultViewLoveLanguageTitle.Line: {
           this.chartData = [
             {
               label: 'Kết Quả',
@@ -134,7 +134,7 @@ export default {
           break;
         }
 
-        case resultViewTitle.Pie: {
+        case resultViewLoveLanguageTitle.Pie: {
           this.chartData = [
             {
               label: 'Kết Quả',
@@ -147,7 +147,7 @@ export default {
           break;
         }
 
-        case resultViewTitle.Radar: {
+        case resultViewLoveLanguageTitle.Radar: {
           this.chartData = [
             {
               label: 'Kết Quả',
