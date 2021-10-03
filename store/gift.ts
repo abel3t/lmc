@@ -233,7 +233,7 @@ export const questions = [
   },
   {
     id: 47,
-    text: 'Tôi sẽ sẵn sàng từ bỏ những gì an toàn thoải mái của mình để có thể chia sẻ Phúc  m của Chúa cho nhiều người khác.',
+    text: 'Tôi sẽ sẵn sàng từ bỏ những gì an toàn thoải mái của mình để có thể chia sẻ Phúc âm của Chúa cho nhiều người khác.',
     type: GiftType.S
   },
   {
@@ -271,7 +271,7 @@ export const questions = [
   },
   {
     id: 57,
-    text: 'Tôi có thể phục vụ người khác bằng cách tổ chức và sắp xếp  n tứ của họ đúng chỗ để giải quyết vấn đề. -----',
+    text: 'Tôi có thể phục vụ người khác bằng cách tổ chức và sắp xếp ân tứ của họ đúng chỗ để giải quyết vấn đề.',
     type: GiftType.A
   },
   { id: 58, text: 'Tôi không e dè hay sợ hãi khi dẫn dắt người khác đi đến nơi mà Chúa muốn họ đi.', type: GiftType.B },
@@ -308,12 +308,12 @@ export const questions = [
   },
   {
     id: 70,
-    text: 'Khi nghe một nhu cầu cầu nguyện của ai đó, tôi có thể cầu nguyện cho điều đó suốt mấy ngày kế tiếp. ----',
+    text: 'Khi nghe một nhu cầu cầu nguyện của ai đó, tôi có thể cầu nguyện cho điều đó suốt mấy ngày kế tiếp.',
     type: GiftType.N
   },
   {
     id: 71,
-    text: 'Qua học tập và kinh nghiệm, tôi có thể nhận ra những chiến lược chủ đạo mà Đức Chúa Trời dường như Đức Chúa Trời đang sử dụng để mở mang Vương quốc của Ngài.',
+    text: 'Qua học tập và kinh nghiệm, tôi có thể nhận ra những chiến lược chủ đạo mà dường như Đức Chúa Trời đang sử dụng để mở mang Vương quốc của Ngài.',
     type: GiftType.O
   },
   {
@@ -359,7 +359,7 @@ export const questions = [
   { id: 84, text: 'Tôi thích việc học Lời Chúa và viết xuống những gì tôi học được.', type: GiftType.AB },
   {
     id: 85,
-    text: 'Tôi có thể nhận ra khả năng và  n tứ trong người khác và tìm cách sử dụng những  n tứ đó cho Chúa.',
+    text: 'Tôi có thể nhận ra khả năng và ân tứ trong người khác và tìm cách sử dụng những ân tứ đó cho Chúa.',
     type: GiftType.A
   },
   { id: 86, text: 'Đức Chúa Trời có đặt để tôi trong vị trí lãnh đạo một nhóm nhỏ trong Hội thánh.', type: GiftType.B },
@@ -518,7 +518,7 @@ export const questions = [
   },
   {
     id: 132,
-    text: 'Tôi thích sử dụng  n tứ âm nhạc để hát, nhảy, hoặc đàn nhạc thánh, không thích dùng những điều đó cho nhạc đời',
+    text: 'Tôi thích sử dụng ân tứ âm nhạc để hát, nhảy, hoặc đàn nhạc thánh, không thích dùng những điều đó cho nhạc đời',
     type: GiftType.T
   },
   { id: 133, text: 'Chúa đã cho tôi khả năng dạy và giảng lẽ thật thuộc linh', type: GiftType.U },
