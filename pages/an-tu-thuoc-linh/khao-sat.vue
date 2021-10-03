@@ -103,7 +103,10 @@ export default {
         if (question.mark <= 0 || question.mark > 10) {
           hasError = true;
         }
-        acc[question.type] = (acc[question.type] || 0) + (question.mark || 0);
+        acc[question.type] = {
+          type: question.type,
+          mark: (acc[question.type]?.mark || 0) + (question.mark || 0)
+        };
         return acc;
       }, []);
 

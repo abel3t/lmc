@@ -164,9 +164,9 @@ export default {
       this.result = JSON.parse(result);
 
       this.tableData = this.result
-        .sort((a, b) => b - a)
+        .sort((a, b) => b?.mark - a?.mark)
         .map((x, index) => {
-          return [ index + 1, GiftTitle[index], x ];
+          return [ index + 1, GiftTitle[x.type], x.mark ];
         });
     }
   }

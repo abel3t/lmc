@@ -134,7 +134,10 @@ export default {
           if (answer.mark <= 0 || answer.mark > 5) {
             hasError = true;
           }
-          acc[answer.type] = (acc[answer.type] || 0) + (answer.mark || 0);
+          acc[answer.type] = {
+            type: answer.type,
+            mark: (acc[answer.type]?.mark || 0) + (answer.mark || 0)
+          }
         });
 
         if (answers?.length !== [ ...new Set(answers) ].length) {
