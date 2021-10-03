@@ -35,11 +35,11 @@
           </div>
 
           <div v-if="viewType === resultViewTitle.Pie">
-            <PieChart class="chart"  :data="chartData" :options="chartOptions"/>
+            <PieChart class="chart" :data="chartData" :options="chartOptions"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Radar">
-            <RadarChart class="chart"  :data="chartData" :options="chartOptions"/>
+            <RadarChart class="chart" :data="chartData" :options="chartOptions"/>
           </div>
 
         </div>
@@ -59,6 +59,16 @@
 </template>
 
 <style lang="scss">
+.chart {
+  @media only screen and (min-width: 200px) {
+    height: 350px;
+  }
+
+  @media only screen and (min-width: 600px) {
+    height: 300px;
+  }
+}
+
 .love-language {
   &__wrapper {
     @apply border-0 shadow-2xl text-justify p-3 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3 mt-3;
@@ -69,15 +79,7 @@
     @apply px-2 py-5;
   }
 }
-.chart {
-  @media only screen and (min-width: 200px) {
-    height: 350px;
-  }
 
-  @media only screen and (min-width: 600px) {
-    height: 300px;
-  }
-}
 </style>
 
 <script>
@@ -85,12 +87,12 @@ import QuestionBar from '../../components/QuestionBar';
 import { LoveLanguageTitle } from '../../store/love-languages';
 import { resultViewLoveLanguageTitle } from '../../constant';
 import LineChart from '../../components/line-chart';
-import PieChart from '../../components/pie-chart';
 import RadarChart from '../../components/radar-chart';
 import { TabQuestionType } from '../../store';
+import PieChart from '../../components/pie-chart';
 
 export default {
-  components: { RadarChart, PieChart, LineChart, QuestionBar },
+  components: { PieChart, RadarChart, LineChart, QuestionBar },
   data() {
     return {
       resultViewTitle: resultViewLoveLanguageTitle,
