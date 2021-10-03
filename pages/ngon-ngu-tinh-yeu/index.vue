@@ -17,7 +17,7 @@
             <strong>Kết quả của bạn</strong>
           </div>
 
-          <div class="w-1/4 sm:w-1/5 lg:w-1/6">
+          <div class="w-1/3 sm:w-1/5 lg:w-1/6">
             <t-select
               :options="Object.values(resultViewTitle)"
               v-on:change="onChangeView"
@@ -31,15 +31,15 @@
           </t-table>
 
           <div v-if="viewType === resultViewTitle.Line">
-            <LineChart :data="chartData" :options="chartOptions"/>
+            <LineChart :data="chartData" :options="chartOptions" :height="150"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Pie">
-            <PieChart :data="chartData" :options="chartOptions"/>
+            <PieChart :data="chartData" :options="chartOptions" :height="150"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Radar">
-            <RadarChart :data="chartData" :options="chartOptions"/>
+            <RadarChart :data="chartData" :options="chartOptions" :height="150"/>
           </div>
 
         </div>
@@ -50,7 +50,7 @@
 
       <div class="mt-3">
         <nuxt-link to="/ngon-ngu-tinh-yeu/khao-sat">
-          <t-button>Làm {{result.length ? 'lại' : ''}} khảo sát</t-button>
+          <t-button>Làm {{ result.length ? 'lại' : '' }} khảo sát</t-button>
         </nuxt-link>
       </div>
 
@@ -91,16 +91,7 @@ export default {
       tableData: [],
       datasets: [],
       chartOptions: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top'
-          },
-          title: {
-            display: true,
-            text: 'View'
-          }
-        }
+        responsive: true
       }
     };
   },
@@ -121,19 +112,20 @@ export default {
     onChangeView() {
       switch (this.viewType) {
         case resultViewTitle.Line: {
-          this.chartData =  [
+          this.chartData = [
             {
               label: 'Kết Quả',
               data: this.result,
-              backgroundColor: '#EDDDD4'
+              borderColor: 'rgb(75, 192, 192)',
+              backgroundColor: 'rgba(54, 162, 235, 0.2)'
             }
-          ]
+          ];
 
           break;
         }
 
         case resultViewTitle.Pie: {
-          this.chartData =  [
+          this.chartData = [
             {
               label: 'Kết Quả',
               data: this.result,
@@ -141,24 +133,24 @@ export default {
                 '#F16284', '#F49F41', '#F8CD56', '#42A2EB', '#283D3B' ],
               hoverOffset: 4
             }
-          ]
+          ];
           break;
         }
 
         case resultViewTitle.Radar: {
-          this.chartData =  [
+          this.chartData = [
             {
               label: 'Kết Quả',
               data: this.result,
               fill: true,
-              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-              borderColor: 'rgb(255, 99, 132)',
-              pointBackgroundColor: 'rgb(255, 99, 132)',
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgb(54, 162, 235)',
+              pointBackgroundColor: 'rgb(54, 162, 235)',
               pointBorderColor: '#fff',
               pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: 'rgb(255, 99, 132)'
+              pointHoverBorderColor: 'rgb(54, 162, 235)'
             }
-          ]
+          ];
 
           break;
         }

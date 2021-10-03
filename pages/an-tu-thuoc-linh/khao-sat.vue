@@ -9,8 +9,10 @@
           <div><strong>Câu {{ question.id }}:</strong></div>
           <div class="inline-flex">
             <t-input :id="`q-${question.id}`" min="1" max="5" type="number" class="gift-test__questions_input"
-                     :variant="question.error ? 'danger': ''" @blur="updateMark(qIndex, $event)"
-                     @keyup.enter="updateMark(qIndex, $event)" :value="question.mark || ''"/>
+                     :variant="question.error ? 'danger': ''"
+                     @blur="updateMark(qIndex, $event)"
+                     @keyup.enter="updateMark(qIndex, $event)"
+                     :value="question.mark || ''"/>
             <span class="ml-2 cursor-pointer" v-on:click="focusInput(`q-${question.id}`)">{{ question.text }}</span>
           </div>
         </div>
@@ -95,8 +97,8 @@ export default {
           text: 'Điểm của bạn chưa hợp lệ!',
           icon: ''
         }).then((result) => {
-          console.log(result)
-        })
+          console.log(result);
+        });
       } else {
         localStorage.setItem('giftResult', JSON.stringify(questionMarkGroups));
         localStorage.setItem('giftQuestions', JSON.stringify(this.questions));

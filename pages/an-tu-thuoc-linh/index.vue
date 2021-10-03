@@ -28,15 +28,15 @@
           </t-table>
 
           <div v-if="viewType === resultViewTitle.Line">
-            <LineChart :data="chartData" :options="chartOptions"/>
+            <LineChart :data="chartData" :options="chartOptions" :height="150"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Pie">
-            <PieChart :data="chartData" :options="chartOptions"/>
+            <PieChart :data="chartData" :options="chartOptions" :height="150"/>
           </div>
 
           <div v-if="viewType === resultViewTitle.Radar">
-            <RadarChart :data="chartData" :options="chartOptions"/>
+            <RadarChart :data="chartData" :options="chartOptions" :height="150"/>
           </div>
 
         </div>
@@ -120,19 +120,20 @@ export default {
     onChangeView() {
       switch (this.viewType) {
         case resultViewTitle.Line: {
-          this.chartData =  [
+          this.chartData = [
             {
               label: 'Kết Quả',
               data: this.result,
-              backgroundColor: '#EDDDD4'
+              borderColor: 'rgb(75, 192, 192)',
+              backgroundColor: 'rgba(54, 162, 235, 0.2)'
             }
-          ]
+          ];
 
           break;
         }
 
         case resultViewTitle.Pie: {
-          this.chartData =  [
+          this.chartData = [
             {
               label: 'Kết Quả',
               data: this.result,
@@ -144,24 +145,24 @@ export default {
               ],
               hoverOffset: 4
             }
-          ]
+          ];
           break;
         }
 
         case resultViewTitle.Radar: {
-          this.chartData =  [
+          this.chartData = [
             {
               label: 'Kết Quả',
               data: this.result,
               fill: true,
-              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-              borderColor: 'rgb(255, 99, 132)',
-              pointBackgroundColor: 'rgb(255, 99, 132)',
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgb(54, 162, 235)',
+              pointBackgroundColor: 'rgb(54, 162, 235)',
               pointBorderColor: '#fff',
               pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: 'rgb(255, 99, 132)'
+              pointHoverBorderColor: 'rgb(54, 162, 235)'
             }
-          ]
+          ];
 
           break;
         }

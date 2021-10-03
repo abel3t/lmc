@@ -13,15 +13,23 @@
                 <div v-if="answer.text" class="inline-flex">
                   <t-input :id="`q-${qIndex}-a-${aIndex}`" min="1" max="5" type="number"
                            class="love-language-test__questions__input"
-                           :variant="answer.error ? 'danger': ''" @blur="updateMark({qIndex, aIndex }, $event)"
-                           @keyup.enter="updateMark({qIndex, aIndex }, $event)" :value="answer.mark || ''"/>
+                           :variant="answer.error ? 'danger': ''"
+                           @blur="updateMark({qIndex, aIndex }, $event)"
+                           @keyup.enter="updateMark({qIndex, aIndex }, $event)"
+                           :value="answer.mark || ''"
+                  />
                   <span class="ml-2  cursor-pointer" v-on:click="focusInput(`q-${qIndex}-a-${aIndex}`)">{{
                       answer.text
                     }}</span>
                 </div>
                 <div v-else class="inline-flex">
                   <t-input :id="`q-${qIndex}-a-${aIndex}`" min="1" max="5" type="number"
-                           class="love-language-test__questions__input"/>
+                           class="love-language-test__questions__input"
+                           :variant="answer.error ? 'danger': ''"
+                           @blur="updateMark({qIndex, aIndex }, $event)"
+                           @keyup.enter="updateMark({qIndex, aIndex }, $event)"
+                           :value="answer.mark || ''"
+                  />
                   <div class="ml-2 cursor-pointer" v-on:click="focusInput(`q-${qIndex}-a-${aIndex}`)">
                     <p>{{ answer.textFemale }}</p>
                     <p>{{ answer.textMale }}</p>
@@ -117,13 +125,21 @@ export default {
     },
     submit() {
       let hasError = false;
+
       const markGroups = this.questions.reduce((acc, question) => {
+        let answers = [];
         question.answers.forEach(answer => {
+          answers.push(answer.mark);
+
           if (answer.mark <= 0 || answer.mark > 5) {
             hasError = true;
           }
           acc[answer.type] = (acc[answer.type] || 0) + (answer.mark || 0);
-        })
+        });
+
+        if (answers?.length !== [ ...new Set(answers) ].length) {
+          hasError = true;
+        }
 
         return acc;
       }, []);
@@ -135,8 +151,8 @@ export default {
           text: 'Điểm của bạn chưa hợp lệ!',
           icon: ''
         }).then((result) => {
-          console.log(result)
-        })
+          console.log(result);
+        });
       } else {
         localStorage.setItem('loveLanguageResult', JSON.stringify(markGroups));
         localStorage.setItem('loveLanguageQuestions', JSON.stringify(this.questions));
