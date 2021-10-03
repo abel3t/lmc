@@ -14,7 +14,7 @@
             <strong>Kết quả của bạn</strong>
           </div>
 
-          <div class="w-1/4 sm:w-1/5 lg:w-1/6">
+          <div class="w-1/3 sm:w-1/5 lg:w-1/6">
             <t-select
               :options="Object.values(resultViewTitle)"
               v-model="viewType"
