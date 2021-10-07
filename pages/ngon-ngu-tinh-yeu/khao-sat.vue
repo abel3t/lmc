@@ -1,85 +1,74 @@
 <template>
   <div>
     <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
-    <div class="love-language-test__wrapper">
-      <div class="love-language-test__questions">
-        <div class="text-center text-3xl">Bài khảo sát ngôn ngữ tình yêu</div>
+    <div class="flex flex-col content-center items-center p-2 md:p-4">
+      <div
+        class="text-center text-3xl p-2 md:p-3 lg:p-4 my-3 border-gray-400 rounded-lg bg-white w-full md:w-3/4 lg:w-2/3">
+        Bài khảo sát ngôn ngữ tình yêu
+      </div>
 
-        <div v-for="(question, qIndex) in questions" :key="question.id">
-          <div class="py-2">
-            <strong>{{ question.text }}:</strong>
-            <div v-for="(answer, aIndex) in question.answers" :key="answer.type">
-              <div class="love-language-test__questions__answer">
-                <div v-if="answer.text" class="inline-flex">
-                  <t-input :id="`q-${qIndex}-a-${aIndex}`" min="1" max="5" type="number"
-                           class="love-language-test__questions__input"
-                           :variant="answer.error ? 'danger': ''"
-                           @blur="updateMark({qIndex, aIndex }, $event)"
-                           @keyup.enter="updateMark({qIndex, aIndex }, $event)"
-                           :value="answer.mark || ''"
-                  />
-                  <span class="ml-2  cursor-pointer" v-on:click="focusInput(`q-${qIndex}-a-${aIndex}`)">{{
-                      answer.text
-                    }}</span>
-                </div>
-                <div v-else class="inline-flex">
-                  <t-input :id="`q-${qIndex}-a-${aIndex}`" min="1" max="5" type="number"
-                           class="love-language-test__questions__input"
-                           :variant="answer.error ? 'danger': ''"
-                           @blur="updateMark({qIndex, aIndex }, $event)"
-                           @keyup.enter="updateMark({qIndex, aIndex }, $event)"
-                           :value="answer.mark || ''"
-                  />
-                  <div class="ml-2 cursor-pointer" v-on:click="focusInput(`q-${qIndex}-a-${aIndex}`)">
-                    <p>{{ answer.textFemale }}</p>
-                    <p>{{ answer.textMale }}</p>
-                  </div>
-                </div>
+      <div v-for="(question, qIndex) in questions" :key="question.id"
+           class="p-2 md:p-3 lg:p-4 mb-3 border-gray-400 rounded-lg bg-white w-full md:w-3/4 lg:w-2/3">
+        <strong>{{ question.text }}:</strong>
+        <div v-for="(answer, aIndex) in question.answers" :key="answer.type">
+          <div class="p-1">
+            <div v-if="answer.text" class="inline-flex">
+              <t-input :id="`q-${qIndex}-a-${aIndex}`" min="1" max="5" type="number"
+                       class="input"
+                       :variant="answer.error ? 'danger': ''"
+                       @blur="updateMark({qIndex, aIndex }, $event)"
+                       @keyup.enter="updateMark({qIndex, aIndex }, $event)"
+                       :value="answer.mark || ''"
+              />
+              <span class="ml-2  cursor-pointer" v-on:click="focusInput(`q-${qIndex}-a-${aIndex}`)">{{
+                  answer.text
+                }}</span>
+            </div>
+            <div v-else class="inline-flex">
+              <t-input :id="`q-${qIndex}-a-${aIndex}`" min="1" max="5" type="number"
+                       class="input"
+                       :variant="answer.error ? 'danger': ''"
+                       @blur="updateMark({qIndex, aIndex }, $event)"
+                       @keyup.enter="updateMark({qIndex, aIndex }, $event)"
+                       :value="answer.mark || ''"
+              />
+              <div class="ml-2 cursor-pointer" v-on:click="focusInput(`q-${qIndex}-a-${aIndex}`)">
+                <p>{{ answer.textFemale }}</p>
+                <p>{{ answer.textMale }}</p>
               </div>
             </div>
           </div>
         </div>
-
-        <div class="flex justify-center">
-          <t-button class="mt-3" v-on:click="submit()">Gửi kết quả</t-button>
-        </div>
-
-        <t-dialog>
-        </t-dialog>
       </div>
+
+      <div class="flex justify-center">
+        <t-button class="mt-3" v-on:click="submit()">Gửi kết quả</t-button>
+      </div>
+
+      <t-dialog>
+      </t-dialog>
     </div>
+
   </div>
 </template>
 
 <style lang="scss">
 
-.love-language-test__wrapper {
-  @apply flex flex-col justify-center items-center;
+.input {
+  width: 25px;
+  height: 25px;
+  min-width: 25px;
 }
 
-.love-language-test__questions {
-  @apply border-0 shadow-2xl text-justify p-3 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3 my-5 bg-white;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
-  &__answer {
-    @apply p-1;
-  }
-
-  &__input {
-    width: 25px;
-    height: 25px;
-    min-width: 25px;
-  }
-
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  /* Firefox */
-  input[type=number] {
-    -moz-appearance: textfield;
-  }
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 </style>
@@ -137,7 +126,7 @@ export default {
           acc[answer.type] = {
             type: answer.type,
             mark: (acc[answer.type]?.mark || 0) + (answer.mark || 0)
-          }
+          };
         });
 
         if (answers?.length !== [ ...new Set(answers) ].length) {

@@ -1,23 +1,23 @@
 <template>
   <div>
     <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
-    <div>
-      <div class="gift-test__questions">
-        <div class="text-center text-3xl">Bài khảo sát ân tứ thuộc linh</div>
 
-        <div v-for="(question, qIndex) in questions" :key="question.id" class="py-2">
-          <div>
-            <strong>Câu {{ question.id }}:</strong>
-            <span class="ml-2 cursor-pointer">{{ question.text }}</span>
-          </div>
-          <star-rating :animate="true" :rtl="false" :increment="1"
-                       :max-rating="10" :rating="question.mark || 0"
-                       @rating-selected="setRating(qIndex, $event)"></star-rating>
-        </div>
+    <div class="flex flex-col content-center items-center p-2 md:p-4">
+      <div class="text-center text-3xl p-2 md:p-3 lg:p-4 my-3 border-gray-400 rounded-lg bg-white w-full md:w-3/4 lg:w-2/3">Bài khảo sát ân tứ thuộc linh</div>
 
-        <div class="flex justify-center">
-          <t-button class="mt-3" v-on:click="submit()">Gửi kết quả</t-button>
+      <div v-for="(question, qIndex) in questions" :key="question.id"
+           class="p-2 md:p-3 lg:p-4 mb-3 border-gray-400 rounded-lg bg-white w-full md:w-3/4 lg:w-2/3">
+        <div>
+          <strong>Câu {{ question.id }}:</strong>
+          <span class="ml-2 cursor-pointer">{{ question.text }}</span>
         </div>
+        <star-rating :animate="true" :rtl="false" :increment="1"
+                     :max-rating="10" :rating="question.mark || 0"
+                     @rating-selected="setRating(qIndex, $event)"></star-rating>
+      </div>
+
+      <div class="flex justify-center">
+        <t-button class="mt-3" v-on:click="submit()">Gửi kết quả</t-button>
       </div>
     </div>
   </div>
@@ -40,29 +40,6 @@
     width: 40px;
   }
 }
-
-.gift-test__questions {
-  @apply border-0 shadow-2xl text-justify p-4 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3 my-5 bg-white;
-  margin: 0 auto;
-
-  &_input {
-    width: 25px;
-    height: 25px;
-    min-width: 25px;
-  }
-
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  /* Firefox */
-  input[type=number] {
-    -moz-appearance: textfield;
-  }
-}
-
 </style>
 
 <script>
