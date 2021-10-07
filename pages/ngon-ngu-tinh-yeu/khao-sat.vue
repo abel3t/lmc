@@ -3,7 +3,7 @@
     <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
     <div class="flex flex-col content-center items-center p-2 md:p-4">
       <div
-        class="text-center text-3xl p-2 md:p-3 lg:p-4 my-3 border-gray-400 rounded-lg bg-white w-full md:w-3/4 lg:w-2/3">
+        class="bg-blue-600 text-white text-center text-3xl p-2 md:p-3 lg:p-4 my-3 border-gray-400 rounded-lg bg-white w-full md:w-3/4 lg:w-2/3">
         Bài khảo sát ngôn ngữ tình yêu
       </div>
 

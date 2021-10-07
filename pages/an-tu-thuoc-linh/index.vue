@@ -1,58 +1,60 @@
 <template>
   <div>
     <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
-    <div class="gift__wrapper">
-      <div class="gift__intro">
-        <p>
-          Hãy trả lời 140 câu hỏi (5 nhóm) bằng cách chấm mức độ đúng với khả năng/xu hướng/tâm tình của bạn. Đúng nhất
-          với mình là điểm 10, không đúng nhất với mình là điểm 1. Chấm điểm ngay cho các câu mô tả được đưa ra. Đừng
-          suy nghĩ cẩn thận quá, đây là chỉ là khảo sát.
-        </p>
-      </div>
-
-      <div class="result">
-        <div v-if="result.length">
-          <div>
-            <strong>Kết quả của bạn</strong>
-          </div>
-
-          <div class="w-1/3 sm:w-1/5 lg:w-1/6">
-            <t-select
-              :options="Object.values(resultViewTitle)"
-              v-on:change="onChangeView"
-              v-model="viewType"
-            ></t-select>
-          </div>
-
-          <t-table v-if="viewType === resultViewTitle.Table"
-                   :headers="['ID', 'Name', 'Mark']"
-                   :data="tableData">
-          </t-table>
-
-          <div v-if="viewType === resultViewTitle.Line">
-            <LineChart class="chart" :data="chartData" :options="chartOptions"/>
-          </div>
-
-          <div v-if="viewType === resultViewTitle.Pie">
-            <PieChart class="chart" :data="chartData" :options="chartOptions"/>
-          </div>
-
-          <div v-if="viewType === resultViewTitle.Radar">
-            <RadarChart class="chart" :data="chartData" :options="chartOptions"/>
-          </div>
-
+    <div class="flex flex-col justify-center items-center">
+      <div class="border-gray-400 rounded-lg border-0 shadow-2xl text-justify p-3 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3 mt-3 bg-white">
+        <div>
+          <p>
+            Hãy trả lời 140 câu hỏi (5 nhóm) bằng cách chấm mức độ đúng với khả năng/xu hướng/tâm tình của bạn. Đúng nhất
+            với mình là điểm 10, không đúng nhất với mình là điểm 1. Chấm điểm ngay cho các câu mô tả được đưa ra. Đừng
+            suy nghĩ cẩn thận quá, đây là chỉ là khảo sát.
+          </p>
         </div>
-        <div v-else>
-          Chưa có kết quả
+
+        <div class="result">
+          <div v-if="result.length">
+            <div>
+              <strong>Kết quả của bạn</strong>
+            </div>
+
+            <div class="w-1/3 sm:w-1/5 lg:w-1/6">
+              <t-select
+                :options="Object.values(resultViewTitle)"
+                v-on:change="onChangeView"
+                v-model="viewType"
+              ></t-select>
+            </div>
+
+            <t-table v-if="viewType === resultViewTitle.Table"
+                     :headers="['ID', 'Name', 'Mark']"
+                     :data="tableData">
+            </t-table>
+
+            <div v-if="viewType === resultViewTitle.Line">
+              <LineChart class="chart" :data="chartData" :options="chartOptions"/>
+            </div>
+
+            <div v-if="viewType === resultViewTitle.Pie">
+              <PieChart class="chart" :data="chartData" :options="chartOptions"/>
+            </div>
+
+            <div v-if="viewType === resultViewTitle.Radar">
+              <RadarChart class="chart" :data="chartData" :options="chartOptions"/>
+            </div>
+
+          </div>
+          <div v-else>
+            Chưa có kết quả
+          </div>
         </div>
-      </div>
 
-      <div class="mt-3">
-        <nuxt-link to="/an-tu-thuoc-linh/khao-sat">
-          <t-button>Làm {{ result.length ? 'lại' : '' }} khảo sát</t-button>
-        </nuxt-link>
-      </div>
+        <div class="mt-3">
+          <nuxt-link to="/an-tu-thuoc-linh/khao-sat">
+            <t-button>Làm {{ result.length ? 'lại' : '' }} khảo sát</t-button>
+          </nuxt-link>
+        </div>
 
+      </div>
     </div>
   </div>
 </template>
@@ -65,17 +67,6 @@
 
   @media only screen and (min-width: 600px) {
     height: 300px;
-  }
-}
-
-.gift {
-  &__wrapper {
-    @apply border-0 shadow-2xl text-justify p-3 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3 mt-3;
-    margin: 0 auto;
-  }
-
-  &__intro {
-    @apply px-2 py-5;
   }
 }
 

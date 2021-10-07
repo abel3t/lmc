@@ -1,59 +1,62 @@
 <template>
   <div>
     <QuestionBar v-bind:tab-question-type="tabQuestionType"/>
-    <div class="love-language__wrapper">
-      <div class="love-language__intro">
-        <p>
-          Bạn có biết ngôn ngữ yêu thương của mình, ngôn ngữ mà khi ai đó bày tỏ với bạn, bạn sẽ cảm thấy được yêu
-          thương nhất? Quan trọng hơn, bạn có biết ngôn ngữ yêu thương của những người chung quanh mình để bày tỏ tình
-          yêu thương và sự quan tâm của bạn cho họ theo cách họ mong đợi nhất? Bản trắc nghiệm ngôn ngữ yêu thương này
-          sẽ giúp bạn!
-        </p>
-      </div>
+    <div class="flex flex-col justify-center items-center">
 
-      <div class="result">
-        <div v-if="result.length">
-          <div>
-            <strong>Kết quả của bạn</strong>
-          </div>
-
-          <div class="w-1/3 sm:w-1/5 lg:w-1/6">
-            <t-select
-              :options="Object.values(resultViewTitle)"
-              v-on:change="onChangeView"
-              v-model="viewType"
-            ></t-select>
-          </div>
-
-          <t-table v-if="viewType === resultViewTitle.Table"
-                   :headers="['ID', 'Name', 'Mark']"
-                   :data="tableData">
-          </t-table>
-
-          <div v-if="viewType === resultViewTitle.Line">
-            <LineChart class="chart" :data="chartData" :options="chartOptions"/>
-          </div>
-
-          <div v-if="viewType === resultViewTitle.Pie">
-            <PieChart class="chart" :data="chartData" :options="chartOptions"/>
-          </div>
-
-          <div v-if="viewType === resultViewTitle.Radar">
-            <RadarChart class="chart" :data="chartData" :options="chartOptions"/>
-          </div>
-
+      <div class="border-gray-400 rounded-lg border-0 shadow-2xl text-justify p-3 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3 mt-3 bg-white">
+        <div>
+          <p>
+            Bạn có biết ngôn ngữ yêu thương của mình, ngôn ngữ mà khi ai đó bày tỏ với bạn, bạn sẽ cảm thấy được yêu
+            thương nhất? Quan trọng hơn, bạn có biết ngôn ngữ yêu thương của những người chung quanh mình để bày tỏ tình
+            yêu thương và sự quan tâm của bạn cho họ theo cách họ mong đợi nhất? Bản trắc nghiệm ngôn ngữ yêu thương này
+            sẽ giúp bạn!
+          </p>
         </div>
-        <div v-else>
-          Chưa có kết quả
+
+        <div class="result">
+          <div v-if="result.length">
+            <div>
+              <strong>Kết quả của bạn</strong>
+            </div>
+
+            <div class="w-1/3 sm:w-1/5 lg:w-1/6">
+              <t-select
+                :options="Object.values(resultViewTitle)"
+                v-on:change="onChangeView"
+                v-model="viewType"
+              ></t-select>
+            </div>
+
+            <t-table v-if="viewType === resultViewTitle.Table"
+                     :headers="['ID', 'Name', 'Mark']"
+                     :data="tableData">
+            </t-table>
+
+            <div v-if="viewType === resultViewTitle.Line">
+              <LineChart class="chart" :data="chartData" :options="chartOptions"/>
+            </div>
+
+            <div v-if="viewType === resultViewTitle.Pie">
+              <PieChart class="chart" :data="chartData" :options="chartOptions"/>
+            </div>
+
+            <div v-if="viewType === resultViewTitle.Radar">
+              <RadarChart class="chart" :data="chartData" :options="chartOptions"/>
+            </div>
+
+          </div>
+          <div v-else>
+            Chưa có kết quả
+          </div>
         </div>
-      </div>
 
-      <div class="mt-3">
-        <nuxt-link to="/ngon-ngu-tinh-yeu/khao-sat">
-          <t-button>Làm {{ result.length ? 'lại' : '' }} khảo sát</t-button>
-        </nuxt-link>
-      </div>
+        <div class="mt-3">
+          <nuxt-link to="/ngon-ngu-tinh-yeu/khao-sat">
+            <t-button>Làm {{ result.length ? 'lại' : '' }} khảo sát</t-button>
+          </nuxt-link>
+        </div>
 
+      </div>
     </div>
   </div>
 </template>
@@ -66,17 +69,6 @@
 
   @media only screen and (min-width: 600px) {
     height: 300px;
-  }
-}
-
-.love-language {
-  &__wrapper {
-    @apply border-0 shadow-2xl text-justify p-3 sm:p-4 md:p-5 lg:p-6 sm:w-full md:w-3/4 lg:w-2/3 mt-3;
-    margin: 0 auto;
-  }
-
-  &__intro {
-    @apply px-2 py-5;
   }
 }
 
