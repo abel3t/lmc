@@ -25,7 +25,7 @@ const GiftAssessment: React.FC = () => {
     let hasError = false;
     let result: any = {};
     Object.values(questions)
-      .slice((currentPage - 1) * 7, currentPage * 7)
+      .slice((currentPage - 1) * 10, currentPage * 10)
       .forEach((question: any) => {
         if (!question.value) {
           hasError = true;
@@ -45,6 +45,27 @@ const GiftAssessment: React.FC = () => {
 
   const onClickSubmit = () => {
     setIsSubmit(true);
+
+    let hasError = false;
+    let result: any = {};
+    Object.values(questions).forEach((question: any) => {
+      if (!question.value) {
+        hasError = true;
+        dispatch(updateGiftQuestion({ id: question.id, question: { hasError: true } }));
+        result[question.id] = { type: question.type, mark: 0 };
+      } else {
+        result[question.id] = { type: question.type, mark: question.value };
+      }
+    });
+
+    if (!hasError) {
+      localStorage.setItem('giftQuestions', JSON.stringify(questions));
+      localStorage.setItem('giftResult', JSON.stringify(result));
+
+      window.open('/', '_self');
+    } else {
+      setShowErrorDialog(true);
+    }
   };
 
   return (
@@ -75,7 +96,7 @@ const GiftAssessment: React.FC = () => {
           )
       }
 
-      <div className="w-full">
+      <div className="w-full md:w-3/4 lg:w-2/3 mb-3 border-gray-400 rounded-lg">
         {
           currentPage === 1 &&
           <Button variant="contained" onClick={onClickNext}>
@@ -101,6 +122,22 @@ const GiftAssessment: React.FC = () => {
             <Button variant="contained" onClick={onClickPrev} sx={{ height: 35, minWidth: 60 }}>
               Prev
             </Button>
+            <>
+              {
+                isSubmit &&
+                <Button variant="contained" style={{ marginLeft: 15, height: 35, minWidth: 90 }}>
+                  <CircularProgress sx={{ color: '#fff' }} size={25}/>
+                </Button>
+              }
+
+              {
+                !isSubmit &&
+                <Button variant="contained" onClick={onClickSubmit}
+                        style={{ marginLeft: 15, height: 35, minWidth: 90 }}>
+                  <CircularProgress sx={{ color: '#fff' }} size={25}/>
+                </Button>
+              }
+            </>
             <Button variant="contained" onClick={onClickSubmit} style={{ marginLeft: 15, height: 35, minWidth: 90 }}>
               {isSubmit && <CircularProgress sx={{ color: '#fff' }} size={25}/>}
               {!isSubmit && 'Submit'}

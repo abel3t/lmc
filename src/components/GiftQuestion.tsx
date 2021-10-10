@@ -17,7 +17,6 @@ const GiftQuestion: React.FC<GiftQuestionProps> = ({ index, question }) => {
     dispatch(
       updateGiftQuestion({ id: question.id, question: { value: parseInt(event.target.value), hasError: false } }));
   };
-  console.log(question);
 
   return (
     <div className={`w-full md:w-3/4 lg:w-2/3 p-2 md:p-3 lg:p-4 mb-3 border-gray-400 rounded-lg bg-white ${
@@ -40,7 +39,7 @@ const GiftQuestion: React.FC<GiftQuestionProps> = ({ index, question }) => {
           />
 
           <Box className="ml-2">
-            {<span>{question.value}</span>}
+            {<span>{question.value || 0}</span>}
           </Box>
 
         </Box>

@@ -109,7 +109,6 @@ export const LoveLanguageQuestions = [
   }
 ];
 
-
 export const enum GiftType {
   A,
   B,
@@ -169,8 +168,8 @@ export const GiftTitle = {
   [GiftType.Y]: 'Tiếng lạ (thông giải)',
   [GiftType.Z]: 'Tiếng lạ (nói/cầu nguyện)',
   [GiftType.AA]: 'Khôn ngoan',
-  [GiftType.AB]: 'Viết lách',
-}
+  [GiftType.AB]: 'Viết lách'
+};
 
 export const giftQuestions = [
   {

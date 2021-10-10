@@ -1,9 +1,10 @@
 import type { NextPage } from 'next';
-import Link from 'next/link';
-import { Box, Button, Divider } from '@mui/material';
+import { Divider } from '@mui/material';
 import QuestionBar from '../components/QuestionBar';
 import { QuestionBarType } from '../constant';
 import React, { useState } from 'react';
+import LoveLanguageTab from '../components/LoveLanguageTab';
+import GiftTab from '../components/GiftTab';
 
 const Home: NextPage = () => {
   const [ type, setType ] = useState(QuestionBarType.LoveLanguage);
@@ -13,38 +14,16 @@ const Home: NextPage = () => {
 
       <Divider/>
 
-      <div className="p-2 sm:p-3 md:p-5 lg:p-10 border rounded-lg w-full md:w-3/4 lg:w-2/3">
+      <div className="p-2 sm:p-3 md:p-5 lg:p-10 border rounded-lg w-full md:w-3/4 lg:w-2/3 mb-2">
         {
           type === QuestionBarType.LoveLanguage &&
-          <div>
-            Ngôn ngữ yêu thương
-          </div>
+          <LoveLanguageTab/>
         }
 
         {
           type === QuestionBarType.Gift &&
-          <div>
-            Ân tứ thuộc linh
-          </div>
+          <GiftTab/>
         }
-
-        <Box sx={{ mt: 5 }}>
-          <Button variant="contained">
-            {
-              type === QuestionBarType.LoveLanguage &&
-              <Link href="/love-language-assessment">
-                Làm khảo sát
-              </Link>
-            }
-
-            {
-              type === QuestionBarType.Gift &&
-              <Link href="/gift-assessment">
-                Làm khảo sát
-              </Link>
-            }
-          </Button>
-        </Box>
       </div>
     </div>
   );
