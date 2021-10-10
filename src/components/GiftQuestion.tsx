@@ -47,7 +47,7 @@ const GiftQuestion: React.FC<GiftQuestionProps> = ({ index, id, text, isRequired
 
         </Box>
 
-        <div className="pb-2 w-1/12 md:w-1/6 text-xs sm:text-sm md:text-md">
+        <div className="pb-2 w-1/12 md:w-1/6 text-xs sm:text-sm md:text-md text-right">
           Rất giống tôi
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Box, Button } from '@mui/material';
 import GiftQuestion from '../components/GiftQuestion';
@@ -6,8 +6,21 @@ import { useSelector } from 'react-redux';
 import { getGiftQuestions } from '../slices/gift.slice';
 
 const GiftAssessment: React.FC = () => {
+  const [ currentPage, setCurrentPage ] = useState(1);
+
   const questions = useSelector(getGiftQuestions);
 
+  const onClickPrev = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  const onClickNext = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const onClickSubmit = () => {
+    console.log('Submit');
+  };
   return (
     <div className="p-2 sm:p-3 md:p-4 lg:p-5 flex flex-col items-center bg-blue-200" style={{ minHeight: '100vh' }}>
       <div className="w-full md:w-3/4 lg:w-2/3 mb-3 border-gray-400 rounded-lg bg-white">
@@ -25,19 +38,52 @@ const GiftAssessment: React.FC = () => {
       </div>
 
       {
-        Object.values(questions)?.map((question, index) =>
-          <GiftQuestion
-            index={index}
-            id={question.id}
-            text={question.text}
-            value={question.value}
-          />
-        )
+        Object.values(questions)
+          .slice((currentPage - 1) * 10, currentPage * 10)
+          .map((question) =>
+            <GiftQuestion
+              index={question.id}
+              key={question.id}
+              id={question.id}
+              text={question.text}
+              value={question.value}
+            />
+          )
       }
 
-      <Button variant="contained">
-        Submit
-      </Button>
+      {
+        currentPage === 1 &&
+        <Button variant="contained" onClick={onClickNext}>
+          Next
+        </Button>
+      }
+
+
+      {
+        currentPage > 1 && currentPage < 14 &&
+        <Box>
+          <Button variant="contained" onClick={onClickPrev} sx={{ height: 35, minWidth: 60 }}>
+            Prev
+          </Button>
+          <Button variant="contained" onClick={onClickNext} style={{ marginLeft: 10, height: 35, minWidth: 60 }}>
+            Next
+          </Button>
+        </Box>
+      }
+
+      {
+        currentPage === 14 &&
+        <Box>
+          <Button variant="contained" onClick={onClickPrev} sx={{ height: 35, minWidth: 60 }}>
+            Prev
+          </Button>
+          <Button variant="contained" onClick={onClickSubmit} style={{ marginLeft: 15, height: 35, minWidth: 90 }}>
+            Submit
+          </Button>
+        </Box>
+      }
+
+
     </div>
   );
 };
