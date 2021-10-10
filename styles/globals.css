@@ -15,6 +15,36 @@ a {
   box-sizing: border-box;
 }
 
+@media only screen and (min-width: 300px) {
+  #gift-star-rating {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: 400px) {
+  #gift-star-rating {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  #gift-star-rating {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  #gift-star-rating {
+    font-size: 40px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  #gift-star-rating {
+    font-size: 45px;
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

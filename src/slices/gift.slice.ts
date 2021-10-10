@@ -1,22 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../settings/store';
+import { giftQuestions } from '../constant';
 
 export type GiftState = {
   questions: Record<string, any>[]
 };
 
 const initialState: GiftState = {
-  questions: []
+  questions: giftQuestions.reduce((acc: any, current) => {
+    acc[current.id] = { ...current };
+    return acc;
+  }, {})
 };
 
 export const giftSlice = createSlice({
   name: 'gift',
   initialState,
   reducers: {
-    updateQuestions: (state, action: PayloadAction<any>) => {
+    updateGiftQuestions: (state, action: PayloadAction<any>) => {
       state.questions = action.payload;
     },
-    updateQuestion: (state, action: PayloadAction<any>) => {
+    updateGiftQuestion: (state, action: PayloadAction<any>) => {
       const { id, question } = action.payload;
       if (state.questions[id] && question) {
         state.questions[id] = { ...state.questions[id], ...question };
@@ -26,10 +30,10 @@ export const giftSlice = createSlice({
 });
 
 export const {
-  updateQuestions,
-  updateQuestion
+  updateGiftQuestions,
+  updateGiftQuestion
 } = giftSlice.actions;
 
-export const getQuestions = (state: RootState) => state.gift.questions;
+export const getGiftQuestions = (state: RootState) => state.gift.questions;
 
 export default giftSlice.reducer;

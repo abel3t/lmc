@@ -1,20 +1,16 @@
-import React, { useEffect } from 'react';
-import { Box, Tab, Tabs } from '@mui/material';
+import React from 'react';
+import { Tabs, Tab } from '@mui/material';
 import { QuestionBarType } from '../constant';
 
 interface QuestionBarProps {
   type: QuestionBarType;
+  callback: Function;
 }
 
-const QuestionBar: React.FC<QuestionBarProps> = ({ type: defaultValue }) => {
-  const [ type, setType ] = React.useState(defaultValue);
+const QuestionBar: React.FC<QuestionBarProps> = ({ type, callback }) => {
 
-  useEffect(() => {
-    setType(type);
-  }, [ type ]);
-
-  const handleChange = (event: React.SyntheticEvent, type: QuestionBarType) => {
-    setType(type);
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    callback(parseInt(newValue));
   };
 
   return (
@@ -22,9 +18,7 @@ const QuestionBar: React.FC<QuestionBarProps> = ({ type: defaultValue }) => {
       <Tabs
         value={type}
         onChange={handleChange}
-        textColor="primary"
-        indicatorColor="primary"
-        aria-label="primary tabs"
+        aria-label="wrapped label tabs example"
       >
         <Tab value={QuestionBarType.LoveLanguage} label="Ngôn ngữ yêu thương"/>
         <Tab value={QuestionBarType.Gift} label="Ân tứ thuộc linh"/>

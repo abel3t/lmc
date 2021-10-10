@@ -25,17 +25,7 @@ const Layout: React.FC = ({ children }) => {
         <div className="flex items-center justify-center w-full" style={{ minHeight: '100vh' }}>
           <CircularProgress size={70}/>
         </div>
-        : (
-          <div className="flex flex-col items-center justify-center w-full">
-            <QuestionBar type={QuestionBarType.LoveLanguage}/>
-
-            <Divider/>
-
-            <div className="p-2 sm:p-3 md:p-5 lg:p-10 border rounded-lg w-full md:w-3/4 lg:w-2/3">
-              {children}
-            </div>
-          </div>
-        )
+        : children
       }
     </>
   );
