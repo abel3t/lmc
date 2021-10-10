@@ -1,22 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../settings/store';
+import { LoveLanguageQuestions } from '../constant';
 
 export type LoveLanguageState = {
   questions: Record<string, any>[]
 };
 
 const initialState: LoveLanguageState = {
-  questions: []
+  questions: LoveLanguageQuestions
 };
 
 export const loveLanguageSlice = createSlice({
   name: 'loveLanguage',
   initialState,
   reducers: {
-    updateQuestions: (state, action: PayloadAction<any>) => {
+    updateLoveLanguageQuestions: (state, action: PayloadAction<any>) => {
       state.questions = action.payload;
     },
-    updateQuestion: (state, action: PayloadAction<any>) => {
+    updateLoveLanguageQuestion: (state, action: PayloadAction<any>) => {
       const { id, question } = action.payload;
       if (state.questions[id] && question) {
         state.questions[id] = { ...state.questions[id], ...question };
@@ -26,10 +27,10 @@ export const loveLanguageSlice = createSlice({
 });
 
 export const {
-  updateQuestions,
-  updateQuestion
+  updateLoveLanguageQuestions,
+  updateLoveLanguageQuestion
 } = loveLanguageSlice.actions;
 
-export const getQuestions = (state: RootState) => state.loveLanguage.questions;
+export const getLoveLanguageQuestions = (state: RootState) => state.loveLanguage.questions;
 
 export default loveLanguageSlice.reducer;

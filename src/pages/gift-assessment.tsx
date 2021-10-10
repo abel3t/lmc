@@ -8,8 +8,6 @@ import { getGiftQuestions } from '../slices/gift.slice';
 const GiftAssessment: React.FC = () => {
   const questions = useSelector(getGiftQuestions);
 
-  console.log(questions);
-
   return (
     <div className="p-2 sm:p-3 md:p-4 lg:p-5 flex flex-col items-center bg-blue-200" style={{ minHeight: '100vh' }}>
       <div className="w-full md:w-3/4 lg:w-2/3 mb-3 border-gray-400 rounded-lg bg-white">
