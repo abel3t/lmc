@@ -7,26 +7,24 @@ import { updateGiftQuestion } from '../slices/gift.slice';
 
 interface GiftQuestionProps {
   index: number,
-  id: number,
-  text: string;
-  isRequired?: boolean;
-  hasError?: boolean;
-  value?: number
+  question: any;
 }
 
-const GiftQuestion: React.FC<GiftQuestionProps> = ({ index, id, text, isRequired, hasError, value }) => {
+const GiftQuestion: React.FC<GiftQuestionProps> = ({ index, question }) => {
   const dispatch = useDispatch();
 
   const handleChange = (event: any) => {
-    dispatch(updateGiftQuestion({ id, question: { value: parseInt(event.target.value), hasError: false } }));
+    dispatch(
+      updateGiftQuestion({ id: question.id, question: { value: parseInt(event.target.value), hasError: false } }));
   };
+  console.log(question);
 
   return (
-    <div className={`w-full md:w-3/4 lg:w-2/3 p-2 md:p-3 lg:p-4 mb-3 border-gray-400 rounded-lg bg-white ${isRequired &&
-    hasError &&
-    'border border-red-500'}`}>
+    <div className={`w-full md:w-3/4 lg:w-2/3 p-2 md:p-3 lg:p-4 mb-3 border-gray-400 rounded-lg bg-white ${
+      question.hasError &&
+      'border border-red-500'}`}>
       <div className="text-lg mb-2">
-        {index}. {text} {isRequired && <span className="text-red-600">*</span>}
+        {index}. {question.text}
       </div>
 
       <div className="flex items-end justify-around">
@@ -35,14 +33,14 @@ const GiftQuestion: React.FC<GiftQuestionProps> = ({ index, id, text, isRequired
         <Box className="flex items-center">
           <Rating
             name="star-controlled"
-            value={value}
+            value={question.value || 0}
             max={10}
             onChange={handleChange}
             id="gift-star-rating"
           />
 
           <Box className="ml-2">
-            {<span>{value || 0}</span>}
+            {<span>{question.value}</span>}
           </Box>
 
         </Box>
@@ -53,7 +51,7 @@ const GiftQuestion: React.FC<GiftQuestionProps> = ({ index, id, text, isRequired
       </div>
 
       {
-        isRequired && hasError &&
+        question.hasError &&
         (
           <div>
             <p className="mt-2 text-xs text-red-600"><ErrorIcon className="mr-2"/>Câu hỏi này là bắt buộc</p>
