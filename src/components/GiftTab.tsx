@@ -12,6 +12,7 @@ import {
   TableHead,
   TableRow
 } from '@mui/material';
+import { Line } from 'react-chartjs-2';
 
 import { GiftTitle, GiftType } from '../constant';
 
@@ -59,7 +60,8 @@ const GiftTab: React.FC = () => {
         <Box>
           <p className="mb-5 text-bold">Kết quả của bạn</p>
 
-          {GiftResultTable(result)}
+          {/*{GiftResultTable(result)}*/}
+          {GiftLineChartResult(result)}
         </Box>
       }
 
@@ -105,6 +107,42 @@ const GiftResultTable = (result: any) => {
       </Table>
     </TableContainer>
   );
+};
+
+const GiftLineChartResult = (result: any) => {
+  let labels: string[] = [];
+  let chartData: number[] = [];
+  result.forEach((x: any) => {
+    labels.push(GiftTitle[x.type as GiftType]);
+    chartData.push(x.mark);
+  });
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Điểm',
+        data: chartData,
+        fill: false,
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgba(255, 99, 132, 0.2)'
+      }
+    ]
+  };
+
+  const options: any = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+            min: 0,
+            max: 100
+          }
+        } ]
+    }
+  };
+  return <Line data={data} options={options}/>;
 };
 
 export default GiftTab;
