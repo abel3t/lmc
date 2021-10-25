@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Box, Button } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { getGiftQuestions } from '../slices/gift.slice';
 import LoveLanguageQuestion from '../components/LoveLanguageQuestion';
 import { getLoveLanguageQuestions } from '../slices/love-language.slice';
 
@@ -28,7 +27,7 @@ const GiftAssessment: React.FC = () => {
 
       {
         Object.values(questions).map((question, index) =>
-          <LoveLanguageQuestion index={index + 1} question={question} />
+          <LoveLanguageQuestion key={`q${index+1}`} index={index + 1} question={question} />
         )
       }
 

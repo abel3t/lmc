@@ -19,6 +19,7 @@ export const loveLanguageSlice = createSlice({
     },
     updateLoveLanguageQuestion: (state, action: PayloadAction<any>) => {
       const { id, question } = action.payload;
+      console.log({answers: question.answers})
       if (state.questions[id] && question) {
         state.questions[id] = { ...state.questions[id], ...question };
       }
