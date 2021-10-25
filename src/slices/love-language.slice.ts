@@ -7,7 +7,10 @@ export type LoveLanguageState = {
 };
 
 const initialState: LoveLanguageState = {
-  questions: LoveLanguageQuestions
+  questions: LoveLanguageQuestions.reduce((acc: any, current) => {
+    acc[current.id] = { ...current };
+    return acc;
+  }, {})
 };
 
 export const loveLanguageSlice = createSlice({

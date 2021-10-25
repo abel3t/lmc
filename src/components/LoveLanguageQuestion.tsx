@@ -20,7 +20,7 @@ const LoveLanguageQuestion: React.FC<LoveLanguageProps> = ({ index, question }) 
 
     let aHasError = false;
     for (let i = 0; i <= answers.length; i++) {
-      if (i !== aIndex && answers[i]?.value === value) {
+      if (i !== aIndex && answers[i]?.mark === value) {
         aHasError = true;
         break;
       }

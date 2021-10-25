@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 
 import {Box, Button, CircularProgress, Dialog, DialogTitle} from '@mui/material';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import LoveLanguageQuestion from '../components/LoveLanguageQuestion';
-import { getLoveLanguageQuestions } from '../slices/love-language.slice';
+import {getLoveLanguageQuestions, updateLoveLanguageQuestion} from '../slices/love-language.slice';
 import ErrorIcon from "@mui/icons-material/Error";
 
 const GiftAssessment: React.FC = () => {
@@ -11,24 +11,32 @@ const GiftAssessment: React.FC = () => {
   const [ isSubmit, setIsSubmit ] = useState(false);
 
   const questions = useSelector(getLoveLanguageQuestions);
+  const dispatch = useDispatch();
 
   const onClickSubmit = () => {
     setIsSubmit(true);
     let hasError = false;
+    const result: any = {};
 
-    for (let i = 0; i < questions.length; i++) {
-      for (let j = 0; j < questions[i].answers?.length; j++) {
-        if (questions[i].answers?.[j].hasError || !questions[i].answers?.[j].value) {
+    Object.values(questions).forEach((question: any) => {
+      question.answers.forEach((answer: any) => {
+        if (answer.hasError || answer.mark) {
           hasError = true;
-          break;
         }
-      }
-      if (hasError) {
-        break;
-      }
-    }
+      });
 
-    if (hasError) {
+      if (!hasError) {
+        dispatch(updateLoveLanguageQuestion({
+          id:  question.id,
+          question: { ...question, hasError: true },
+        }));
+      }
+    });
+
+    if (!hasError) {
+      localStorage.setItem('loveLanguageQuestions', JSON.stringify(questions));
+      localStorage.setItem('loveLanguageResult', JSON.stringify(result));
+    } else {
       setIsSubmit(false);
       setShowErrorDialog(true);
     }
