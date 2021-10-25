@@ -1,12 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-import { Box, Button } from '@mui/material';
+import {Box, Button, CircularProgress, Dialog, DialogTitle} from '@mui/material';
 import { useSelector } from 'react-redux';
 import LoveLanguageQuestion from '../components/LoveLanguageQuestion';
 import { getLoveLanguageQuestions } from '../slices/love-language.slice';
+import ErrorIcon from "@mui/icons-material/Error";
 
 const GiftAssessment: React.FC = () => {
+  const [ showErrorDialog, setShowErrorDialog ] = useState(false);
+  const [ isSubmit, setIsSubmit ] = useState(false);
+
   const questions = useSelector(getLoveLanguageQuestions);
+
+  const onClickSubmit = () => {
+    setIsSubmit(true);
+    let hasError = false;
+
+    for (let i = 0; i < questions.length; i++) {
+      for (let j = 0; j < questions[i].answers?.length; j++) {
+        if (questions[i].answers?.[j].hasError || !questions[i].answers?.[j].value) {
+          hasError = true;
+          break;
+        }
+      }
+      if (hasError) {
+        break;
+      }
+    }
+
+    if (hasError) {
+      setIsSubmit(false);
+      setShowErrorDialog(true);
+    }
+  }
 
   return (
     <div className="p-2 sm:p-3 md:p-4 lg:p-5 flex flex-col items-center bg-blue-200" style={{ minHeight: '100vh' }}>
@@ -31,9 +57,15 @@ const GiftAssessment: React.FC = () => {
         )
       }
 
-      <Button variant="contained">
-        Submit
+      <Button variant="contained" onClick={onClickSubmit} style={{ marginLeft: 15, height: 35, minWidth: 90 }}>
+        {isSubmit && <CircularProgress sx={{ color: '#fff' }} size={25}/>}
+        {!isSubmit && 'Submit'}
       </Button>
+
+      <Dialog onClose={() => setShowErrorDialog(false)} open={showErrorDialog} sx={{ top: -400 }}>
+        <DialogTitle className="text-md text-red-600"><ErrorIcon
+            className="mr-2"/><span>Hãy trả lời tất cả câu hỏi nào!</span></DialogTitle>
+      </Dialog>
     </div>
   );
 };

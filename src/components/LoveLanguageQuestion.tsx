@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ErrorIcon from '@mui/icons-material/Error';
 
 import { useDispatch } from 'react-redux';
@@ -13,23 +13,23 @@ interface LoveLanguageProps {
 const LoveLanguageQuestion: React.FC<LoveLanguageProps> = ({ index, question }) => {
   const dispatch = useDispatch();
 
-  const handleChange = (qIndex: number, aIndex: number, event: any) => {
+  const handleChange = (aIndex: number, event: any) => {
     const answers: any = JSON.parse(JSON.stringify(question.answers));
     const value = parseInt(event.target.value);
     answers[aIndex].value = value;
 
     let aHasError = false;
     for (let i = 0; i <= answers.length; i++) {
-      if (answers[i]?.value === value) {
+      if (i !== aIndex && answers[i]?.value === value) {
         aHasError = true;
         break;
       }
     }
 
-    answers[aIndex].hasError = (value > 0 && value <= 5) || aHasError;
+    answers[aIndex].hasError = value <= 0 || value > 5 || aHasError;
 
     dispatch(updateLoveLanguageQuestion({
-      id: qIndex,
+      id: question.id,
       question: { ...question, answers, hasError: false },
     }));
   };
@@ -46,7 +46,7 @@ const LoveLanguageQuestion: React.FC<LoveLanguageProps> = ({ index, question }) 
           question.answers.map((answer: any, aIndex: number) =>
             <div key={aIndex} className="inline-flex items-center justify-start py-2">
 
-              <Input id={`q${index}-a${aIndex}`} error={!!answer.hasError} inputProps={{ min: 1, max: 5, style: { textAlign: 'center', width: 35 } }} onChange={(event) => handleChange(index, aIndex, event)}/>
+              <Input id={`q${index}-a${aIndex}`} error={!!answer.hasError} inputProps={{ min: 1, max: 5, style: { textAlign: 'center', width: 35 } }} onChange={(event) => handleChange(aIndex, event)}/>
 
               <div className="ml-5">
                 {answer.text && <p>{answer.text}</p>}

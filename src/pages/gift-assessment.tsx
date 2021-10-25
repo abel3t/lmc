@@ -65,6 +65,7 @@ const GiftAssessment: React.FC = () => {
       window.open('/', '_self');
     } else {
       setShowErrorDialog(true);
+      setIsSubmit(false);
     }
   };
 
