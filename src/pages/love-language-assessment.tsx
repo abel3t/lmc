@@ -14,18 +14,18 @@ const GiftAssessment: React.FC = () => {
   const dispatch = useDispatch();
 
   const onClickSubmit = () => {
-    setIsSubmit(true);
+    // setIsSubmit(true);
     let hasError = false;
     const result: any = {};
 
     Object.values(questions).forEach((question: any) => {
       question.answers.forEach((answer: any) => {
-        if (answer.hasError || answer.mark) {
+        if (answer.hasError || !answer.mark) {
           hasError = true;
         }
       });
 
-      if (!hasError) {
+      if (hasError) {
         dispatch(updateLoveLanguageQuestion({
           id:  question.id,
           question: { ...question, hasError: true },
