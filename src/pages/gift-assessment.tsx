@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import { Box, Button, CircularProgress, Dialog, DialogTitle } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 
 import GiftQuestion from '../components/GiftQuestion';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGiftQuestions, updateGiftQuestion } from '../slices/gift.slice';
+import {getGiftQuestions, updateGiftQuestion, updateGiftQuestions} from '../slices/gift.slice';
 
 const GiftAssessment: React.FC = () => {
   const [ currentPage, setCurrentPage ] = useState(1);
@@ -14,6 +14,14 @@ const GiftAssessment: React.FC = () => {
 
   const dispatch = useDispatch();
   const questions = useSelector(getGiftQuestions);
+
+  useEffect(() => {
+    const defaultQuestions = JSON.parse(localStorage.getItem('giftQuestions') || 'null');
+
+    if (defaultQuestions) {
+      dispatch(updateGiftQuestions(defaultQuestions));
+    }
+  }, []);
 
   const onClickPrev = () => {
     setCurrentPage(currentPage - 1);
@@ -135,14 +143,10 @@ const GiftAssessment: React.FC = () => {
                 !isSubmit &&
                 <Button variant="contained" onClick={onClickSubmit}
                         style={{ marginLeft: 15, height: 35, minWidth: 90 }}>
-                  <CircularProgress sx={{ color: '#fff' }} size={25}/>
+                  Submit
                 </Button>
               }
             </>
-            <Button variant="contained" onClick={onClickSubmit} style={{ marginLeft: 15, height: 35, minWidth: 90 }}>
-              {isSubmit && <CircularProgress sx={{ color: '#fff' }} size={25}/>}
-              {!isSubmit && 'Submit'}
-            </Button>
           </Box>
         }
       </div>

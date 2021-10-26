@@ -10,6 +10,7 @@ interface QuestionBarProps {
 const QuestionBar: React.FC<QuestionBarProps> = ({ type, callback }) => {
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    localStorage.setItem('questionBarType', newValue);
     callback(parseInt(newValue));
   };
 

@@ -2,12 +2,19 @@ import type { NextPage } from 'next';
 import { Divider } from '@mui/material';
 import QuestionBar from '../components/QuestionBar';
 import { QuestionBarType } from '../constant';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import LoveLanguageTab from '../components/LoveLanguageTab';
 import GiftTab from '../components/GiftTab';
 
 const Home: NextPage = () => {
   const [ type, setType ] = useState(QuestionBarType.LoveLanguage);
+
+  useEffect(() => {
+    const questionBarType = parseInt(localStorage.getItem('questionBarType') || '') || QuestionBarType.LoveLanguage;
+
+    setType(questionBarType);
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <QuestionBar type={type} callback={setType}/>

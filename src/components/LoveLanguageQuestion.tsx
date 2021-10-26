@@ -4,7 +4,6 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { useDispatch } from 'react-redux';
 import { Input } from '@mui/material';
 import { updateLoveLanguageQuestion } from '../slices/love-language.slice';
-
 interface LoveLanguageProps {
   index: number,
   question: any;
@@ -16,17 +15,16 @@ const LoveLanguageQuestion: React.FC<LoveLanguageProps> = ({ index, question }) 
   const handleChange = (aIndex: number, event: any) => {
     const answers: any = JSON.parse(JSON.stringify(question.answers));
     const value = parseInt(event.target.value);
-    answers[aIndex].value = value;
+    answers[aIndex].mark = value;
 
-    let aHasError = false;
-    for (let i = 0; i <= answers.length; i++) {
-      if (i !== aIndex && answers[i]?.mark === value) {
-        aHasError = true;
-        break;
-      }
+    const answerMarks = answers.map((answer: any) => answer.mark);
+
+    for (let i = 0; i < answers.length; i++) {
+      const idx = answerMarks.indexOf(answers[i].mark);
+      answers[i].hasError = answers[i].mark && idx >= 0 && idx !== i;
     }
 
-    answers[aIndex].hasError = value <= 0 || value > 5 || aHasError;
+    answers[aIndex].hasError = answers[aIndex].hasError || value <= 0 || value > 5;
 
     dispatch(updateLoveLanguageQuestion({
       id: question.id,
@@ -46,7 +44,7 @@ const LoveLanguageQuestion: React.FC<LoveLanguageProps> = ({ index, question }) 
           question.answers.map((answer: any, aIndex: number) =>
             <div key={aIndex} className="inline-flex items-center justify-start py-2">
 
-              <Input id={`q${index}-a${aIndex}`} error={!!answer.hasError} inputProps={{ min: 1, max: 5, style: { textAlign: 'center', width: 35 } }} onChange={(event) => handleChange(aIndex, event)}/>
+              <Input id={`q${index}-a${aIndex}`} value={answer.mark || ''} error={!!answer.hasError} inputProps={{ min: 1, max: 5, style: { textAlign: 'center', width: 35 } }} onChange={(event) => handleChange(aIndex, event)}/>
 
               <div className="ml-5">
                 {answer.text && <p>{answer.text}</p>}
@@ -74,5 +72,6 @@ const LoveLanguageQuestion: React.FC<LoveLanguageProps> = ({ index, question }) 
     </div>
   );
 };
+
 
 export default LoveLanguageQuestion;

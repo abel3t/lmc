@@ -60,9 +60,9 @@ const GiftTab: React.FC = () => {
         <Box>
           <p className="mb-5 text-bold">Kết quả của bạn</p>
 
-          {/*{GiftResultTable(result)}*/}
-          {GiftLineChartResult(result)}
-          {GiftRadarChartResult(result)}
+          {GiftResultTable(result)}
+          {/*{GiftLineChartResult(result)}*/}
+          {/*{GiftRadarChartResult(result)}*/}
         </Box>
       }
 

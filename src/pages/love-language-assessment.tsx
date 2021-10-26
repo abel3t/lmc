@@ -1,9 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Box, Button, CircularProgress, Dialog, DialogTitle} from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
 import LoveLanguageQuestion from '../components/LoveLanguageQuestion';
-import {getLoveLanguageQuestions, updateLoveLanguageQuestion} from '../slices/love-language.slice';
+import {
+  getLoveLanguageQuestions,
+  updateLoveLanguageQuestion,
+  updateLoveLanguageQuestions
+} from '../slices/love-language.slice';
 import ErrorIcon from "@mui/icons-material/Error";
 
 const GiftAssessment: React.FC = () => {
@@ -13,13 +17,26 @@ const GiftAssessment: React.FC = () => {
   const questions = useSelector(getLoveLanguageQuestions);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    const defaultQuestions = JSON.parse(localStorage.getItem('loveLanguageQuestions') || 'null');
+
+    console.log(defaultQuestions)
+    if (defaultQuestions) {
+      dispatch(updateLoveLanguageQuestions(defaultQuestions));
+    }
+  }, []);
+
   const onClickSubmit = () => {
-    // setIsSubmit(true);
+    setIsSubmit(true);
     let hasError = false;
     const result: any = {};
 
     Object.values(questions).forEach((question: any) => {
       question.answers.forEach((answer: any) => {
+        result[answer.type] = {
+          type: answer.type,
+          mark: (result[answer.type]?.mark || 0) + answer.mark || 0
+        }
         if (answer.hasError || !answer.mark) {
           hasError = true;
         }
@@ -36,6 +53,8 @@ const GiftAssessment: React.FC = () => {
     if (!hasError) {
       localStorage.setItem('loveLanguageQuestions', JSON.stringify(questions));
       localStorage.setItem('loveLanguageResult', JSON.stringify(result));
+
+      window.open('/', '_self');
     } else {
       setIsSubmit(false);
       setShowErrorDialog(true);
@@ -65,10 +84,22 @@ const GiftAssessment: React.FC = () => {
         )
       }
 
-      <Button variant="contained" onClick={onClickSubmit} style={{ marginLeft: 15, height: 35, minWidth: 90 }}>
-        {isSubmit && <CircularProgress sx={{ color: '#fff' }} size={25}/>}
-        {!isSubmit && 'Submit'}
-      </Button>
+      <Box>
+        {
+          isSubmit &&
+          <Button variant="contained" style={{ marginLeft: 15, height: 35, minWidth: 90 }}>
+            <CircularProgress sx={{ color: '#fff' }} size={25}/>
+          </Button>
+        }
+
+        {
+          !isSubmit &&
+          <Button variant="contained" onClick={onClickSubmit}
+                  style={{ marginLeft: 15, height: 35, minWidth: 90 }}>
+            Submit
+          </Button>
+        }
+      </Box>
 
       <Dialog onClose={() => setShowErrorDialog(false)} open={showErrorDialog} sx={{ top: -400 }}>
         <DialogTitle className="text-md text-red-600"><ErrorIcon
