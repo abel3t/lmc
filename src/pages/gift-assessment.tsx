@@ -16,6 +16,10 @@ const GiftAssessment: React.FC = () => {
   const questions = useSelector(getGiftQuestions);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [ currentPage ]);
+
+  useEffect(() => {
     const defaultQuestions = JSON.parse(localStorage.getItem('giftQuestions') || 'null');
 
     if (defaultQuestions) {
