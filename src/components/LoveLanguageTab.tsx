@@ -19,7 +19,7 @@ const LoveLanguageTab: React.FC = () => {
   const [ result, setResult ]: [ any, any ] = useState(null);
 
   useEffect(() => {
-    const storageResult: any = JSON.parse(localStorage.getItem('loveLanguageResult') || 'null');
+    const storageResult: any = JSON.parse(localStorage.getItem('loveLanguageResultV2') || 'null');
 
     if (storageResult) {
       setResult(Object.values(storageResult));

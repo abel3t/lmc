@@ -52,7 +52,7 @@ const GiftAssessment: React.FC = () => {
 
     if (!hasError) {
       localStorage.setItem('loveLanguageQuestions', JSON.stringify(questions));
-      localStorage.setItem('loveLanguageResult', JSON.stringify(result));
+      localStorage.setItem('loveLanguageResultV2', JSON.stringify(result));
 
       window.open('/', '_self');
     } else {

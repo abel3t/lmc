@@ -21,7 +21,7 @@ const GiftTab: React.FC = () => {
   const [ result, setResult ]: [ any, any ] = useState(null);
 
   useEffect(() => {
-    const storageResult: any = JSON.parse(localStorage.getItem('giftResult') || 'null');
+    const storageResult: any = JSON.parse(localStorage.getItem('giftResultV2') || 'null');
 
     if (storageResult) {
       const data: any = Object.values(storageResult).reduce((acc: any, current: any) => {

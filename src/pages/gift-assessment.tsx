@@ -72,7 +72,7 @@ const GiftAssessment: React.FC = () => {
 
     if (!hasError) {
       localStorage.setItem('giftQuestions', JSON.stringify(questions));
-      localStorage.setItem('giftResult', JSON.stringify(result));
+      localStorage.setItem('giftResultV2', JSON.stringify(result));
 
       window.open('/', '_self');
     } else {
