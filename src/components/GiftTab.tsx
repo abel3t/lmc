@@ -15,6 +15,7 @@ import {
 import { Line, Radar } from 'react-chartjs-2';
 
 import { GiftTitle, GiftType } from '../constant';
+import {styled} from "@mui/system";
 
 const GiftTab: React.FC = () => {
   const [ isLoaded, setIsLoaded ] = useState(false);
@@ -80,15 +81,24 @@ const GiftTab: React.FC = () => {
 };
 
 const GiftResultTable = (result: any) => {
+  const StyledTableRow = styled(TableRow)(({ theme }: any) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="result table">
         <TableHead>
-          <TableRow>
+          <StyledTableRow>
             <TableCell align="left"><strong>ID</strong></TableCell>
             <TableCell align="left"><strong>Tên ân tứ</strong></TableCell>
             <TableCell align="left"><strong>Điểm</strong></TableCell>
-          </TableRow>
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {[ ...result ]
