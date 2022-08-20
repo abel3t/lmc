@@ -879,7 +879,7 @@ export const giftQuestions = [
   },
   {
     id: 134,
-    text: 'Tôi cảm thấy những tôi có thể hoàn thành sự kêu gọi của Chúa tốt nhất trên cuộc đời mình qua cách sống thật giản dị',
+    text: 'Tôi cảm thấy tôi có thể hoàn thành sự kêu gọi của Chúa tốt nhất trên cuộc đời mình qua cách sống thật giản dị',
     type: GiftType.V
   },
   {
