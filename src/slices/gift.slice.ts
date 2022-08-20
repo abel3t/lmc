@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../settings/store';
-import { simpleGiftQuestions } from '../constant';
+import { giftQuestions } from '../constant';
 
 export type GiftState = {
   questions: Record<string, any>[];
 };
 
 const initialState: GiftState = {
-  questions: simpleGiftQuestions.reduce((acc: any, current) => {
+  questions: giftQuestions.reduce((acc: any, current) => {
     acc[current.id] = { ...current };
     return acc;
   }, {})

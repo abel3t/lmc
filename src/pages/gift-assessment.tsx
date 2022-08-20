@@ -16,7 +16,7 @@ import {
   updateGiftQuestion,
   updateGiftQuestions
 } from '../slices/gift.slice';
-import { simpleGiftQuestions } from '../constant';
+import { giftQuestions } from '../constant';
 
 const GiftAssessment: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,7 +27,7 @@ const GiftAssessment: React.FC = () => {
   const questions = useSelector(getGiftQuestions);
 
   const totalPerPage = 10;
-  const totalPages = Math.ceil(simpleGiftQuestions.length / totalPerPage);
+  const totalPages = Math.ceil(giftQuestions.length / totalPerPage);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -118,7 +118,7 @@ const GiftAssessment: React.FC = () => {
           Ân tứ thuộc linh
         </Box>
         <div className="p-2 md:p-3 lg:p-4 text-sm">
-          Hãy trả lời {simpleGiftQuestions.length} câu hỏi (5 nhóm) bằng cách
+          Hãy trả lời {giftQuestions.length} câu hỏi (5 nhóm) bằng cách
           chấm mức độ đúng với khả năng/xu hướng/tâm tình của bạn. Đúng nhất với
           mình là điểm 10, không đúng nhất với mình là điểm 1. Chấm điểm ngay
           cho các câu mô tả được đưa ra. Đừng suy nghĩ cẩn thận quá, đây là chỉ
