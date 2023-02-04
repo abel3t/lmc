@@ -1,6 +1,4 @@
-import {
-  configureStore
-} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 
 import giftReducer from 'slices/gift.slice';
 import loveLanguageReducer from 'slices/love-language.slice';

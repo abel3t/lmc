@@ -1,13 +1,11 @@
 import type { NextPage } from 'next';
 import { Divider } from '@mui/material';
-import QuestionBar from '../components/QuestionBar';
 import { QuestionBarType } from '../constant';
-import React, {useEffect, useState} from 'react';
-import LoveLanguageTab from '../components/LoveLanguageTab';
-import GiftTab from '../components/GiftTab';
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
-  const [ type, setType ] = useState(QuestionBarType.LoveLanguage);
+  const [type, setType] = useState(QuestionBarType.LoveLanguage);
 
   useEffect(() => {
     const questionBarType = parseInt(localStorage.getItem('questionBarType') || '') || QuestionBarType.LoveLanguage;
@@ -16,21 +14,22 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full">
-      <QuestionBar type={type} callback={setType}/>
+    <div>
+      <p className='mt-2 text-3xl font-bold text-center'>
+        Chào mừng bạn đến với website khảo sát của môn Kỹ Năng Mục Vụ!
+      </p>
 
-      <Divider/>
+      <div className='p-10'>
+        <p className='text-2xl text-bold'>Bạn có thể chọn các khảo sát sau:</p>
+        <ul className='text-blue-500 text-xl pt-3'>
+          <li className='hover:text-blue-600'>
+            <Link href='/an-tu-thuoc-linh'>Ân tứ thuộc linh</Link>
+          </li>
 
-      <div className="p-2 sm:p-3 md:p-5 lg:p-10 border rounded-lg w-full md:w-3/4 lg:w-2/3 mb-2">
-        {
-          type === QuestionBarType.LoveLanguage &&
-          <LoveLanguageTab/>
-        }
-
-        {
-          type === QuestionBarType.Gift &&
-          <GiftTab/>
-        }
+          <li className='hover:text-blue-600'>
+            <Link href='/ngon-ngu-yeu-thuong'>Ngôn ngữ yêu thương</Link>
+          </li>
+        </ul>
       </div>
     </div>
   );

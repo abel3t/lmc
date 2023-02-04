@@ -55,10 +55,8 @@ export const LoveLanguageQuestions = [
         type: LoveLanguageType.A
       },
       {
-        textMale:
-          'Nam:  Một ai đó tự nguyện đi sửa xe hay giặt đồ cho bạn và bảo bạn hãy nghỉ ngơi.',
-        textFemale:
-          'Nữ:  Một ai đó xung phong rửa chén giùm bạn và bảo bạn hãy nghỉ ngơi.',
+        textMale: 'Nam:  Một ai đó tự nguyện đi sửa xe hay giặt đồ cho bạn và bảo bạn hãy nghỉ ngơi.',
+        textFemale: 'Nữ:  Một ai đó xung phong rửa chén giùm bạn và bảo bạn hãy nghỉ ngơi.',
         type: LoveLanguageType.B
       },
       {

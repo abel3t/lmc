@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogTitle
-} from '@mui/material';
+import { Box, Button, CircularProgress, Dialog, DialogTitle } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 
-import GiftQuestion from '../components/GiftQuestion';
+import GiftQuestion from '../../components/GiftQuestion';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getGiftQuestions,
-  updateGiftQuestion,
-  updateGiftQuestions
-} from '../slices/gift.slice';
-import { giftQuestions } from '../constant';
+import { getGiftQuestions, updateGiftQuestion, updateGiftQuestions } from '../../slices/gift.slice';
+import { giftQuestions } from '../../constant';
 
 const GiftAssessment: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,9 +24,7 @@ const GiftAssessment: React.FC = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    const defaultQuestions = JSON.parse(
-      localStorage.getItem('giftQuestions') || 'null'
-    );
+    const defaultQuestions = JSON.parse(localStorage.getItem('giftQuestions') || 'null');
 
     if (defaultQuestions) {
       console.log(defaultQuestions);
@@ -85,9 +73,7 @@ const GiftAssessment: React.FC = () => {
     Object.values(questions).forEach((question: any) => {
       if (!question.value) {
         hasError = true;
-        dispatch(
-          updateGiftQuestion({ id: question.id, question: { hasError: true } })
-        );
+        dispatch(updateGiftQuestion({ id: question.id, question: { hasError: true } }));
         result[question.id] = { type: question.type, mark: 0 };
       } else {
         result[question.id] = { type: question.type, mark: question.value };
@@ -98,7 +84,7 @@ const GiftAssessment: React.FC = () => {
       localStorage.setItem('giftQuestions', JSON.stringify(questions));
       localStorage.setItem('giftResultV2', JSON.stringify(result));
 
-      window.open('/', '_self');
+      window.open('/an-tu-thuoc-linh', '_self');
     } else {
       setShowErrorDialog(true);
       setIsSubmit(false);
@@ -106,57 +92,40 @@ const GiftAssessment: React.FC = () => {
   };
 
   return (
-    <div
-      className="p-2 sm:p-3 md:p-4 lg:p-5 flex flex-col items-center bg-blue-200"
-      style={{ minHeight: '100vh' }}
-    >
-      <div className="w-full md:w-3/4 lg:w-2/3 mb-3 border-gray-400 rounded-lg bg-white">
+    <div className='p-2 sm:p-3 md:p-4 lg:p-5 flex flex-col items-center bg-blue-200' style={{ minHeight: '100vh' }}>
+      <div className='w-full md:w-3/4 lg:w-2/3 mb-3 border-gray-400 rounded-lg bg-white'>
         <Box
-          className="text-2xl md:text-3xl text-center text-white rounded-t-lg border-green-100 py-3 w-full"
+          className='text-2xl md:text-3xl text-center text-white rounded-t-lg border-green-100 py-3 w-full'
           sx={{ bgcolor: 'primary.main' }}
         >
           Ân tứ thuộc linh
         </Box>
-        <div className="p-2 md:p-3 lg:p-4 text-sm">
-          Hãy trả lời {giftQuestions.length} câu hỏi (5 nhóm) bằng cách
-          chấm mức độ đúng với khả năng/xu hướng/tâm tình của bạn. Đúng nhất với
-          mình là điểm 10, không đúng nhất với mình là điểm 1. Chấm điểm ngay
-          cho các câu mô tả được đưa ra. Đừng suy nghĩ cẩn thận quá, đây là chỉ
-          là khảo sát.
+        <div className='p-2 md:p-3 lg:p-4 text-sm'>
+          Hãy trả lời {giftQuestions.length} câu hỏi (5 nhóm) bằng cách chấm mức độ đúng với khả năng/xu hướng/tâm tình
+          của bạn. Đúng nhất với mình là điểm 10, không đúng nhất với mình là điểm 1. Chấm điểm ngay cho các câu mô tả
+          được đưa ra. Đừng suy nghĩ cẩn thận quá, đây là chỉ là khảo sát.
         </div>
       </div>
 
       {Object.values(questions)
         .slice((currentPage - 1) * totalPerPage, currentPage * totalPerPage)
-        .map((question) => (
-          <GiftQuestion
-            index={question.id}
-            key={question.id}
-            question={question}
-          />
+        .map((question: any) => (
+          <GiftQuestion index={question.id as number} key={question.id} question={question} />
         ))}
 
-      <div className="w-full md:w-3/4 lg:w-2/3 mb-3 border-gray-400 rounded-lg">
+      <div className='w-full md:w-3/4 lg:w-2/3 mb-3 border-gray-400 rounded-lg'>
         {currentPage === 1 && (
-          <Button variant="contained" onClick={onClickNext}>
+          <Button variant='contained' onClick={onClickNext}>
             Next
           </Button>
         )}
 
         {currentPage > 1 && currentPage < totalPages && (
           <Box>
-            <Button
-              variant="contained"
-              onClick={onClickPrev}
-              sx={{ height: 35, minWidth: 60 }}
-            >
+            <Button variant='contained' onClick={onClickPrev} sx={{ height: 35, minWidth: 60 }}>
               Prev
             </Button>
-            <Button
-              variant="contained"
-              onClick={onClickNext}
-              style={{ marginLeft: 10, height: 35, minWidth: 60 }}
-            >
+            <Button variant='contained' onClick={onClickNext} style={{ marginLeft: 10, height: 35, minWidth: 60 }}>
               Next
             </Button>
           </Box>
@@ -164,26 +133,19 @@ const GiftAssessment: React.FC = () => {
 
         {currentPage === totalPages && (
           <Box>
-            <Button
-              variant="contained"
-              onClick={onClickPrev}
-              sx={{ height: 35, minWidth: 60 }}
-            >
+            <Button variant='contained' onClick={onClickPrev} sx={{ height: 35, minWidth: 60 }}>
               Prev
             </Button>
             <>
               {isSubmit && (
-                <Button
-                  variant="contained"
-                  style={{ marginLeft: 15, height: 35, minWidth: 90 }}
-                >
+                <Button variant='contained' style={{ marginLeft: 15, height: 35, minWidth: 90 }}>
                   <CircularProgress sx={{ color: '#fff' }} size={25} />
                 </Button>
               )}
 
               {!isSubmit && (
                 <Button
-                  variant="contained"
+                  variant='contained'
                   onClick={onClickSubmit}
                   style={{ marginLeft: 15, height: 35, minWidth: 90 }}
                 >
@@ -195,13 +157,9 @@ const GiftAssessment: React.FC = () => {
         )}
       </div>
 
-      <Dialog
-        onClose={() => setShowErrorDialog(false)}
-        open={showErrorDialog}
-        sx={{ top: -400 }}
-      >
-        <DialogTitle className="text-md text-red-600">
-          <ErrorIcon className="mr-2" />
+      <Dialog onClose={() => setShowErrorDialog(false)} open={showErrorDialog} sx={{ top: -400 }}>
+        <DialogTitle className='text-md text-red-600'>
+          <ErrorIcon className='mr-2' />
           <span>Hãy trả lời tất cả câu hỏi nào!</span>
         </DialogTitle>
       </Dialog>

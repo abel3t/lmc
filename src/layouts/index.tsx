@@ -3,7 +3,7 @@ import Router from 'next/router';
 import { CircularProgress } from '@mui/material';
 
 const Layout: React.FC = ({ children }) => {
-  const [ isLoading, setIsLoading ] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     Router.events.on('routeChangeStart', () => setIsLoading(true));
@@ -13,19 +13,18 @@ const Layout: React.FC = ({ children }) => {
       Router.events.off('routeChangeStart', () => setIsLoading(true));
       Router.events.off('routeChangeComplete', () => setIsLoading(false));
     };
-  }, [ isLoading ]);
+  }, [isLoading]);
 
   return (
-      <>
-        {
-          isLoading ?
-              <div className="flex items-center justify-center w-full" style={{ minHeight: '100vh' }}>
-                <CircularProgress size={70}/>
-              </div>
-              : children
-        }
-
-      </>
+    <>
+      {isLoading ? (
+        <div className='flex items-center justify-center w-full' style={{ minHeight: '100vh' }}>
+          <CircularProgress size={70} />
+        </div>
+      ) : (
+        <div className='flex flex-col items-center justify-center w-full'>{children}</div>
+      )}
+    </>
   );
 };
 

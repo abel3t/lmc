@@ -3,7 +3,7 @@ import { RootState } from '../settings/store';
 import { LoveLanguageQuestions } from '../constant';
 
 export type LoveLanguageState = {
-  questions: Record<string, any>[]
+  questions: Record<string, any>[];
 };
 
 const initialState: LoveLanguageState = {
@@ -29,10 +29,7 @@ export const loveLanguageSlice = createSlice({
   }
 });
 
-export const {
-  updateLoveLanguageQuestions,
-  updateLoveLanguageQuestion
-} = loveLanguageSlice.actions;
+export const { updateLoveLanguageQuestions, updateLoveLanguageQuestion } = loveLanguageSlice.actions;
 
 export const getLoveLanguageQuestions = (state: RootState) => state.loveLanguage.questions;
 
