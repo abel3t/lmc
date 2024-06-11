@@ -241,7 +241,7 @@ export const giftQuestions = [
   },
   {
     id: 6,
-    text: 'Tôi đã từng nói lời hy vọng mà Đức Chúa Trời đã xác nhận cho người khác bởi Đức Thánh Linh.',
+    text: 'Tôi đã từng nói với người khác lời hy vọng mà Đức Chúa Trời đã xác nhận bởi Đức Thánh Linh.',
     type: GiftType.F
   },
   {
@@ -251,12 +251,12 @@ export const giftQuestions = [
   },
   {
     id: 8,
-    text: 'Tôi đã khuyên bảo những người khác nên tìm kiếm những giải pháp trong Kinh Thánh cho sự hoạn nạn hay đau đớn của mình.',
+    text: 'Tôi đã khuyên bảo người khác nên tìm kiếm giải pháp trong Kinh Thánh cho sự hoạn nạn hay đau đớn của họ.',
     type: GiftType.H
   },
   {
     id: 9,
-    text: 'Tôi nắm chặt niềm tin cá nhân của tôi vào chân lý mặc ai chê cười hay nhìn tôi như người thất bại.',
+    text: 'Tôi nắm chặt niềm tin cá nhân của tôi vào chân lý mặc cho ai chê cười hay nhìn tôi như người thất bại.',
     type: GiftType.I
   },
   {
@@ -276,12 +276,12 @@ export const giftQuestions = [
   },
   {
     id: 13,
-    text: 'Nhà của tôi luôn rộng mở cho bất kỳ ai Chúa đem đến cho chúng tôi.',
+    text: 'Nhà của tôi luôn rộng mở cho bất kỳ ai mà Chúa đem đến cho chúng tôi.',
     type: GiftType.M
   },
   {
     id: 14,
-    text: 'Tôi thấy mình vừa làm việc hay vừa đi vừa cầu nguyện với Chúa mà mình không hay.',
+    text: 'Tôi thấy mình vừa làm việc, vừa đi, vừa cầu nguyện với Chúa lúc nào mà mình cũng không hay.',
     type: GiftType.N
   },
   {
@@ -306,12 +306,12 @@ export const giftQuestions = [
   },
   {
     id: 19,
-    text: 'Tôi có thể liên hệ tốt với những người đến từ bối cảnh văn hóa khác nhau.',
+    text: 'Tôi có thể liên hệ tốt với nhiều người đến từ bối cảnh văn hóa khác nhau.',
     type: GiftType.S
   },
   {
     id: 20,
-    text: 'Nhạc thánh luôn nâng tâm linh tôi lên và khiến tôi muốn ngợi khen và thờ phượng Chúa.',
+    text: 'Nhạc thánh luôn nâng đỡ tâm linh tôi và khiến tôi muốn ngợi khen, thờ phượng Chúa.',
     type: GiftType.T
   },
   {
@@ -346,7 +346,7 @@ export const giftQuestions = [
   },
   {
     id: 27,
-    text: 'Tôi cảm nhận sự hiện diện lạ thường của Đức Chúa Trời và sự tin quyết trong những lúc có những quyết định quan trọng.',
+    text: 'Tôi cảm nhận sự hiện diện lạ thường của Đức Chúa Trời và sự tin quyết trong những lúc có quyết định quan trọng.',
     type: GiftType.AA
   },
   {
@@ -372,7 +372,7 @@ export const giftQuestions = [
   },
   {
     id: 33,
-    text: 'Tôi có thể cảm nhận được một ai đó được Đức Thánh Linh cảm động hay một linh nào đó tác động hay do xác thịt mình dẫn dắt.',
+    text: 'Tôi có thể cảm nhận một ai đó được Đức Thánh Linh cảm động hay do một linh nào đó tác động hoặc do xác thịt mình dẫn dắt.',
     type: GiftType.E
   },
   {
@@ -402,12 +402,12 @@ export const giftQuestions = [
   },
   {
     id: 39,
-    text: 'Khi tôi cầu nguyện cho người bệnh, hoặc người đó hay là tôi cảm nhận sự nóng cháy và rạo rực trong lòng.',
+    text: 'Khi tôi cầu nguyện cho người bệnh, người đó hoặc là tôi cảm nhận được sự nóng cháy và rạo rực trong lòng.',
     type: GiftType.K
   },
   {
     id: 40,
-    text: 'Đôi khi Chúa Thánh Linh mách bảo tôi làm một việc rất nhỏ thôi nhưng cũng khiến cho người đón nhận được cảm động sâu sắc.',
+    text: 'Đôi khi Chúa Thánh Linh mách bảo tôi làm một việc rất nhỏ nhưng cũng khiến cho người đón nhận được cảm động sâu sắc.',
     type: GiftType.L
   },
   {
@@ -422,12 +422,12 @@ export const giftQuestions = [
   },
   {
     id: 43,
-    text: 'Tôi có thể hiểu những phần Lời Chúa khó hiểu trong Kinh Thánh.',
+    text: 'Tôi có thể hiểu được những phần mà người khác cảm thấy khó hiểu trong Kinh Thánh.',
     type: GiftType.O
   },
   {
     id: 44,
-    text: 'Tôi có thể phân công công việc cho những người khác để hoàn tất công việc Chúa.',
+    text: 'Tôi có thể phân công nhiệm vụ cho người khác để hoàn tất công việc Chúa.',
     type: GiftType.P
   },
   {
@@ -437,17 +437,17 @@ export const giftQuestions = [
   },
   {
     id: 46,
-    text: 'Người khác có thể kinh nghiệm lời cầu nguyện của tôi đã dẫn đến những kết quả trong những điều không thể.',
+    text: 'Người khác có thể kinh nghiệm lời cầu nguyện của tôi đã đem đến kết quả trong những điều không thể.',
     type: GiftType.R
   },
   {
     id: 47,
-    text: 'Tôi sẽ sẵn sàng từ bỏ những gì an toàn thoải mái của mình để có thể chia sẻ Phúc âm của Chúa cho nhiều người khác.',
+    text: 'Tôi sẽ sẵn sàng từ bỏ những gì an toàn thoải mái của mình để có thể chia sẻ Phúc âm cho nhiều người khác.',
     type: GiftType.S
   },
   {
     id: 48,
-    text: 'Việc hát, nhảy hoặc chơi nhạc ngợi khen Chúa cho vui làm cho cá nhân tôi rất thỏa mãn.',
+    text: 'Việc hát, nhảy hoặc chơi nhạc cụ ngợi khen Chúa làm cho cá nhân tôi rất thỏa mãn.',
     type: GiftType.T
   },
   {
@@ -467,7 +467,7 @@ export const giftQuestions = [
   },
   {
     id: 52,
-    text: 'Người ta nói tôi có thể giúp họ nhận ra những lẽ thật Kinh Thánh.',
+    text: 'Người ta nói tôi có thể giúp họ nhận ra những lẽ thật trong Kinh Thánh.',
     type: GiftType.X
   },
   {
@@ -492,7 +492,7 @@ export const giftQuestions = [
   },
   {
     id: 57,
-    text: 'Tôi có thể phục vụ người khác bằng cách tổ chức và sắp xếp ân tứ của họ đúng chỗ để giải quyết vấn đề.',
+    text: 'Tôi có thể phục vụ người khác bằng cách tổ chức và sắp xếp ân tứ của họ vào đúng chỗ.',
     type: GiftType.A
   },
   {
@@ -567,7 +567,7 @@ export const giftQuestions = [
   },
   {
     id: 72,
-    text: 'Đức Chúa Trời đã cho tôi một khả năng để huy động nhiều người giúp đỡ cho người nào đó.',
+    text: 'Đức Chúa Trời đã cho tôi một khả năng để huy động nhiều người cùng giúp đỡ cho một ai đó.',
     type: GiftType.P
   },
   {
@@ -582,17 +582,17 @@ export const giftQuestions = [
   },
   {
     id: 75,
-    text: 'Suy nghĩ về việc mở một Hội thánh mới trong một cộng đồng mới làm tôi hào hứng.',
+    text: 'Suy nghĩ về việc mở Hội thánh mới trong một cộng đồng mới làm tôi hào hứng.',
     type: GiftType.S
   },
   {
     id: 76,
-    text: 'Người ta nói họ thấy tình yêu Chúa Jêsus trên gương mặt tôi khi tôi hát, nhảy và chơi nhạc cụ.',
+    text: 'Người ta nói họ thấy tình yêu Chúa Jêsus trên gương mặt của tôi khi tôi hát, nhảy và chơi nhạc cụ.',
     type: GiftType.T
   },
   {
     id: 77,
-    text: 'Tôi cảm thấy tôi có trách nhiệm giúp đỡ những Cơ Đốc nhân yếu đuối khỏi những tác động nguy hiểm.',
+    text: 'Tôi cảm thấy có trách nhiệm giúp đỡ những Cơ Đốc nhân yếu đuối khỏi những tác động nguy hiểm.',
     type: GiftType.U
   },
   {
@@ -607,32 +607,32 @@ export const giftQuestions = [
   },
   {
     id: 80,
-    text: 'Dạy lớp Kinh Thánh là một trong những việc thích thúc nhất.',
+    text: 'Dạy lớp Kinh Thánh là một trong những việc tôi thấy thích thú nhất.',
     type: GiftType.X
   },
   {
     id: 81,
-    text: 'Khi những người khác cầu nguyện tiếng lạ, tôi cảm thấy tôi hiểu ý nghĩa họ cầu nguyện.',
+    text: 'Khi những người khác cầu nguyện tiếng lạ, tôi cảm thấy có thể hiểu được ý nghĩa lời cầu nguyện của họ.',
     type: GiftType.Y
   },
   {
     id: 82,
-    text: 'Cầu nguyện tiếng lạ là một điều ý nghĩa đối với tôi trong đời sống cầu nguyện cá nhân của mình.',
+    text: 'Cầu nguyện tiếng lạ là một điều ý nghĩa đối với tôi trong đời sống cầu nguyện của mình.',
     type: GiftType.Z
   },
   {
     id: 83,
-    text: 'Khi một người có một vấn đề, tôi thường có thể dẫn dắt người đó đến với những giải pháp mà Kinh Thánh đề cập đến.',
+    text: 'Khi một ai đó có một vấn đề, tôi thường có thể dẫn dắt người đó đến với những giải pháp mà Kinh Thánh đề cập đến.',
     type: GiftType.AA
   },
   {
     id: 84,
-    text: 'Tôi thích việc học Lời Chúa và viết xuống những gì tôi học được.',
+    text: 'Tôi thích việc học Lời Chúa và viết xuống những gì mà tôi học được.',
     type: GiftType.AB
   },
   {
     id: 85,
-    text: 'Tôi có thể nhận ra khả năng và ân tứ trong người khác và tìm cách sử dụng những ân tứ đó cho Chúa.',
+    text: 'Tôi có thể nhận ra khả năng, ân tứ của người khác và tìm cách sử dụng những ân tứ đó cho Chúa.',
     type: GiftType.A
   },
   {
@@ -667,7 +667,7 @@ export const giftQuestions = [
   },
   {
     id: 92,
-    text: 'Việc khích lệ một ai đó để người ta có cam kết thuộc linh cao hơn khiến tôi rất thích.',
+    text: 'Việc khích lệ một ai đó để họ có cam kết thuộc linh cao hơn khiến tôi rất thích.',
     type: GiftType.H
   },
   {
@@ -692,222 +692,222 @@ export const giftQuestions = [
   },
   {
     id: 97,
-    text: 'Tôi không thấy khó chịu khi ai đó tiện đường ghé thăm mà không nói trước gì cả',
+    text: 'Tôi không thấy khó chịu khi ai đó tiện đường ghé thăm mà không nói trước gì cả.',
     type: GiftType.M
   },
   {
     id: 98,
-    text: 'Cầu nguyện cho người khác là một trong những cách yêu thích của tôi trong việc sử dụng thời gian của mình',
+    text: 'Cầu nguyện cho người khác là một trong những cách yêu thích của tôi trong việc sử dụng thời gian của mình.',
     type: GiftType.N
   },
   {
     id: 99,
-    text: 'Đôi khi tôi cảm thấy tôi biết những điều mà tôi chưa học đến bao giờ. Những người lớn cũng thấy điều này từ tôi',
+    text: 'Đôi khi tôi cảm thấy tôi biết những điều mà tôi chưa học đến bao giờ, những người lớn cũng thấy điều này từ tôi.',
     type: GiftType.O
   },
   {
     id: 100,
-    text: 'Động viên người khác làm việc lớn hơn cho Chúa thật khiến tôi rất phấn khích và đầy hứng thú',
+    text: 'Động viên người khác làm việc lớn hơn cho Chúa thật khiến tôi rất phấn khích và đầy hứng thú.',
     type: GiftType.P
   },
   {
     id: 101,
-    text: 'Tôi thích đi thăm viếng ở bệnh viện hay trại mồ côi và cảm thấy mình làm tốt mục vụ này',
+    text: 'Tôi thích đi thăm viếng ở bệnh viện hay trại mồ côi và cảm thấy mình làm tốt mục vụ này.',
     type: GiftType.Q
   },
   {
     id: 102,
-    text: 'Đức Thánh Linh hướng dẫn tôi cầu nguyện cho những điều không thể trở thành sự thật',
+    text: 'Đức Thánh Linh hướng dẫn tôi cầu nguyện cho những điều không thể trở thành sự thật.',
     type: GiftType.R
   },
   {
     id: 103,
-    text: 'Ao ước lớn nhất của tôi đó là được nhìn thấy nhiều dân tộc ở các quốc gia khác được chinh phục cho Chúa',
+    text: 'Ao ước lớn nhất của tôi đó là được nhìn thấy nhiều dân tộc ở các quốc gia khác được chinh phục cho Chúa.',
     type: GiftType.S
   },
   {
     id: 104,
-    text: 'Nhiều người nói với tôi rằng họ được cảm động khi tôi hát, múa hay chơi nhạc',
+    text: 'Nhiều người nói với tôi rằng họ được cảm động khi tôi hát, múa hay chơi nhạc.',
     type: GiftType.T
   },
   {
     id: 105,
-    text: 'Tôi cảm nhận Chúa kêu gọi tôi làm người lãnh đạo thuộc linh của một nhóm nhỏ',
+    text: 'Tôi cảm nhận Chúa kêu gọi tôi làm người lãnh đạo thuộc linh của một nhóm nhỏ.',
     type: GiftType.U
   },
   {
     id: 106,
-    text: 'Tôi không ghen tị với ai có nhiều của cải vật chất hơn tôi',
+    text: 'Tôi không ghen tị với ai có nhiều của cải vật chất hơn tôi.',
     type: GiftType.V
   },
   {
     id: 107,
-    text: 'Người khác nói tôi thường có những lời nói rất đúng lúc cho họ, những điều đó chắc chắn phải từ Chúa cho',
+    text: 'Người khác nhận thấy tôi thường có những lời nói rất đúng lúc cho họ, những điều đó chắc chắn phải đến từ Chúa.',
     type: GiftType.W
   },
   {
     id: 108,
-    text: 'Tôi dành nhiều thời gian để học những lẽ thật Kinh Thánh để chia sẻ lại cho người khác',
+    text: 'Tôi dành nhiều thời gian để học những lẽ thật trong Kinh Thánh và chia sẻ lại cho người khác.',
     type: GiftType.X
   },
   {
     id: 109,
-    text: 'Khi tôi nghe người khác nói tiếng lạ, tôi thấy mình có trách nhiệm phải giải thích ý nghĩa thông điệp đó',
+    text: 'Khi tôi nghe người khác nói tiếng lạ, tôi thấy mình có trách nhiệm phải giải thích ý nghĩa thông điệp đó.',
     type: GiftType.Y
   },
   {
     id: 110,
-    text: 'Khi tôi nói một thông điệp tiếng lạ, tôi mong là có ai đó sẽ thông giải thông điệp ấy',
+    text: 'Khi tôi nói một thông điệp tiếng lạ, tôi mong là có ai đó sẽ thông giải thông điệp ấy.',
     type: GiftType.Z
   },
   {
     id: 111,
-    text: 'Tôi cảm thấy tôi có một cảm nhận đặc biệt trong việc lựa chọn phương pháp tốt nhất cho những hoàn cảnh khó khăn',
+    text: 'Tôi cảm thấy tôi có một cảm nhận đặc biệt trong việc lựa chọn phương pháp tốt nhất cho những hoàn cảnh khó khăn.',
     type: GiftType.AA
   },
   {
     id: 112,
-    text: 'Người khác nói họ được cảm động về những gì tôi viết',
+    text: 'Người khác nói họ được cảm động về những gì tôi viết.',
     type: GiftType.AB
   },
   {
     id: 113,
-    text: 'Đôi khi người khác đến với tôi để xin được hướng dẫn tổ chức, điều phối chương trình',
+    text: 'Đôi khi người khác đến với tôi để xin được hướng dẫn tổ chức, điều phối chương trình.',
     type: GiftType.A
   },
   {
     id: 114,
-    text: 'Đức Chúa Trời đã sử dụng tôi để đem Phúc âm đến với những người chưa từng nghe về Chúa',
+    text: 'Đức Chúa Trời đã sử dụng tôi để đem Phúc âm đến với những người chưa từng nghe về Chúa.',
     type: GiftType.B
   },
   {
     id: 115,
-    text: 'Tôi độc thân và thấy không hứng thú về việc kết hôn',
+    text: 'Tôi độc thân và thấy không hứng thú về việc kết hôn.',
     type: GiftType.C
   },
   {
     id: 116,
-    text: 'Tôi cảm thấy có trách nhiệm dùng tay mình để tạo ra những vật bày tỏ vẽ đẹp tạo dựng của Chúa',
+    text: 'Tôi cảm thấy có trách nhiệm dùng tay mình để tạo ra những vật bày tỏ vẽ đẹp tạo dựng của Chúa.',
     type: GiftType.D
   },
   {
     id: 117,
-    text: 'Tôi có thể nhanh chóng nhận ra điều một người dạy có đúng với Lời Chúa không',
+    text: 'Tôi có thể nhanh chóng nhận ra điều một người dạy có đúng với Lời Chúa hay không.',
     type: GiftType.E
   },
   {
     id: 118,
-    text: 'Những người cảm thấy mệt mỏi đôi lúc đến với tôi để được an ủi',
+    text: 'Những người cảm thấy mệt mỏi đôi lúc đến với tôi để được an ủi.',
     type: GiftType.F
   },
   {
     id: 119,
-    text: 'Tôi thấy bực bội với những sự dạy dỗ không nhấn mạnh sự cứu rỗi',
+    text: 'Tôi thấy bực bội với những sự dạy dỗ không nhấn mạnh sự cứu rỗi.',
     type: GiftType.G
   },
   {
     id: 120,
-    text: 'Tôi có thể đồng cảm với sự yếu đuối và cám dỗ để khích lệ người khác ăn năn và tin Chúa',
+    text: 'Tôi có thể đồng cảm với sự yếu đuối và cám dỗ để khích lệ người khác ăn năn và tin Chúa.',
     type: GiftType.H
   },
   {
     id: 121,
-    text: 'Tôi đã tin cậy Đức Chúa Trời cho những điều không thể và thấy điều đó xảy ra một cách ngoạn mục',
+    text: 'Tôi đã tin cậy Đức Chúa Trời cho những điều không thể và thấy điều đó xảy ra một cách ngoạn mục.',
     type: GiftType.I
   },
   {
     id: 122,
-    text: 'Tôi nỗ lực tìm cách ban cho người khác mà không chú tâm nhiều đến nhu cầu của chính mình',
+    text: 'Tôi nỗ lực tìm cách ban cho người khác mà không chú tâm nhiều đến nhu cầu của chính mình.',
     type: GiftType.J
   },
   {
     id: 123,
-    text: 'Tôi đã cầu nguyện cho người bệnh và sự chữa lành thực sự đã xảy ra',
+    text: 'Tôi đã cầu nguyện cho người bệnh và sự chữa lành thực sự đã xảy ra.',
     type: GiftType.K
   },
   {
     id: 124,
-    text: 'Nếu ai đó đối diện với khủng hoảng nghiêm trọng, tôi thích được giúp đỡ họ',
+    text: 'Nếu ai đó đối diện với khủng hoảng nghiêm trọng, tôi thích được giúp đỡ họ.',
     type: GiftType.L
   },
   {
     id: 125,
-    text: 'Khi ai đó đến nhà tôi, họ thường thấy thoải mái như ở nhà',
+    text: 'Khi ai đó đến nhà tôi, họ thường thấy thoải mái như ở nhà.',
     type: GiftType.M
   },
   {
     id: 126,
-    text: 'Đã có người nói với tôi rằng lời cầu nguyện của tôi dành cho họ đã được Chúa nhậm lời cách kỳ diệu',
+    text: 'Có người nói với tôi rằng lời cầu nguyện của tôi dành cho họ đã được Chúa nhậm lời cách kỳ diệu.',
     type: GiftType.N
   },
   {
     id: 127,
-    text: 'Chúa cho tôi những lời để nói trong những lúc đi làm chứng về Chúa mà chính tôi cũng ngạc nhiên',
+    text: 'Chúa cho tôi lời để nói trong những lúc đi làm chứng về Chúa mà chính tôi cũng ngạc nhiên.',
     type: GiftType.O
   },
   {
     id: 128,
-    text: 'Tôi có thể thúc đẩy người khác vâng phục Chúa qua đời sống tin kính của chính mình',
+    text: 'Tôi có thể thúc đẩy người khác vâng phục Chúa qua đời sống tin kính của chính mình.',
     type: GiftType.P
   },
   {
     id: 129,
-    text: 'Đôi khi tôi rất cảm động và xúc cảm cho hoàn cảnh người mà tôi đang cầu nguyện',
+    text: 'Đôi khi tôi rất cảm động và xúc cảm cho hoàn cảnh của người mà tôi đang cầu nguyện.',
     type: GiftType.Q
   },
   {
     id: 130,
-    text: 'Người ta nói với tôi rằng tôi là một công cụ của Đức Chúa Trời để đem sự thay đổi siêu nhiên trong những cuộc đời hay hoàn cảnh sống',
+    text: 'Người ta nói với tôi rằng tôi như là một công cụ của Đức Chúa Trời để đem đến sự thay đổi siêu nhiên cho hoàn cảnh của một ai đó.',
     type: GiftType.R
   },
   {
     id: 131,
-    text: 'Tôi rất bị thu hút bởi những người đến từ đất nước, sắc tộc khác, và tôi liên hệ với họ rất tốt',
+    text: 'Tôi bị thu hút bởi những người đến từ đất nước, sắc tộc khác, và tôi liên hệ với họ rất tốt.',
     type: GiftType.S
   },
   {
     id: 132,
-    text: 'Tôi thích sử dụng ân tứ âm nhạc để hát, nhảy, hoặc đàn nhạc thánh, không thích dùng những điều đó cho nhạc đời',
+    text: 'Tôi thích sử dụng ân tứ âm nhạc để hát, nhảy, hoặc đàn nhạc thánh, không thích dùng những điều đó cho nhạc đời.',
     type: GiftType.T
   },
   {
     id: 133,
-    text: 'Chúa đã cho tôi khả năng dạy và giảng lẽ thật thuộc linh',
+    text: 'Chúa đã cho tôi khả năng dạy và giảng lẽ thật thuộc linh.',
     type: GiftType.U
   },
   {
     id: 134,
-    text: 'Tôi cảm thấy tôi có thể hoàn thành sự kêu gọi của Chúa tốt nhất trên cuộc đời mình qua cách sống thật giản dị',
+    text: 'Tôi cảm thấy tôi có thể hoàn thành sự kêu gọi của Chúa tốt nhất trên cuộc đời mình qua cách sống thật giản dị.',
     type: GiftType.V
   },
   {
     id: 135,
-    text: 'Đức Chúa Trời đã bày tỏ cho tôi những điều sẽ xảy ra trong tương lai',
+    text: 'Đức Chúa Trời đã bày tỏ cho tôi những điều sẽ xảy ra trong tương lai.',
     type: GiftType.W
   },
   {
     id: 136,
-    text: 'Tôi cảm thấy tôi có thể truyền đạt những lẽ thật Kinh Thánh cho người khác và thấy sự thay đổi trong sự hiểu biết về Chúa, giá trị sống hoặc thái độ sống của người nghe',
+    text: 'Tôi cảm thấy tôi có thể truyền đạt những lẽ thật Kinh Thánh cho người khác và họ có những sự thay đổi trong việc hiểu biết về Chúa, giá trị sống hoặc thái độ sống.',
     type: GiftType.X
   },
   {
     id: 137,
-    text: 'Sự thông giải tiếng lạ của tôi đã được những người tín hữu trưởng thành xác nhận',
+    text: 'Sự thông giải tiếng lạ của tôi đã được những người tín hữu trưởng thành xác nhận.',
     type: GiftType.Y
   },
   {
     id: 138,
-    text: 'Khi tôi cầu nguyện tiếng lạ, tôi tin rằng điều đó sẽ gây dựng nhóm của tôi',
+    text: 'Khi tôi cầu nguyện tiếng lạ, tôi tin rằng điều đó sẽ gây dựng nhóm của tôi.',
     type: GiftType.Z
   },
   {
     id: 139,
-    text: 'Những người có vấn đề thuộc linh thường đến với tôi để xin được khuyên bảo hoặc tư vấn',
+    text: 'Những người có vấn đề thuộc linh thường đến với tôi để xin được khuyên bảo hoặc tư vấn.',
     type: GiftType.AA
   },
   {
     id: 140,
-    text: 'Đôi khi tôi thích viết xuống những cảm nghĩ của tôi về Chúa hơn là chia sẻ điều đó cho người khác.',
+    text: 'Đôi khi tôi thích viết xuống những cảm nghĩ của mình về Chúa hơn là chia sẻ điều đó cho người khác.',
     type: GiftType.AB
   }
 ];
