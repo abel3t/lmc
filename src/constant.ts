@@ -226,7 +226,7 @@ export const giftQuestions = [
   },
   {
     id: 3,
-    text: 'Tôi đồng cảm với Phao-lô về vì tôi cũng khao khát nhiều người sẽ dành trọn thời gian cuộc đời mình để hầu việc Chúa, không lập gia đình.',
+    text: 'Tôi đồng cảm với Phao-lô vì tôi cũng khao khát nhiều người sẽ dành trọn cuộc đời mình để hầu việc Chúa, không lập gia đình.',
     type: GiftType.C
   },
   {
