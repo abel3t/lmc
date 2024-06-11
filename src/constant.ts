@@ -326,7 +326,7 @@ export const giftQuestions = [
   },
   {
     id: 23,
-    text: 'Đôi khi tôi cảm thấy tôi biết chính xác điều Chúa muốn tôi làm trong một mục vụ vào một thời điểm nào đó.',
+    text: 'Đôi khi tôi cảm thấy biết chính xác điều Chúa muốn tôi làm trong một mục vụ vào một thời điểm nào đó.',
     type: GiftType.W
   },
   {
@@ -552,7 +552,7 @@ export const giftQuestions = [
   },
   {
     id: 69,
-    text: 'Tôi muốn khiến mọi người cảm thấy được chào đón và thoải mái trong chương trình thông công của Hội thánh hay trong các hoạt động xã hội.',
+    text: 'Tôi muốn mọi người cảm thấy được chào đón và thoải mái trong chương trình thông công của Hội thánh hay trong các hoạt động xã hội.',
     type: GiftType.M
   },
   {
@@ -622,7 +622,7 @@ export const giftQuestions = [
   },
   {
     id: 83,
-    text: 'Khi một ai đó có một vấn đề, tôi thường có thể dẫn dắt người đó đến với những giải pháp mà Kinh Thánh đề cập đến.',
+    text: 'Khi một ai đó có vấn đề, tôi thường có thể dẫn dắt người đó đến với những giải pháp mà Kinh Thánh đề cập đến.',
     type: GiftType.AA
   },
   {
@@ -677,7 +677,7 @@ export const giftQuestions = [
   },
   {
     id: 94,
-    text: 'Tôi có thể cảm nhận mạnh mẽ Đức Thánh Linh đang dẫn dắt tôi để tôi giúp đỡ tài chính cho một người nào đó hay một dự án nào đó.',
+    text: 'Tôi có thể cảm nhận mạnh mẽ Đức Thánh Linh đang dẫn dắt để tôi giúp đỡ tài chính cho một người hay một dự án nào đó.',
     type: GiftType.J
   },
   {
