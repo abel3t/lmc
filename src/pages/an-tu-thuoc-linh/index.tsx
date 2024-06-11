@@ -12,7 +12,7 @@ import {
   TableHead,
   TableRow
 } from '@mui/material';
-import { Line, Radar } from 'react-chartjs-2';
+// import { Line, Radar } from 'react-chartjs-2';
 
 import { GiftTitle, GiftType } from '../../constant';
 import { styled } from '@mui/system';
@@ -138,34 +138,34 @@ const getChartData = (result: any) => {
   };
 };
 
-const GiftLineChartResult = (result: any) => {
-  const options: any = {
-    scale: {
-      display: true,
-      min: 0,
-      max: 50,
-      ticks: {
-        showLabelBackdrop: false
-      }
-    },
-    responsive: false
-  };
-  return <Line data={getChartData(result)} options={options} />;
-};
+// const GiftLineChartResult = (result: any) => {
+//   const options: any = {
+//     scale: {
+//       display: true,
+//       min: 0,
+//       max: 50,
+//       ticks: {
+//         showLabelBackdrop: false
+//       }
+//     },
+//     responsive: false
+//   };
+//   return <Line data={getChartData(result)} options={options} />;
+// };
 
-const GiftRadarChartResult = (result: any) => {
-  const options: any = {
-    scale: {
-      display: true,
-      min: 0,
-      max: 50,
-      ticks: {
-        showLabelBackdrop: false
-      }
-    },
-    responsive: true
-  };
-  return <Radar data={getChartData(result)} options={options} />;
-};
+// const GiftRadarChartResult = (result: any) => {
+//   const options: any = {
+//     scale: {
+//       display: true,
+//       min: 0,
+//       max: 50,
+//       ticks: {
+//         showLabelBackdrop: false
+//       }
+//     },
+//     responsive: true
+//   };
+//   return <Radar data={getChartData(result)} options={options} />;
+// };
 
 export default GiftTab;
