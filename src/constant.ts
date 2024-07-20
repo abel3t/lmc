@@ -958,7 +958,7 @@ export const NextGenGiftTitle = {
   [NextGenGiftType.R]: 'Tiên tri',
   [NextGenGiftType.S]: 'Viết lách',
   [NextGenGiftType.T]: 'Dạy dỗ',
-  [NextGenGiftType.U]: 'Tiêng lạ',
+  [NextGenGiftType.U]: 'Tiếng lạ',
   [NextGenGiftType.V]: 'Khôn ngoan'
 };
 
