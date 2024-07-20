@@ -27,6 +27,10 @@ const Home: NextPage = () => {
           </li>
 
           <li className='hover:text-blue-600'>
+            <Link href='/an-tu-thuoc-linh-next-gen'>Ân tứ thuộc linh (Next Gen)</Link>
+          </li>
+
+          <li className='hover:text-blue-600'>
             <Link href='/ngon-ngu-yeu-thuong'>Ngôn ngữ yêu thương</Link>
           </li>
         </ul>
