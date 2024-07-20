@@ -950,7 +950,7 @@ export const NextGenGiftTitle = {
   [NextGenGiftType.J]: 'Phục vụ/Giúp đỡ',
   [NextGenGiftType.K]: 'Tiếp khách',
   [NextGenGiftType.L]: 'Cầu nguyện/Cầu thay',
-  [NextGenGiftType.M]: 'Lời nói hiểu biết',
+  [NextGenGiftType.M]: 'Hiểu biết',
   [NextGenGiftType.N]: 'Lãnh đạo',
   [NextGenGiftType.O]: 'Nhân đức/Thương xót',
   [NextGenGiftType.P]: 'Phép lạ',
@@ -1025,12 +1025,12 @@ export const nextGenGiftQuestions = [
   },
   {
     id: 13,
-    text: 'Em có sự đồng cảm sâu sắc khi cầu nguyện cho người khác kể cả khi em không hề biết họ.',
+    text: 'Em nói những lẽ thật thuộc linh mà người khác xác nhận rằng đã giúp họ đến gần với Chúa hơn.',
     type: NextGenGiftType.M
   },
   {
     id: 14,
-    text: 'Em thích khích lệ người khác tham gia vào các hoạt động phục vụ.',
+    text: 'Em thích kêu gọi người khác tham gia vào các hoạt động phục vụ.',
     type: NextGenGiftType.N
   },
   {
@@ -1135,7 +1135,7 @@ export const nextGenGiftQuestions = [
   },
   {
     id: 35,
-    text: 'Nhiều khi bỗng nhiên em nhận được một sự dạy dỗ nào đó rất đặc biệt, đến với lòng mình.',
+    text: 'Em có thể nắm bắt và hiểu nhanh những phần nội dung khó trong Kinh Thánh.',
     type: NextGenGiftType.M
   },
   {
