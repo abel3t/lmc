@@ -99,7 +99,6 @@ function DiscAssessment() {
       <div className="mb-3 overflow-hidden rounded-xl bg-white shadow-sm">
         <SurveyTitleBar tone="green">Khảo sát cá tính theo DISC</SurveyTitleBar>
         <div className="space-y-3 p-4 text-sm sm:p-5">
-          <p className="font-medium">(DISC Personality Survey)</p>
           <p>
             Hãy đọc từng nhận định và chọn mức độ{' '}
             <span className="font-medium">phù hợp với bạn</span> theo thang bên

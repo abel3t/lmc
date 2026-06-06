@@ -160,12 +160,14 @@ export {
   GIFT_REQUIRED_MESSAGE,
   GIFT_SCALE_LABELS,
   GIFT_STORAGE_KEYS,
-  GIFT_SURVEY_INTRO,
   GiftTitle,
   GiftType,
   NEXT_GEN_GIFT_SCALE_LABELS,
 } from '@/constants/gift'
-export { LOVE_LANGUAGE_STORAGE_KEYS } from '@/constants/love-language'
+export {
+  LOVE_LANGUAGE_SCALE_LABELS,
+  LOVE_LANGUAGE_STORAGE_KEYS,
+} from '@/constants/love-language'
 export { NEXT_GEN_GIFT_STORAGE_KEYS } from '@/constants/next-gen-gift'
 
 import type { GiftType } from '@/constants/gift'

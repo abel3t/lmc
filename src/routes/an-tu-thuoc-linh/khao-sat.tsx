@@ -5,17 +5,18 @@ import { useEffect, useMemo, useState } from 'react'
 import GiftQuestion from '@/components/GiftQuestion'
 import { SurveyBackLink } from '@/components/SurveyBackLink'
 import { SurveyPageShell } from '@/components/SurveyPageShell'
+import { SurveyScaleLegend } from '@/components/SurveyScaleLegend'
 import { SurveyTitleBar } from '@/components/SurveyTitleBar'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { Spinner } from '@/components/ui/spinner'
 import {
   GIFT_REQUIRED_MESSAGE,
+  GIFT_SCALE_LABELS,
   GIFT_STORAGE_KEYS,
-  GIFT_SURVEY_INTRO,
   giftQuestions,
 } from '@/constant'
-import { type GiftAnswers, isGiftSurveyComplete } from '@/lib/gift-scoring'
+import { type GiftAnswers, GIFT_CATEGORY_COUNT, isGiftSurveyComplete } from '@/lib/gift-scoring'
 import { isSurveyAnswered } from '@/lib/survey-validation'
 import { readSurveyStorage, writeSurveyStorage } from '@/lib/survey-storage'
 
@@ -138,14 +139,24 @@ function GiftAssessment() {
         <SurveyTitleBar tone="orange">
           Bảng đánh giá ân tứ thuộc linh
         </SurveyTitleBar>
-        <div className="space-y-2 p-4 text-sm sm:p-5">
-          <p className="font-medium">(Spiritual Gift Assessment)</p>
-          {GIFT_SURVEY_INTRO.map((line) => (
-            <p key={line}>{line}</p>
-          ))}
-          <p className="pt-1">
-            Hãy trả lời {giftQuestions.length} câu hỏi. Chọn mức điểm ngay cho
-            từng nhận định, đừng suy nghĩ quá lâu.
+        <div className="space-y-3 p-4 text-sm sm:p-5">
+          <p>
+            Hãy đọc từng nhận định và chọn mức độ{' '}
+            <span className="font-medium">đúng với bạn</span> theo thang bên
+            dưới.
+          </p>
+          <SurveyScaleLegend
+            tone="orange"
+            title="Thang điểm (0 → 3)"
+            labels={GIFT_SCALE_LABELS}
+          />
+          <p className="text-gray-600">
+            Tổng cộng{' '}
+            <span className="font-medium text-gray-800">
+              {giftQuestions.length} nhận định
+            </span>{' '}
+            thuộc {GIFT_CATEGORY_COUNT} nhóm ân tứ. Chọn ngay cho từng câu — đừng suy nghĩ quá
+            lâu.
           </p>
         </div>
       </div>

@@ -9,7 +9,7 @@ const surveys = [
   {
     to: '/an-tu-thuoc-linh',
     title: 'Ân tứ thuộc linh',
-    subtitle: 'Spiritual Gift Assessment',
+    subtitle: 'Dành cho người lớn',
     description: '133 câu hỏi · 19 nhóm ân tứ',
     accent: 'border-l-orange-500',
     hover: 'hover:border-orange-300 hover:bg-orange-50/50',
@@ -18,7 +18,7 @@ const surveys = [
     to: '/an-tu-thuoc-linh-next-gen',
     title: 'Ân tứ thuộc linh (Next Gen)',
     subtitle: 'Dành cho thiếu niên',
-    description: 'Phiên bản rút gọn, thang 0–3',
+    description: '66 câu hỏi · 22 nhóm ân tứ',
     accent: 'border-l-orange-400',
     hover: 'hover:border-orange-300 hover:bg-orange-50/50',
   },

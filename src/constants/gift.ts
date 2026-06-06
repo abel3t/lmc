@@ -56,15 +56,6 @@ export const NEXT_GEN_GIFT_SCALE_LABELS = [
   { value: 3, label: 'Rất giống em' },
 ] as const
 
-export const GIFT_SURVEY_INTRO = [
-  'Hãy đọc từng nhận định và đánh giá mức độ đúng với bạn theo thang điểm:',
-  '3 – Luôn đúng, phản ánh rõ ràng về tôi',
-  '2 – Thường đúng trong đa số trường hợp',
-  '1 – Thỉnh thoảng đúng',
-  '0 – Không đúng đối với tôi',
-  'GHI SỐ ĐIỂM CHÍNH XÁC VÀO BẢNG KẾT QUẢ KHẢO SÁT ÂN TỨ THUỘC LINH',
-] as const
-
 export const GIFT_STORAGE_KEYS = {
   answers: 'giftAnswers',
 } as const

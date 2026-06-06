@@ -4,11 +4,17 @@ import { useEffect, useState } from 'react'
 import GiftQuestion from '@/components/GiftQuestion'
 import { SurveyBackLink } from '@/components/SurveyBackLink'
 import { SurveyPageShell } from '@/components/SurveyPageShell'
+import { SurveyScaleLegend } from '@/components/SurveyScaleLegend'
 import { SurveyTitleBar } from '@/components/SurveyTitleBar'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { Spinner } from '@/components/ui/spinner'
-import { NEXT_GEN_GIFT_STORAGE_KEYS, nextGenGiftQuestions } from '@/constant'
+import {
+  NEXT_GEN_GIFT_SCALE_LABELS,
+  NEXT_GEN_GIFT_STORAGE_KEYS,
+  nextGenGiftQuestions,
+} from '@/constant'
+import { NEXT_GEN_GIFT_CATEGORY_COUNT } from '@/lib/next-gen-gift-scoring'
 import {
   buildNextGenGiftResultFromAnswers,
   isNextGenGiftSurveyComplete,
@@ -131,15 +137,24 @@ function NextGenGiftAssessment() {
       </div>
       <div className="mb-3 overflow-hidden rounded-xl bg-white shadow-sm">
         <SurveyTitleBar tone="orange">Ân tứ thuộc linh</SurveyTitleBar>
-        <div className="space-y-2 p-4 text-sm sm:p-5">
+        <div className="space-y-3 p-4 text-sm sm:p-5">
           <p>
-            Em hãy trả lời {nextGenGiftQuestions.length} câu hỏi bằng cách chấm
-            mức độ đúng với khả năng/xu hướng/tâm tình của mình theo thang điểm:
+            Em hãy đọc từng nhận định và chọn mức độ{' '}
+            <span className="font-medium">giống với em</span> theo thang bên
+            dưới.
           </p>
-          <p>
-            3 – Rất giống em, 2 – Khá giống, 1 – Hơi giống, 0 – Không giống em.
-            Chấm điểm ngay cho các câu mô tả được đưa ra. Đừng suy nghĩ cẩn thận
-            quá, đây là chỉ là khảo sát.
+          <SurveyScaleLegend
+            tone="orange"
+            title="Thang điểm (0 → 3)"
+            labels={NEXT_GEN_GIFT_SCALE_LABELS}
+          />
+          <p className="text-gray-600">
+            Tổng cộng{' '}
+            <span className="font-medium text-gray-800">
+              {nextGenGiftQuestions.length} nhận định
+            </span>{' '}
+            thuộc {NEXT_GEN_GIFT_CATEGORY_COUNT} nhóm ân tứ. Chọn ngay cho từng
+            câu — đừng suy nghĩ quá lâu.
           </p>
         </div>
       </div>
