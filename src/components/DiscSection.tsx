@@ -36,7 +36,7 @@ export function DiscSection({
             errors[statementIndex] ? 'ring-2 ring-red-400' : ''
           }`}
         >
-          <p className="mb-3 text-sm leading-relaxed sm:text-base">
+          <p className="mb-3 text-sm font-semibold leading-relaxed sm:text-base">
             {statement}
           </p>
 

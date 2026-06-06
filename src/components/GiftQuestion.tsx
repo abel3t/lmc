@@ -27,7 +27,7 @@ export default function GiftQuestion({
         error ? 'ring-2 ring-red-400' : ''
       }`}
     >
-      <div className="mb-3 text-sm leading-relaxed sm:text-base">
+      <div className="mb-3 text-sm font-semibold leading-relaxed sm:text-base">
         {index}. {text}
       </div>
 

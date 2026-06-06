@@ -68,7 +68,7 @@ export default function LoveLanguageQuestion({
               className="w-[45px] text-center"
             />
 
-            <div className="ml-5">
+            <div className="ml-5 font-semibold">
               {answer.text && <p>{answer.text}</p>}
               {answer.textMale && (
                 <div>
