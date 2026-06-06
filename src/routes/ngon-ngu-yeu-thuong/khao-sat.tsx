@@ -8,7 +8,6 @@ import { SurveyScaleLegend } from '@/components/SurveyScaleLegend'
 import { SurveyTitleBar } from '@/components/SurveyTitleBar'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
-import { Spinner } from '@/components/ui/spinner'
 import {
   LOVE_LANGUAGE_SCALE_LABELS,
   LOVE_LANGUAGE_STORAGE_KEYS,
@@ -116,7 +115,7 @@ function LoveLanguageAssessment() {
       <div className="mb-3">
         {isSubmit ? (
           <Button tone="rose" disabled>
-            <Spinner size={20} className="text-white" />
+            Đang xử lý...
           </Button>
         ) : (
           <Button

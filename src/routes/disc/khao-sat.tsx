@@ -8,7 +8,6 @@ import { SurveyPageShell } from '@/components/SurveyPageShell'
 import { SurveyTitleBar } from '@/components/SurveyTitleBar'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
-import { Spinner } from '@/components/ui/spinner'
 import { DISC_STORAGE_KEYS, type DiscType, discSections } from '@/constant'
 import { buildDiscResultFromAnswers } from '@/lib/disc-scoring'
 import { readSurveyStorage, writeSurveyStorage } from '@/lib/survey-storage'
@@ -160,7 +159,7 @@ function DiscAssessment() {
       <div className="mb-3">
         {isSubmit ? (
           <Button tone="green" disabled>
-            <Spinner size={20} className="text-white" />
+            Đang xử lý...
           </Button>
         ) : (
           <Button

@@ -7,7 +7,7 @@ import {
   useRouterState,
 } from '@tanstack/react-router'
 import { type ReactNode, useEffect, useState } from 'react'
-import { Spinner } from '@/components/ui/spinner'
+import { AbsoluteLoading } from '@/components/AbsoluteLoading'
 
 import '../styles.css'
 
@@ -67,13 +67,8 @@ function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      {showLoading ? (
-        <div className="flex flex-1 items-center justify-center">
-          <Spinner size={70} className="text-primary" />
-        </div>
-      ) : (
-        children
-      )}
+      {children}
+      {showLoading ? <AbsoluteLoading /> : null}
     </div>
   )
 }

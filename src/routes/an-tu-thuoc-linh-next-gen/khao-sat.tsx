@@ -8,7 +8,6 @@ import { SurveyScaleLegend } from '@/components/SurveyScaleLegend'
 import { SurveyTitleBar } from '@/components/SurveyTitleBar'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
-import { Spinner } from '@/components/ui/spinner'
 import {
   NEXT_GEN_GIFT_SCALE_LABELS,
   NEXT_GEN_GIFT_STORAGE_KEYS,
@@ -202,7 +201,7 @@ function NextGenGiftAssessment() {
             </Button>
             {isSubmit ? (
               <Button tone="orange" disabled>
-                <Spinner size={20} className="text-white" />
+                Đang xử lý...
               </Button>
             ) : (
               <Button

@@ -2,9 +2,11 @@
 
 /* Design tokens — MUI default primary blue, exposed as Tailwind utilities */
 @theme {
+  --color-background: #ffffff;
   --color-primary: #1976d2;
   --color-primary-foreground: #ffffff;
   --color-ring: #1976d2;
+  --z-index-999: 999;
 }
 
 html,

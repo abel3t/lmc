@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useSelector } from '@tanstack/react-store'
 import { CircleAlert } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { AbsoluteLoading } from '@/components/AbsoluteLoading'
 import GiftQuestion from '@/components/GiftQuestion'
 import { SurveyBackLink } from '@/components/SurveyBackLink'
 import { SurveyPageShell } from '@/components/SurveyPageShell'
@@ -10,7 +11,6 @@ import { SurveyScaleLegend } from '@/components/SurveyScaleLegend'
 import { SurveyTitleBar } from '@/components/SurveyTitleBar'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
-import { Spinner } from '@/components/ui/spinner'
 import {
   GIFT_REQUIRED_MESSAGE,
   GIFT_SCALE_LABELS,
@@ -109,9 +109,7 @@ function GiftAssessment() {
       {initialValues ? (
         <GiftAssessmentForm initialValues={initialValues} />
       ) : (
-        <div className="mb-3 flex justify-center py-8">
-          <Spinner size={40} className="text-orange-500" />
-        </div>
+        <AbsoluteLoading />
       )}
     </SurveyPageShell>
   )
@@ -243,7 +241,7 @@ function GiftAssessmentForm({ initialValues }: { initialValues: FormValues }) {
             </Button>
             {isSubmit ? (
               <Button tone="orange" disabled>
-                <Spinner size={20} className="text-white" />
+                Đang xử lý...
               </Button>
             ) : (
               <Button
