@@ -1,82 +1,50 @@
-import React from 'react';
-import ErrorIcon from '@mui/icons-material/Error';
+import { CircleAlert } from 'lucide-react'
+import { GIFT_SCALE_LABELS, NEXT_GEN_GIFT_SCALE_LABELS } from '@/constant'
+import { LikertRating } from './LikertRating'
 
-import { useDispatch } from 'react-redux';
-import { Box, Rating } from '@mui/material';
-import { updateGiftQuestion } from '../slices/gift.slice';
-import { updateGiftQuestion as updateNextGenQuestion } from 'slices/next-gen-gift.slice';
-
-interface GiftQuestionProps {
-  index: number;
-  question: any;
-  isNextGen?: boolean;
+type GiftQuestionProps = {
+  index: number
+  text: string
+  value: number | undefined
+  onChange: (value: number) => void
+  error?: string | null
+  isNextGen?: boolean
 }
 
-const GiftQuestion: React.FC<GiftQuestionProps> = ({ index, question, isNextGen = false }) => {
-  const dispatch = useDispatch();
-
-  const handleChange = (event: any) => {
-    console.log('event', event.target.value, { isNextGen });
-    if (isNextGen) {
-      dispatch(
-        updateNextGenQuestion({
-          id: question.id,
-          question: {
-            value: parseInt(event.target.value),
-            hasError: false
-          }
-        })
-      );
-    } else {
-      dispatch(
-        updateGiftQuestion({
-          id: question.id,
-          question: { value: parseInt(event.target.value), hasError: false }
-        })
-      );
-    }
-  };
+export default function GiftQuestion({
+  index,
+  text,
+  value,
+  onChange,
+  error,
+  isNextGen = false,
+}: GiftQuestionProps) {
+  const options = isNextGen ? NEXT_GEN_GIFT_SCALE_LABELS : GIFT_SCALE_LABELS
 
   return (
     <div
-      className={`w-full md:w-3/4 lg:w-2/3 p-2 md:p-3 lg:p-4 mb-3 border-gray-400 rounded-lg bg-white ${
-        question.hasError && 'border border-red-500'
+      className={`mb-3 w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm transition-shadow hover:shadow sm:p-5 ${
+        error ? 'ring-2 ring-red-400' : ''
       }`}
     >
-      <div className='text-lg mb-2'>
-        {index}. {question.text}
+      <div className="mb-3 text-sm leading-relaxed sm:text-base">
+        {index}. {text}
       </div>
 
-      <div className='flex items-end justify-around'>
-        <div className='pb-2 w-1/12 md:w-1/6 text-xs sm:text-sm md:text-md'>Không giống {isNextGen ? 'em' : 'tôi'}</div>
+      <LikertRating
+        name={`gift-q-${isNextGen ? 'ng-' : ''}${index}`}
+        value={value}
+        options={options}
+        onChange={onChange}
+        accent="orange"
+      />
 
-        <Box className='flex items-center'>
-          <Rating
-            name='star-controlled'
-            value={question.value || 0}
-            max={10}
-            onChange={handleChange}
-            id='gift-star-rating'
-          />
-
-          <Box className='ml-2'>{<span>{question.value || 0}</span>}</Box>
-        </Box>
-
-        <div className='pb-2 w-1/12 md:w-1/6 text-xs sm:text-sm md:text-md text-right'>
-          Rất giống {isNextGen ? 'em' : 'tôi'}
-        </div>
-      </div>
-
-      {question.hasError && (
-        <div>
-          <p className='mt-2 text-xs text-red-600'>
-            <ErrorIcon className='mr-2' />
-            Câu hỏi này là bắt buộc
-          </p>
-        </div>
+      {error && (
+        <p className="mt-2 flex items-center text-xs text-red-600">
+          <CircleAlert className="mr-2 h-4 w-4" />
+          {error}
+        </p>
       )}
     </div>
-  );
-};
-
-export default GiftQuestion;
+  )
+}

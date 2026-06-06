@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/* Design tokens — MUI default primary blue, exposed as Tailwind utilities */
+@theme {
+  --color-primary: #1976d2;
+  --color-primary-foreground: #ffffff;
+  --color-ring: #1976d2;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family:
+    Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Hide number input spinners (love-language marks) */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Isolate print content and break out of narrow page containers */
+  body * {
+    visibility: hidden;
+  }
+
+  .gift-result-print,
+  .gift-result-print * {
+    visibility: visible;
+  }
+
+  .gift-result-print {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none !important;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .gift-result-print .gift-result-scroll {
+    overflow: visible !important;
+  }
+
+  .gift-result-print .gift-result-table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed;
+  }
+
+  .gift-result-print .gift-result-table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gift-result-print .gift-result-table td:last-child {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .gift-result-print tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .gift-result-print thead {
+    display: table-header-group;
+  }
+}
