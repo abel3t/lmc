@@ -6,7 +6,6 @@ test.describe('Smoke', () => {
     await expect(
       page.getByRole('heading', { name: 'Website khảo sát' }),
     ).toBeVisible()
-    await expect(page.getByText('Chào mừng bạn')).toBeVisible()
 
     await expect(
       page.getByRole('link', { name: /Ân tứ thuộc linh/ }).first(),

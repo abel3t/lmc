@@ -43,12 +43,12 @@ export default function LoveLanguageQuestion({
 
   return (
     <div
-      className={`w-full md:w-3/4 lg:w-2/3 p-2 md:p-3 lg:p-4 mb-3 border-gray-400 rounded-lg bg-white ${
-        question.hasError ? 'border border-red-500' : ''
+      className={`mb-3 w-full rounded-xl border border-rose-100 bg-white p-3 shadow-sm sm:p-4 md:p-5 ${
+        question.hasError ? 'border-red-400 ring-2 ring-red-300' : ''
       }`}
     >
-      <div className="text-lg mb-2">
-        <strong>Nhóm {index}:</strong>
+      <div className="mb-3 text-base font-semibold text-rose-900 sm:text-lg">
+        Nhóm {index}
       </div>
 
       <div className="flex flex-col">

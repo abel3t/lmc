@@ -74,12 +74,12 @@ function LoveLanguageAssessment() {
   }
 
   return (
-    <SurveyPageShell className="bg-blue-100">
+    <SurveyPageShell className="bg-rose-50">
       <div className="mb-2">
         <SurveyBackLink to="/ngon-ngu-yeu-thuong" />
       </div>
       <div className="mb-3 overflow-hidden rounded-xl bg-white shadow-sm">
-        <SurveyTitleBar tone="primary">Ngôn ngữ yêu thương</SurveyTitleBar>
+        <SurveyTitleBar tone="rose">Ngôn ngữ yêu thương</SurveyTitleBar>
         <div className="space-y-3 p-4 text-sm sm:p-5">
           <p>
             Hãy đọc từng câu trong mỗi nhóm và xếp hạng mức độ{' '}
@@ -87,7 +87,7 @@ function LoveLanguageAssessment() {
             bên dưới.
           </p>
           <SurveyScaleLegend
-            tone="primary"
+            tone="rose"
             title="Thứ tự ưu tiên (1 → 5)"
             labels={LOVE_LANGUAGE_SCALE_LABELS}
           />
@@ -112,12 +112,12 @@ function LoveLanguageAssessment() {
 
       <div className="mb-3">
         {isSubmit ? (
-          <Button tone="primary" disabled>
+          <Button tone="rose" disabled>
             <Spinner size={20} className="text-white" />
           </Button>
         ) : (
           <Button
-            tone="primary"
+            tone="rose"
             onClick={onClickSubmit}
             disabled={!isSurveyComplete}
           >

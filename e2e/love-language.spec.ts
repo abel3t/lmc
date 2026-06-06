@@ -38,7 +38,9 @@ test.describe('Love Language survey', () => {
     await page.getByRole('button', { name: 'Xem kết quả' }).click()
     await page.waitForURL(`**${RESULT_URL}`)
 
-    await expect(page.getByText('Kết quả của bạn')).toBeVisible()
+    await expect(
+      page.getByText('Kết quả ngôn ngữ yêu thương của bạn'),
+    ).toBeVisible()
     await expect(page.locator('table tbody tr')).toHaveCount(5)
     await expect(page.getByRole('cell', { name: '25' }).first()).toBeVisible()
   })

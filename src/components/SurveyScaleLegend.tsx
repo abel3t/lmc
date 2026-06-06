@@ -3,7 +3,7 @@ type ScaleOption = {
   label: string
 }
 
-type SurveyScaleTone = 'green' | 'orange' | 'primary'
+type SurveyScaleTone = 'green' | 'orange' | 'primary' | 'rose'
 
 type SurveyScaleLegendProps = {
   className?: string
@@ -30,6 +30,11 @@ const toneStyles: Record<
     container: 'border-blue-200 bg-blue-50/70',
     header: 'text-blue-800',
     badge: 'border-blue-300 text-blue-800',
+  },
+  rose: {
+    container: 'border-rose-200 bg-rose-50/70',
+    header: 'text-rose-800',
+    badge: 'border-rose-300 text-rose-800',
   },
 }
 

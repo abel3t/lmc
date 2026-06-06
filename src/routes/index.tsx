@@ -35,8 +35,8 @@ const surveys = [
     title: 'Ngôn ngữ yêu thương',
     subtitle: 'Love Languages',
     description: 'Khám phá cách bạn cho và nhận tình yêu',
-    accent: 'border-l-blue-600',
-    hover: 'hover:border-blue-300 hover:bg-blue-50/50',
+    accent: 'border-l-rose-600',
+    hover: 'hover:border-rose-300 hover:bg-rose-50/50',
   },
 ] as const
 
@@ -53,7 +53,6 @@ function Home() {
       </header>
 
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-8 sm:px-6">
-        <h2 className="text-lg font-semibold text-gray-900">Chào mừng bạn</h2>
         <p className="mt-1 text-sm leading-relaxed text-gray-600 sm:text-base">
           Chọn một khảo sát bên dưới để bắt đầu. Kết quả được lưu trên trình
           duyệt của bạn.

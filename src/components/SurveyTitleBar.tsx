@@ -1,12 +1,13 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
-type SurveyTitleTone = 'orange' | 'green' | 'primary'
+type SurveyTitleTone = 'orange' | 'green' | 'primary' | 'rose'
 
 const toneClass: Record<SurveyTitleTone, string> = {
   orange: 'bg-orange-500',
   green: 'bg-emerald-600',
   primary: 'bg-primary',
+  rose: 'bg-rose-600',
 }
 
 type SurveyTitleBarProps = {
