@@ -11,7 +11,8 @@ const base = cn(
 )
 
 const tones: Record<ButtonTone, string> = {
-  primary: 'bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-400',
+  primary:
+    'bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-400',
   orange:
     'bg-orange-500 text-white hover:bg-orange-600 focus-visible:ring-orange-400',
   green:

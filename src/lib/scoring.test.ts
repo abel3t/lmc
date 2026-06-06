@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { discSections, DiscType } from '@/constants/disc'
+import { DiscType, discSections } from '@/constants/disc'
 import {
   aggregateDiscScores,
   buildDiscResultFromAnswers,
@@ -7,7 +7,11 @@ import {
   getDiscBlend,
   getDiscProfile,
 } from '@/lib/disc-scoring'
-import { isDiscScore, isGiftScore, isSurveyAnswered } from '@/lib/survey-validation'
+import {
+  isDiscScore,
+  isGiftScore,
+  isSurveyAnswered,
+} from '@/lib/survey-validation'
 
 describe('survey-validation', () => {
   test('treats 0 as a valid gift answer', () => {

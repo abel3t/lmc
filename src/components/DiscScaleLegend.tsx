@@ -1,5 +1,5 @@
-import { DISC_SCALE_LABELS } from '@/constant'
 import { SurveyScaleLegend } from '@/components/SurveyScaleLegend'
+import { DISC_SCALE_LABELS } from '@/constant'
 
 type DiscScaleLegendProps = {
   className?: string

@@ -34,9 +34,7 @@ test.describe('Spiritual Gift survey', () => {
     page,
   }) => {
     await page.goto(SURVEY_URL)
-    await expect(
-      page.getByText('Bảng đánh giá ân tứ thuộc linh'),
-    ).toBeVisible()
+    await expect(page.getByText('Bảng đánh giá ân tứ thuộc linh')).toBeVisible()
 
     await page.getByRole('button', { name: 'Tiếp tục' }).click()
 
@@ -61,9 +59,8 @@ test.describe('Spiritual Gift survey', () => {
     expect(stored).toContain('"1":2')
 
     await page.reload()
-    // Stored answers should rehydrate page 1.
     await expect(
-      page.locator('input[type="radio"][value="2"]').first(),
+      page.locator('input[name="gift-q-1"][value="2"]'),
     ).toBeChecked()
   })
 

@@ -10,6 +10,20 @@ const PER_PAGE = 10
 const TOTAL_PAGES = Math.ceil(TOTAL_QUESTIONS / PER_PAGE)
 const GIFT_CATEGORIES = 22
 
+async function gotoSurveyPage(page: import('@playwright/test').Page) {
+  await page.goto(SURVEY_URL)
+  await page.evaluate((keys) => {
+    for (const key of keys) {
+      localStorage.removeItem(key)
+    }
+  }, Object.values(NEXT_GEN_GIFT_STORAGE_KEYS))
+  await page.reload()
+  await page
+    .locator('input[type="radio"]')
+    .first()
+    .waitFor({ state: 'visible' })
+}
+
 async function answerCurrentPage(
   page: import('@playwright/test').Page,
   value: number,
@@ -29,7 +43,7 @@ test.describe('Next Gen Gift survey', () => {
   test('blocks advancing when the page is not fully answered', async ({
     page,
   }) => {
-    await page.goto(SURVEY_URL)
+    await gotoSurveyPage(page)
     await expect(page.getByText('Ân tứ thuộc linh')).toBeVisible()
 
     await page.getByRole('button', { name: 'Tiếp tục' }).click()
@@ -40,7 +54,7 @@ test.describe('Next Gen Gift survey', () => {
 
   test('completes the full flow and shows ranked results', async ({ page }) => {
     test.setTimeout(60_000)
-    await page.goto(SURVEY_URL)
+    await gotoSurveyPage(page)
 
     for (let pageNum = 1; pageNum <= TOTAL_PAGES; pageNum++) {
       const answered = await answerCurrentPage(page, 2)

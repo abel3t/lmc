@@ -11,13 +11,13 @@ import {
   buildGiftResultFromScores,
   GIFT_CATEGORY_COUNT,
   GIFT_MAX_SCORE,
+  type GiftAnswers,
   getGiftBlend,
   getGiftIndexForQuestion,
   getQuestionIdsForGift,
   isGiftSurveyComplete,
   QUESTIONS_PER_GIFT,
   sortGiftRowsByScore,
-  type GiftAnswers,
 } from '@/lib/gift-scoring'
 
 describe('spiritual gift question mapping (133 × 19 matrix)', () => {
@@ -40,7 +40,7 @@ describe('spiritual gift question mapping (133 × 19 matrix)', () => {
     for (let id = 1; id <= 133; id++) {
       const question = giftQuestionsRaw.find((item) => item.id === id)
       expect(question).toBeDefined()
-      expect(question!.text.trim().length).toBeGreaterThan(10)
+      expect(question?.text.trim().length).toBeGreaterThan(10)
     }
   })
 
@@ -82,7 +82,7 @@ describe('spiritual gift question mapping (133 × 19 matrix)', () => {
       1, 20, 39, 58, 77, 96, 115,
     ])
     expect(getQuestionIdsForGift(GiftType.B)).toEqual([
-      2,  21, 40, 59, 78, 97, 116,
+      2, 21, 40, 59, 78, 97, 116,
     ])
     expect(getQuestionIdsForGift(GiftType.S)).toEqual([
       19, 38, 57, 76, 95, 114, 133,

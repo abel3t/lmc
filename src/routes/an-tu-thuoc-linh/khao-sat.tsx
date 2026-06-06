@@ -1,7 +1,8 @@
+import { useForm } from '@tanstack/react-form'
 import { createFileRoute } from '@tanstack/react-router'
-import { useForm, useStore } from '@tanstack/react-form'
+import { useSelector } from '@tanstack/react-store'
 import { CircleAlert } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import GiftQuestion from '@/components/GiftQuestion'
 import { SurveyBackLink } from '@/components/SurveyBackLink'
 import { SurveyPageShell } from '@/components/SurveyPageShell'
@@ -16,9 +17,13 @@ import {
   GIFT_STORAGE_KEYS,
   giftQuestions,
 } from '@/constant'
-import { type GiftAnswers, GIFT_CATEGORY_COUNT, isGiftSurveyComplete } from '@/lib/gift-scoring'
-import { isSurveyAnswered } from '@/lib/survey-validation'
+import {
+  GIFT_CATEGORY_COUNT,
+  type GiftAnswers,
+  isGiftSurveyComplete,
+} from '@/lib/gift-scoring'
 import { readSurveyStorage, writeSurveyStorage } from '@/lib/survey-storage'
+import { isSurveyAnswered } from '@/lib/survey-validation'
 
 export const Route = createFileRoute('/an-tu-thuoc-linh/khao-sat')({
   component: GiftAssessment,
@@ -43,26 +48,87 @@ function toAnswers(values: FormValues): GiftAnswers {
   return answers
 }
 
+function buildFormValues(stored: GiftAnswers): FormValues {
+  const values: FormValues = {}
+  for (const question of giftQuestions) {
+    values[fieldName(question.id)] = stored[String(question.id)]
+  }
+  return values
+}
+
 const requiredValidator = ({ value }: { value: number | undefined }) =>
   isSurveyAnswered(value) ? undefined : GIFT_REQUIRED_MESSAGE
 
+function GiftSurveyIntro() {
+  return (
+    <div className="mb-3 overflow-hidden rounded-xl bg-white shadow-sm">
+      <SurveyTitleBar tone="orange">
+        Bảng đánh giá ân tứ thuộc linh
+      </SurveyTitleBar>
+      <div className="space-y-3 p-4 text-sm sm:p-5">
+        <p>
+          Hãy đọc từng nhận định và chọn mức độ{' '}
+          <span className="font-medium">đúng với bạn</span> theo thang bên dưới.
+        </p>
+        <SurveyScaleLegend
+          tone="orange"
+          title="Thang điểm (0 → 3)"
+          labels={GIFT_SCALE_LABELS}
+        />
+        <p className="text-gray-600">
+          Tổng cộng{' '}
+          <span className="font-medium text-gray-800">
+            {giftQuestions.length} nhận định
+          </span>{' '}
+          thuộc {GIFT_CATEGORY_COUNT} nhóm ân tứ. Chọn ngay cho từng câu — đừng
+          suy nghĩ quá lâu.
+        </p>
+      </div>
+    </div>
+  )
+}
+
 function GiftAssessment() {
+  const [initialValues, setInitialValues] = useState<FormValues | null>(null)
+
+  useEffect(() => {
+    setInitialValues(buildFormValues(loadStoredAnswers()))
+  }, [])
+
+  return (
+    <SurveyPageShell className="bg-orange-100">
+      <div className="mb-2">
+        <SurveyBackLink
+          to="/an-tu-thuoc-linh"
+          className="text-orange-900/70 hover:text-orange-900"
+        />
+      </div>
+
+      <GiftSurveyIntro />
+
+      {initialValues ? (
+        <GiftAssessmentForm initialValues={initialValues} />
+      ) : (
+        <div className="mb-3 flex justify-center py-8">
+          <Spinner size={40} className="text-orange-500" />
+        </div>
+      )}
+    </SurveyPageShell>
+  )
+}
+
+function GiftAssessmentForm({ initialValues }: { initialValues: FormValues }) {
   const [currentPage, setCurrentPage] = useState(1)
   const [showErrorDialog, setShowErrorDialog] = useState(false)
   const [isSubmit, setIsSubmit] = useState(false)
+  const [storedAnswers, setStoredAnswers] = useState<GiftAnswers>(() =>
+    toAnswers(initialValues),
+  )
 
-  const defaultValues = useMemo<FormValues>(() => {
-    const stored = loadStoredAnswers()
-    const values: FormValues = {}
-    for (const question of giftQuestions) {
-      values[fieldName(question.id)] = stored[String(question.id)]
-    }
-    return values
-  }, [])
+  const form = useForm({ defaultValues: initialValues })
+  const formValues = useSelector(form.store, (state) => state.values)
 
-  const form = useForm({ defaultValues })
-  const formValues = useStore(form.store, (state) => state.values)
-
+  // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to top when paginating
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [currentPage])
@@ -73,7 +139,7 @@ function GiftAssessment() {
   )
 
   const mergedAnswers = {
-    ...loadStoredAnswers(),
+    ...storedAnswers,
     ...toAnswers(formValues),
   }
   const isSurveyComplete = isGiftSurveyComplete(mergedAnswers)
@@ -83,8 +149,9 @@ function GiftAssessment() {
   const canSubmit = isSurveyComplete && isCurrentPageComplete
 
   const persist = () => {
-    const answers = { ...loadStoredAnswers(), ...toAnswers(formValues) }
+    const answers = { ...storedAnswers, ...toAnswers(formValues) }
     writeSurveyStorage(GIFT_STORAGE_KEYS.answers, answers)
+    setStoredAnswers(answers)
   }
 
   const validatePage = () => {
@@ -116,10 +183,11 @@ function GiftAssessment() {
     setIsSubmit(true)
 
     const pageValid = validatePage()
-    const answers = { ...loadStoredAnswers(), ...toAnswers(formValues) }
+    const answers = { ...storedAnswers, ...toAnswers(formValues) }
 
     if (pageValid && isGiftSurveyComplete(answers)) {
       writeSurveyStorage(GIFT_STORAGE_KEYS.answers, answers)
+      setStoredAnswers(answers)
       window.open('/an-tu-thuoc-linh', '_self')
     } else {
       setShowErrorDialog(true)
@@ -128,44 +196,15 @@ function GiftAssessment() {
   }
 
   return (
-    <SurveyPageShell className="bg-orange-100">
-      <div className="mb-2">
-        <SurveyBackLink
-          to="/an-tu-thuoc-linh"
-          className="text-orange-900/70 hover:text-orange-900"
-        />
-      </div>
-      <div className="mb-3 overflow-hidden rounded-xl bg-white shadow-sm">
-        <SurveyTitleBar tone="orange">
-          Bảng đánh giá ân tứ thuộc linh
-        </SurveyTitleBar>
-        <div className="space-y-3 p-4 text-sm sm:p-5">
-          <p>
-            Hãy đọc từng nhận định và chọn mức độ{' '}
-            <span className="font-medium">đúng với bạn</span> theo thang bên
-            dưới.
-          </p>
-          <SurveyScaleLegend
-            tone="orange"
-            title="Thang điểm (0 → 3)"
-            labels={GIFT_SCALE_LABELS}
-          />
-          <p className="text-gray-600">
-            Tổng cộng{' '}
-            <span className="font-medium text-gray-800">
-              {giftQuestions.length} nhận định
-            </span>{' '}
-            thuộc {GIFT_CATEGORY_COUNT} nhóm ân tứ. Chọn ngay cho từng câu — đừng suy nghĩ quá
-            lâu.
-          </p>
-        </div>
-      </div>
-
+    <>
       {pageQuestions.map((question) => (
         <form.Field
           key={question.id}
           name={fieldName(question.id)}
-          validators={{ onChange: requiredValidator, onSubmit: requiredValidator }}
+          validators={{
+            onChange: requiredValidator,
+            onSubmit: requiredValidator,
+          }}
         >
           {(field) => (
             <GiftQuestion
@@ -207,7 +246,11 @@ function GiftAssessment() {
                 <Spinner size={20} className="text-white" />
               </Button>
             ) : (
-              <Button tone="orange" onClick={onClickSubmit} disabled={!canSubmit}>
+              <Button
+                tone="orange"
+                onClick={onClickSubmit}
+                disabled={!canSubmit}
+              >
                 Xem kết quả
               </Button>
             )}
@@ -223,6 +266,6 @@ function GiftAssessment() {
           </DialogTitle>
         </DialogContent>
       </Dialog>
-    </SurveyPageShell>
+    </>
   )
 }

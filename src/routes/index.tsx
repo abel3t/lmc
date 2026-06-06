@@ -53,9 +53,7 @@ function Home() {
       </header>
 
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-8 sm:px-6">
-        <h2 className="text-lg font-semibold text-gray-900">
-          Chào mừng bạn
-        </h2>
+        <h2 className="text-lg font-semibold text-gray-900">Chào mừng bạn</h2>
         <p className="mt-1 text-sm leading-relaxed text-gray-600 sm:text-base">
           Chọn một khảo sát bên dưới để bắt đầu. Kết quả được lưu trên trình
           duyệt của bạn.

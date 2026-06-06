@@ -63,12 +63,12 @@ export function getGiftBlend(rows: GiftScoreRow[]): GiftBlend {
   const ranked = sortGiftRowsByScore(rows)
   if (ranked.length === 0) return { primary: [], secondary: [] }
 
-  const primaryScore = ranked[0]!.total
+  const primaryScore = ranked[0]?.total ?? 0
   const primary = ranked.filter((row) => row.total === primaryScore)
   const lower = ranked.filter((row) => row.total < primaryScore)
   if (lower.length === 0) return { primary, secondary: [] }
 
-  const secondaryScore = lower[0]!.total
+  const secondaryScore = lower[0]?.total ?? 0
   const secondary = lower.filter((row) => row.total === secondaryScore)
   return { primary, secondary }
 }
@@ -77,7 +77,9 @@ export function getGiftBlend(rows: GiftScoreRow[]): GiftBlend {
 export type GiftAnswers = Record<string, number | undefined>
 
 /** Single source of truth: derive the result matrix straight from saved scores. */
-export function buildGiftResultFromScores(scores: GiftAnswers): GiftResultRecord {
+export function buildGiftResultFromScores(
+  scores: GiftAnswers,
+): GiftResultRecord {
   const result: GiftResultRecord = {}
 
   for (const question of giftQuestions) {
@@ -92,9 +94,7 @@ export function buildGiftResultFromScores(scores: GiftAnswers): GiftResultRecord
 }
 
 export function sortGiftRowsByScore(rows: GiftScoreRow[]): GiftScoreRow[] {
-  return [...rows].sort(
-    (a, b) => b.total - a.total || a.giftType - b.giftType,
-  )
+  return [...rows].sort((a, b) => b.total - a.total || a.giftType - b.giftType)
 }
 
 export function buildGiftMatrixFromScores(scores: GiftAnswers): GiftScoreRow[] {

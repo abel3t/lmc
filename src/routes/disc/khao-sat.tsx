@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { CircleAlert } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
-import { DiscSection } from '@/components/DiscSection'
 import { DiscScaleLegend } from '@/components/DiscScaleLegend'
+import { DiscSection } from '@/components/DiscSection'
 import { SurveyBackLink } from '@/components/SurveyBackLink'
 import { SurveyPageShell } from '@/components/SurveyPageShell'
 import { SurveyTitleBar } from '@/components/SurveyTitleBar'
@@ -11,9 +11,9 @@ import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { Spinner } from '@/components/ui/spinner'
 import { DISC_STORAGE_KEYS, type DiscType, discSections } from '@/constant'
 import { buildDiscResultFromAnswers } from '@/lib/disc-scoring'
-import { isSurveyAnswered } from '@/lib/survey-validation'
 import { readSurveyStorage, writeSurveyStorage } from '@/lib/survey-storage'
-import { useDiscStore, type DiscSectionState } from '@/stores/disc.store'
+import { isSurveyAnswered } from '@/lib/survey-validation'
+import { type DiscSectionState, useDiscStore } from '@/stores/disc.store'
 
 export const Route = createFileRoute('/disc/khao-sat')({
   component: DiscAssessment,
@@ -28,7 +28,9 @@ function DiscAssessment() {
   const updateStatement = useDiscStore((s) => s.updateStatement)
 
   useEffect(() => {
-    const saved = readSurveyStorage<DiscSectionState[]>(DISC_STORAGE_KEYS.answers)
+    const saved = readSurveyStorage<DiscSectionState[]>(
+      DISC_STORAGE_KEYS.answers,
+    )
     if (saved) {
       setSections(saved)
     }
@@ -161,7 +163,11 @@ function DiscAssessment() {
             <Spinner size={20} className="text-white" />
           </Button>
         ) : (
-          <Button tone="green" onClick={onClickSubmit} disabled={!isSurveyComplete}>
+          <Button
+            tone="green"
+            onClick={onClickSubmit}
+            disabled={!isSurveyComplete}
+          >
             Xem kết quả
           </Button>
         )}

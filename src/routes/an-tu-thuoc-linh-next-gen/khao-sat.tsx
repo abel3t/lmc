@@ -14,13 +14,13 @@ import {
   NEXT_GEN_GIFT_STORAGE_KEYS,
   nextGenGiftQuestions,
 } from '@/constant'
-import { NEXT_GEN_GIFT_CATEGORY_COUNT } from '@/lib/next-gen-gift-scoring'
 import {
   buildNextGenGiftResultFromAnswers,
   isNextGenGiftSurveyComplete,
+  NEXT_GEN_GIFT_CATEGORY_COUNT,
 } from '@/lib/next-gen-gift-scoring'
-import { isSurveyAnswered } from '@/lib/survey-validation'
 import { readSurveyStorage, writeSurveyStorage } from '@/lib/survey-storage'
+import { isSurveyAnswered } from '@/lib/survey-validation'
 import { useNextGenGiftStore } from '@/stores/next-gen-gift.store'
 
 export const Route = createFileRoute('/an-tu-thuoc-linh-next-gen/khao-sat')({
@@ -45,7 +45,7 @@ function NextGenGiftAssessment() {
   )
 
   const allAnswers = Object.fromEntries(
-    Object.values(questions).map((question: { id: number | string; value?: number }) => [
+    Object.values(questions).map((question) => [
       String(question.id),
       question.value,
     ]),
@@ -56,6 +56,7 @@ function NextGenGiftAssessment() {
   )
   const canSubmit = isSurveyComplete && isCurrentPageComplete
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to top when paginating
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [currentPage])
@@ -77,7 +78,7 @@ function NextGenGiftAssessment() {
     let hasError = false
     Object.values(questions)
       .slice((currentPage - 1) * totalPerPage, currentPage * totalPerPage)
-      .forEach((question: { id: number | string; value?: number }) => {
+      .forEach((question) => {
         if (!isSurveyAnswered(question.value)) {
           hasError = true
           updateQuestion(question.id, { hasError: true })
@@ -95,16 +96,16 @@ function NextGenGiftAssessment() {
     setIsSubmit(true)
 
     let hasError = false
-    Object.values(questions).forEach((question: any) => {
+    for (const question of Object.values(questions)) {
       if (!isSurveyAnswered(question.value)) {
         hasError = true
         updateQuestion(question.id, { hasError: true })
       }
-    })
+    }
 
     if (!hasError) {
       const answers = Object.fromEntries(
-        Object.values(questions).map((question: any) => [
+        Object.values(questions).map((question) => [
           String(question.id),
           question.value as number,
         ]),
@@ -159,9 +160,9 @@ function NextGenGiftAssessment() {
         </div>
       </div>
 
-      {pageQuestions.map((question: any) => (
+      {pageQuestions.map((question) => (
         <GiftQuestion
-          index={question.id as number}
+          index={question.id}
           key={question.id}
           text={question.text}
           value={question.value}

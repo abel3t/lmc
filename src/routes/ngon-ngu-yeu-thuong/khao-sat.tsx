@@ -48,17 +48,19 @@ function LoveLanguageAssessment() {
     setIsSubmit(true)
 
     let hasError = false
-    Object.values(questions).forEach((question: any) => {
-      question.answers.forEach((answer: any) => {
+    for (const question of Object.values(questions)) {
+      let questionHasError = false
+      for (const answer of question.answers) {
         if (answer.hasError || !answer.mark) {
+          questionHasError = true
           hasError = true
         }
-      })
+      }
 
-      if (hasError) {
+      if (questionHasError) {
         updateQuestion(question.id, { ...question, hasError: true })
       }
-    })
+    }
 
     if (!hasError && isLoveLanguageSurveyComplete(questions)) {
       const result = buildLoveLanguageResultFromQuestions(questions)
@@ -100,7 +102,7 @@ function LoveLanguageAssessment() {
         </div>
       </div>
 
-      {Object.values(questions).map((question: any, index: number) => (
+      {Object.values(questions).map((question, index) => (
         <LoveLanguageQuestion
           key={question.id}
           index={index + 1}

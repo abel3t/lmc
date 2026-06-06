@@ -1,11 +1,15 @@
 import { CircleAlert } from 'lucide-react'
 import type { ChangeEvent } from 'react'
 import { Input } from '@/components/ui/input'
-import { useLoveLanguageStore } from '@/stores/love-language.store'
+import {
+  type LoveLanguageAnswerState,
+  type LoveLanguageQuestionState,
+  useLoveLanguageStore,
+} from '@/stores/love-language.store'
 
 type LoveLanguageProps = {
   index: number
-  question: any
+  question: LoveLanguageQuestionState
 }
 
 export default function LoveLanguageQuestion({
@@ -18,19 +22,21 @@ export default function LoveLanguageQuestion({
     aIndex: number,
     event: ChangeEvent<HTMLInputElement>,
   ) => {
-    const answers: any = JSON.parse(JSON.stringify(question.answers))
-    const value = parseInt(event.target.value)
+    const answers: LoveLanguageAnswerState[] = question.answers.map(
+      (answer) => ({ ...answer }),
+    )
+    const value = Number.parseInt(event.target.value, 10)
     answers[aIndex].mark = value
 
-    const answerMarks = answers.map((answer: any) => answer.mark)
+    const answerMarks = answers.map((answer) => answer.mark)
 
     for (let i = 0; i < answers.length; i++) {
       const idx = answerMarks.indexOf(answers[i].mark)
-      answers[i].hasError = answers[i].mark && idx >= 0 && idx !== i
+      answers[i].hasError = !!answers[i].mark && idx >= 0 && idx !== i
     }
 
     answers[aIndex].hasError =
-      answers[aIndex].hasError || value <= 0 || value > 5
+      !!answers[aIndex].hasError || value <= 0 || value > 5
 
     updateQuestion(question.id, { ...question, answers, hasError: false })
   }
@@ -46,7 +52,7 @@ export default function LoveLanguageQuestion({
       </div>
 
       <div className="flex flex-col">
-        {question.answers.map((answer: any, aIndex: number) => (
+        {question.answers.map((answer, aIndex) => (
           <div
             key={answer.type}
             className="inline-flex items-center justify-start py-2"

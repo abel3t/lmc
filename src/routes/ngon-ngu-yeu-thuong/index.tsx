@@ -10,7 +10,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { LOVE_LANGUAGE_STORAGE_KEYS, LoveLanguageTitle, type LoveLanguageType } from '@/constant'
+import {
+  LOVE_LANGUAGE_STORAGE_KEYS,
+  LoveLanguageTitle,
+  type LoveLanguageType,
+} from '@/constant'
 import {
   aggregateLoveLanguageScores,
   type LoveLanguageAggregate,

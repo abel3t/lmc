@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react'
 import { Link } from '@tanstack/react-router'
+import type { ReactNode } from 'react'
 import { SurveyBackLink } from '@/components/SurveyBackLink'
-import { buttonClass, type ButtonTone } from '@/components/ui/button'
+import { type ButtonTone, buttonClass } from '@/components/ui/button'
 
 type SurveyResultLayoutProps = {
   children: ReactNode

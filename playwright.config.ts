@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 
-// Dedicated port to avoid clashing with other local dev servers (e.g. :3000).
+// Dedicated port to avoid clashing with local dev servers (e.g. :3000).
 const PORT = 3217
 const baseURL = `http://localhost:${PORT}`
 
@@ -21,7 +21,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `bun run dev --port ${PORT}`,
+    command: `bun run preview --port ${PORT}`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

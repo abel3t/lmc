@@ -1,8 +1,8 @@
 import {
   GIFT_MAX_SCORE,
+  type GiftScoreRow,
   getGiftBlend,
   sortGiftRowsByScore,
-  type GiftScoreRow,
 } from '@/lib/gift-scoring'
 
 type GiftResultPanelProps = {
@@ -22,6 +22,8 @@ export function GiftResultPanel({ rows }: GiftResultPanelProps) {
   const maxTotal = ranked[0]?.total ?? 0
   const blend = getGiftBlend(rows)
   const profile = giftProfileLabel(rows, maxTotal)
+  const primaryScore = blend.primary[0]?.total ?? 0
+  const secondaryScore = blend.secondary[0]?.total ?? 0
 
   return (
     <div className="space-y-8 print:hidden">
@@ -36,7 +38,7 @@ export function GiftResultPanel({ rows }: GiftResultPanelProps) {
                 {blend.primary.map((row) => row.giftTitle).join(' · ')}
               </p>
               <p className="mt-2 text-sm font-medium text-orange-800">
-                {blend.primary[0]!.total}/{GIFT_MAX_SCORE} điểm
+                {primaryScore}/{GIFT_MAX_SCORE} điểm
                 {blend.primary.length > 1 ? ' (bằng nhau)' : ''}
               </p>
             </>
@@ -55,7 +57,7 @@ export function GiftResultPanel({ rows }: GiftResultPanelProps) {
                 {blend.secondary.map((row) => row.giftTitle).join(' · ')}
               </p>
               <p className="mt-2 text-sm font-medium text-gray-600">
-                {blend.secondary[0]!.total}/{GIFT_MAX_SCORE} điểm
+                {secondaryScore}/{GIFT_MAX_SCORE} điểm
                 {blend.secondary.length > 1 ? ' (bằng nhau)' : ''}
               </p>
             </>

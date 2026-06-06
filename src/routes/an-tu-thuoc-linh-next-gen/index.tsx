@@ -10,7 +10,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { NEXT_GEN_GIFT_STORAGE_KEYS, NextGenGiftTitle, type NextGenGiftType } from '@/constant'
+import {
+  NEXT_GEN_GIFT_STORAGE_KEYS,
+  NextGenGiftTitle,
+  type NextGenGiftType,
+} from '@/constant'
 import {
   aggregateNextGenGiftScores,
   type NextGenGiftAggregate,
@@ -66,7 +70,11 @@ function NextGenGiftTab() {
   )
 }
 
-function NextGenGiftResultTable({ result }: { result: NextGenGiftAggregate[] }) {
+function NextGenGiftResultTable({
+  result,
+}: {
+  result: NextGenGiftAggregate[]
+}) {
   return (
     <Table>
       <TableHeader>

@@ -21,21 +21,25 @@ describe('love-language-scoring', () => {
   })
 
   test('requires unique ranks 1–5 within each group', () => {
-    expect(isLoveLanguageGroupValid([
-      { type: LoveLanguageType.A, mark: 1 },
-      { type: LoveLanguageType.B, mark: 2 },
-      { type: LoveLanguageType.C, mark: 3 },
-      { type: LoveLanguageType.D, mark: 4 },
-      { type: LoveLanguageType.E, mark: 5 },
-    ])).toBe(true)
+    expect(
+      isLoveLanguageGroupValid([
+        { type: LoveLanguageType.A, mark: 1 },
+        { type: LoveLanguageType.B, mark: 2 },
+        { type: LoveLanguageType.C, mark: 3 },
+        { type: LoveLanguageType.D, mark: 4 },
+        { type: LoveLanguageType.E, mark: 5 },
+      ]),
+    ).toBe(true)
 
-    expect(isLoveLanguageGroupValid([
-      { type: LoveLanguageType.A, mark: 1 },
-      { type: LoveLanguageType.B, mark: 1 },
-      { type: LoveLanguageType.C, mark: 3 },
-      { type: LoveLanguageType.D, mark: 4 },
-      { type: LoveLanguageType.E, mark: 5 },
-    ])).toBe(false)
+    expect(
+      isLoveLanguageGroupValid([
+        { type: LoveLanguageType.A, mark: 1 },
+        { type: LoveLanguageType.B, mark: 1 },
+        { type: LoveLanguageType.C, mark: 3 },
+        { type: LoveLanguageType.D, mark: 4 },
+        { type: LoveLanguageType.E, mark: 5 },
+      ]),
+    ).toBe(false)
   })
 
   test('sums marks across five groups into five love language totals', () => {
@@ -49,10 +53,12 @@ describe('love-language-scoring', () => {
     expect(aggregates).toHaveLength(5)
 
     // Each type gets rank (5 - type) in every group.
-    expect(aggregates.find((row) => row.type === LoveLanguageType.A)?.mark).toBe(
-      LOVE_LANGUAGE_MAX_TOTAL_SCORE,
-    )
-    expect(aggregates.find((row) => row.type === LoveLanguageType.E)?.mark).toBe(5)
+    expect(
+      aggregates.find((row) => row.type === LoveLanguageType.A)?.mark,
+    ).toBe(LOVE_LANGUAGE_MAX_TOTAL_SCORE)
+    expect(
+      aggregates.find((row) => row.type === LoveLanguageType.E)?.mark,
+    ).toBe(5)
   })
 
   test('builds deterministic totals for a handcrafted submission', () => {

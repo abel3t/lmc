@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { nextGenGiftQuestions, NextGenGiftType } from '@/constant'
+import { NextGenGiftType, nextGenGiftQuestions } from '@/constant'
 import {
   aggregateNextGenGiftScores,
   buildNextGenGiftResultFromAnswers,
@@ -20,9 +20,9 @@ describe('next-gen-gift-scoring', () => {
 
     expect(Object.keys(result)).toHaveLength(66)
     expect(aggregates).toHaveLength(NEXT_GEN_GIFT_CATEGORY_COUNT)
-    expect(aggregates.every((row) => row.mark === NEXT_GEN_GIFT_MAX_SCORE)).toBe(
-      true,
-    )
+    expect(
+      aggregates.every((row) => row.mark === NEXT_GEN_GIFT_MAX_SCORE),
+    ).toBe(true)
   })
 
   test('sums marks per type across all three questions', () => {
@@ -72,9 +72,9 @@ describe('next-gen-gift-scoring', () => {
 
   test('each type receives marks from exactly three questions', () => {
     for (let type = 0; type < NEXT_GEN_GIFT_CATEGORY_COUNT; type++) {
-      expect(getNextGenQuestionIdsForType(type as NextGenGiftType)).toHaveLength(
-        NEXT_GEN_QUESTIONS_PER_GIFT,
-      )
+      expect(
+        getNextGenQuestionIdsForType(type as NextGenGiftType),
+      ).toHaveLength(NEXT_GEN_QUESTIONS_PER_GIFT)
     }
   })
 })

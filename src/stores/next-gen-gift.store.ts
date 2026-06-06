@@ -1,18 +1,29 @@
 import { create } from 'zustand'
-import { nextGenGiftQuestions } from '@/constant'
+import { type NextGenGiftType, nextGenGiftQuestions } from '@/constant'
 
-type Questions = Record<string, any>
+export type NextGenGiftQuestionState = {
+  id: number
+  text: string
+  type: NextGenGiftType
+  value?: number
+  hasError?: boolean
+}
 
-const buildInitial = (): Questions =>
-  nextGenGiftQuestions.reduce((acc: Questions, current) => {
+type NextGenGiftQuestionsRecord = Record<string, NextGenGiftQuestionState>
+
+const buildInitial = (): NextGenGiftQuestionsRecord =>
+  nextGenGiftQuestions.reduce<NextGenGiftQuestionsRecord>((acc, current) => {
     acc[current.id] = { ...current }
     return acc
   }, {})
 
 type NextGenGiftStore = {
-  questions: Questions
-  setQuestions: (questions: Questions) => void
-  updateQuestion: (id: number | string, patch: Record<string, any>) => void
+  questions: NextGenGiftQuestionsRecord
+  setQuestions: (questions: NextGenGiftQuestionsRecord) => void
+  updateQuestion: (
+    id: number | string,
+    patch: Partial<NextGenGiftQuestionState>,
+  ) => void
 }
 
 export const useNextGenGiftStore = create<NextGenGiftStore>((set) => ({

@@ -1,13 +1,12 @@
 import {
   NextGenGiftTitle,
-  nextGenGiftQuestions,
   type NextGenGiftType,
+  nextGenGiftQuestions,
 } from '@/constant'
 
 export const NEXT_GEN_GIFT_CATEGORY_COUNT = 22
 export const NEXT_GEN_QUESTIONS_PER_GIFT = 3
-export const NEXT_GEN_GIFT_MAX_SCORE =
-  NEXT_GEN_QUESTIONS_PER_GIFT * 3
+export const NEXT_GEN_GIFT_MAX_SCORE = NEXT_GEN_QUESTIONS_PER_GIFT * 3
 
 export type NextGenGiftAnswerEntry = {
   type: NextGenGiftType

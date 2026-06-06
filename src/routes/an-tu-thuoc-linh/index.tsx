@@ -7,10 +7,10 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { GIFT_STORAGE_KEYS } from '@/constant'
 import {
   buildGiftMatrixFromScores,
-  isGiftSurveyComplete,
-  sortGiftRowsByScore,
   type GiftAnswers,
   type GiftScoreRow,
+  isGiftSurveyComplete,
+  sortGiftRowsByScore,
 } from '@/lib/gift-scoring'
 import { readSurveyStorage } from '@/lib/survey-storage'
 import { printWithoutBrowserHeader } from '@/lib/utils'

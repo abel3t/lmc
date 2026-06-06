@@ -2,12 +2,12 @@ import { describe, expect, test } from 'bun:test'
 import {
   LoveLanguageQuestions,
   LoveLanguageType,
+  type NextGenGiftType,
   nextGenGiftQuestions,
-  NextGenGiftType,
 } from '@/constant'
 import { discSections } from '@/constants/disc'
-import { getNextGenQuestionIdsForType } from '@/lib/next-gen-gift-scoring'
 import { getExpectedLoveLanguageTypes } from '@/lib/love-language-scoring'
+import { getNextGenQuestionIdsForType } from '@/lib/next-gen-gift-scoring'
 
 describe('survey question banks', () => {
   // Spiritual gift mapping (133 × 19 matrix) is fully covered in gift-mapping.test.ts

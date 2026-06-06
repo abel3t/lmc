@@ -34,4 +34,20 @@ describe('survey-storage', () => {
     storage.set('giftAnswers', 'not-json')
     expect(readSurveyStorage('giftAnswers')).toBeNull()
   })
+
+  test('returns null when browser storage is unavailable', () => {
+    const previousStorage = globalThis.localStorage
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: undefined,
+    })
+
+    expect(readSurveyStorage('giftAnswers')).toBeNull()
+    writeSurveyStorage('giftAnswers', { '1': 1 })
+
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: previousStorage,
+    })
+  })
 })

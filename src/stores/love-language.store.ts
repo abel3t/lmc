@@ -1,18 +1,37 @@
 import { create } from 'zustand'
-import { LoveLanguageQuestions } from '@/constant'
+import { LoveLanguageQuestions, type LoveLanguageType } from '@/constant'
 
-type Questions = Record<string, any>
+export type LoveLanguageAnswerState = {
+  type: LoveLanguageType
+  text?: string
+  textMale?: string
+  textFemale?: string
+  mark?: number
+  hasError?: boolean
+}
 
-const buildInitial = (): Questions =>
-  LoveLanguageQuestions.reduce((acc: Questions, current) => {
+export type LoveLanguageQuestionState = {
+  id: number
+  text?: string
+  answers: LoveLanguageAnswerState[]
+  hasError?: boolean
+}
+
+type LoveLanguageQuestionsRecord = Record<string, LoveLanguageQuestionState>
+
+const buildInitial = (): LoveLanguageQuestionsRecord =>
+  LoveLanguageQuestions.reduce<LoveLanguageQuestionsRecord>((acc, current) => {
     acc[current.id] = { ...current }
     return acc
   }, {})
 
 type LoveLanguageStore = {
-  questions: Questions
-  setQuestions: (questions: Questions) => void
-  updateQuestion: (id: number | string, patch: Record<string, any>) => void
+  questions: LoveLanguageQuestionsRecord
+  setQuestions: (questions: LoveLanguageQuestionsRecord) => void
+  updateQuestion: (
+    id: number | string,
+    patch: Partial<LoveLanguageQuestionState>,
+  ) => void
 }
 
 export const useLoveLanguageStore = create<LoveLanguageStore>((set) => ({
