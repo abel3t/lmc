@@ -6,7 +6,13 @@ import {
 
 export const LOVE_LANGUAGE_GROUP_COUNT = 5
 export const LOVE_LANGUAGE_TYPES_PER_GROUP = 5
+/** Max score per type: 5 groups × 5 points (rank 1 → 5 points). */
 export const LOVE_LANGUAGE_MAX_TOTAL_SCORE = 25
+
+/** Rank 1 = most important → 5 points; rank 5 = least → 1 point. */
+export function loveLanguageRankToPoints(rank: number): number {
+  return LOVE_LANGUAGE_TYPES_PER_GROUP + 1 - rank
+}
 
 export type LoveLanguageAnswerInput = {
   type: LoveLanguageType
@@ -60,11 +66,15 @@ export function buildLoveLanguageResultFromQuestions(
 
   for (const question of Object.values(questions)) {
     for (const answer of question.answers) {
-      const mark = answer.mark ?? 0
+      const rank = answer.mark ?? 0
+      const points =
+        rank >= 1 && rank <= LOVE_LANGUAGE_TYPES_PER_GROUP
+          ? loveLanguageRankToPoints(rank)
+          : 0
       const key = String(answer.type)
       result[key] = {
         type: answer.type,
-        mark: (result[key]?.mark ?? 0) + mark,
+        mark: (result[key]?.mark ?? 0) + points,
       }
     }
   }
@@ -103,7 +113,7 @@ export function getExpectedLoveLanguageTypes(): LoveLanguageType[] {
   ]
 }
 
-/** Builds a valid submission where type T gets rank (5 - T) in every group. */
+/** Builds a valid submission where type T gets rank (type + 1) in every group. */
 export function buildSampleLoveLanguageQuestions(): LoveLanguageQuestionsRecord {
   const questions: LoveLanguageQuestionsRecord = {}
 
@@ -112,7 +122,7 @@ export function buildSampleLoveLanguageQuestions(): LoveLanguageQuestionsRecord 
       id: question.id,
       answers: question.answers.map((answer) => ({
         type: answer.type,
-        mark: LOVE_LANGUAGE_TYPES_PER_GROUP - answer.type,
+        mark: answer.type + 1,
       })),
     }
   }

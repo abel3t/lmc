@@ -148,7 +148,7 @@ export const LoveLanguageQuestions = [
   },
 ]
 
-import { giftQuestionsRaw } from '@/data/gift-questions.raw'
+import { giftQuestionsRaw } from '@/data/gift-questions'
 
 export {
   DISC_SCALE_LABELS,

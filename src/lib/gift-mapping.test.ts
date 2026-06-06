@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { GiftTitle, GiftType, giftQuestions } from '@/constant'
-import { giftQuestionsRaw } from '@/data/gift-questions.raw'
+import { giftQuestionsRaw } from '@/data/gift-questions'
 import {
   ADMINISTRATION_QUESTION_IDS,
   EXPECTED_GIFT_TITLES,
@@ -146,7 +146,9 @@ describe('spiritual gift scoring from mapped answers', () => {
     )
 
     const rows = buildGiftMatrixFromScores(scores)
-    const adminRow = rows.find((row) => row.giftType === GiftType.A)!
+    const adminRow = rows.find((row) => row.giftType === GiftType.A)
+    expect(adminRow).toBeDefined()
+    if (!adminRow) return
 
     expect(adminRow.questionIds).toEqual(ADMINISTRATION_QUESTION_IDS)
     expect(adminRow.scores).toEqual([3, 3, 3, 3, 3, 3, 3])
@@ -201,5 +203,37 @@ describe('spiritual gift scoring from mapped answers', () => {
     const { 1: _omitted, ...missingOne } = full
     expect(isGiftSurveyComplete(missingOne)).toBe(false)
     expect(isGiftSurveyComplete({})).toBe(false)
+  })
+
+  test('getGiftBlend returns empty groups for no rows', () => {
+    expect(getGiftBlend([])).toEqual({ primary: [], secondary: [] })
+  })
+
+  test('gift row scores 21 when only its column questions are 3', () => {
+    for (const questionIds of EXPECTED_MATRIX_ROWS) {
+      const scores = Object.fromEntries(
+        giftQuestions.map((question) => [
+          String(question.id),
+          questionIds.includes(question.id) ? 3 : 0,
+        ]),
+      )
+      const row = buildGiftMatrixFromScores(scores).find((candidate) =>
+        candidate.questionIds.every((id, index) => id === questionIds[index]),
+      )
+      expect(row?.total).toBe(21)
+    }
+  })
+
+  test('sum of all row totals equals sum of all answer marks', () => {
+    const scores: GiftAnswers = Object.fromEntries(
+      giftQuestions.map((question) => [String(question.id), question.id % 4]),
+    )
+    const rows = buildGiftMatrixFromScores(scores)
+    const rowSum = rows.reduce((sum, row) => sum + row.total, 0)
+    const answerSum = Object.values(scores).reduce<number>(
+      (sum, mark) => sum + (mark ?? 0),
+      0,
+    )
+    expect(rowSum).toEqual(answerSum)
   })
 })

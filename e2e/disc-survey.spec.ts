@@ -30,9 +30,13 @@ test.describe('DISC survey', () => {
       for (let index = 0; index < 5; index++) {
         await page
           .locator(`input[name="disc-${section}-${index}"][value="5"]`)
-          .evaluate((el) => (el as HTMLInputElement).click())
+          .check({ force: true })
       }
     }
+
+    await expect(
+      page.getByRole('button', { name: 'Xem kết quả' }),
+    ).toBeEnabled()
 
     await page.getByRole('button', { name: 'Xem kết quả' }).click()
     await page.waitForURL(`**${RESULT_URL}`)
@@ -93,6 +97,52 @@ test.describe('DISC result page', () => {
     await page.goto(RESULT_URL)
     await expect(page.getByText('Kết quả DISC của bạn')).toBeVisible()
     await expect(page.getByText('Tổ hợp tính cách của bạn:')).toBeVisible()
+    await expect(page.getByText('D', { exact: true }).first()).toBeVisible()
+  })
+
+  test('shows D profile at 25/25 when only D section scores highest', async ({
+    page,
+  }) => {
+    await page.addInitScript(
+      ({ keys }) => {
+        const sections = [
+          {
+            type: 0,
+            statements: Array.from({ length: 5 }, () => ({ value: 5 })),
+          },
+          {
+            type: 1,
+            statements: Array.from({ length: 5 }, () => ({ value: 1 })),
+          },
+          {
+            type: 2,
+            statements: Array.from({ length: 5 }, () => ({ value: 1 })),
+          },
+          {
+            type: 3,
+            statements: Array.from({ length: 5 }, () => ({ value: 1 })),
+          },
+        ]
+        localStorage.setItem(keys.answers, JSON.stringify(sections))
+
+        const result: Record<string, unknown> = {}
+        sections.forEach((section) => {
+          section.statements.forEach((statement, index) => {
+            result[`${section.type}-${index}`] = {
+              section: section.type,
+              statementIndex: index,
+              value: statement.value,
+            }
+          })
+        })
+        localStorage.setItem(keys.result, JSON.stringify(result))
+      },
+      { keys: STORAGE_KEYS },
+    )
+
+    await page.goto(RESULT_URL)
+    await expect(page.getByText('25/25').first()).toBeVisible()
+    await expect(page.getByText('Cá tính chính')).toBeVisible()
     await expect(page.getByText('D', { exact: true }).first()).toBeVisible()
   })
 })

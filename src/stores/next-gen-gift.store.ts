@@ -9,7 +9,10 @@ export type NextGenGiftQuestionState = {
   hasError?: boolean
 }
 
-type NextGenGiftQuestionsRecord = Record<string, NextGenGiftQuestionState>
+export type NextGenGiftQuestionsRecord = Record<
+  string,
+  NextGenGiftQuestionState
+>
 
 const buildInitial = (): NextGenGiftQuestionsRecord =>
   nextGenGiftQuestions.reduce<NextGenGiftQuestionsRecord>((acc, current) => {

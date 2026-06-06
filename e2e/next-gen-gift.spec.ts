@@ -75,6 +75,13 @@ test.describe('Next Gen Gift survey', () => {
 })
 
 test.describe('Next Gen Gift result page', () => {
+  test('shows empty state when no answers are stored', async ({ page }) => {
+    await page.goto(RESULT_URL)
+    await expect(
+      page.getByText('Chưa có kết quả. Làm khảo sát ngay nhé!'),
+    ).toBeVisible()
+  })
+
   test('renders aggregates from seeded answers', async ({ page }) => {
     await page.addInitScript(
       ({ key, total }) => {

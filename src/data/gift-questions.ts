@@ -1,4 +1,10 @@
-export const giftQuestionsRaw = [
+export type GiftQuestionRaw = {
+  id: number
+  text: string
+  giftIndex: number
+}
+
+export const giftQuestionsRaw: GiftQuestionRaw[] = [
   {
     id: 1,
     text: 'Tôi yêu thích làm việc với con người, tổ chức công việc và các sự kiện.',
@@ -660,4 +666,4 @@ export const giftQuestionsRaw = [
     text: 'Tôi thường có những nhận định giúp giải quyết vấn đề mà người khác chưa nhận ra.',
     giftIndex: 18,
   },
-] as const
+]

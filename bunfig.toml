@@ -1,3 +1,5 @@
 [test]
 root = "src"
 pathIgnorePatterns = ["e2e/**"]
+preload = ["./src/test/setup-dom.ts"]
+coveragePathIgnorePatterns = ["**/routeTree.gen.ts", "**/router.tsx"]

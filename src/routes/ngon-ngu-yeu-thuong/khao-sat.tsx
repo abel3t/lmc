@@ -19,7 +19,10 @@ import {
   isLoveLanguageSurveyComplete,
 } from '@/lib/love-language-scoring'
 import { readSurveyStorage, writeSurveyStorage } from '@/lib/survey-storage'
-import { useLoveLanguageStore } from '@/stores/love-language.store'
+import {
+  type LoveLanguageQuestionsRecord,
+  useLoveLanguageStore,
+} from '@/stores/love-language.store'
 
 export const Route = createFileRoute('/ngon-ngu-yeu-thuong/khao-sat')({
   component: LoveLanguageAssessment,
@@ -36,7 +39,7 @@ function LoveLanguageAssessment() {
   const isSurveyComplete = isLoveLanguageSurveyComplete(questions)
 
   useEffect(() => {
-    const defaultQuestions = readSurveyStorage(
+    const defaultQuestions = readSurveyStorage<LoveLanguageQuestionsRecord>(
       LOVE_LANGUAGE_STORAGE_KEYS.questions,
     )
     if (defaultQuestions) {

@@ -17,7 +17,10 @@ export type LoveLanguageQuestionState = {
   hasError?: boolean
 }
 
-type LoveLanguageQuestionsRecord = Record<string, LoveLanguageQuestionState>
+export type LoveLanguageQuestionsRecord = Record<
+  string,
+  LoveLanguageQuestionState
+>
 
 const buildInitial = (): LoveLanguageQuestionsRecord =>
   LoveLanguageQuestions.reduce<LoveLanguageQuestionsRecord>((acc, current) => {

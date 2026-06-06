@@ -134,3 +134,26 @@ describe('disc-scoring', () => {
     expect(blend.secondary).toHaveLength(0)
   })
 })
+
+describe('disc-scoring edge cases', () => {
+  test('buildDiscResultFromAnswers defaults missing answers to zero', () => {
+    const result = buildDiscResultFromAnswers({ '0-0': 4 })
+    expect(result['0-0']?.value).toBe(4)
+    expect(result['1-0']?.value).toBe(0)
+    expect(Object.keys(result)).toHaveLength(20)
+  })
+
+  test('getDiscBlend returns empty groups for no scores', () => {
+    expect(getDiscBlend([])).toEqual({ primary: [], secondary: [] })
+  })
+
+  test('getDiscProfile includes all tied letters at the maximum score', () => {
+    const scores = [
+      { type: DiscType.D, title: 'D', total: 0 },
+      { type: DiscType.I, title: 'I', total: 0 },
+      { type: DiscType.S, title: 'S', total: 0 },
+      { type: DiscType.C, title: 'C', total: 0 },
+    ]
+    expect(getDiscProfile(scores)).toBe('DISC')
+  })
+})

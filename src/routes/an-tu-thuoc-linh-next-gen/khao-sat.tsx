@@ -21,7 +21,10 @@ import {
 } from '@/lib/next-gen-gift-scoring'
 import { readSurveyStorage, writeSurveyStorage } from '@/lib/survey-storage'
 import { isSurveyAnswered } from '@/lib/survey-validation'
-import { useNextGenGiftStore } from '@/stores/next-gen-gift.store'
+import {
+  type NextGenGiftQuestionsRecord,
+  useNextGenGiftStore,
+} from '@/stores/next-gen-gift.store'
 
 export const Route = createFileRoute('/an-tu-thuoc-linh-next-gen/khao-sat')({
   component: NextGenGiftAssessment,
@@ -62,7 +65,7 @@ function NextGenGiftAssessment() {
   }, [currentPage])
 
   useEffect(() => {
-    const defaultQuestions = readSurveyStorage(
+    const defaultQuestions = readSurveyStorage<NextGenGiftQuestionsRecord>(
       NEXT_GEN_GIFT_STORAGE_KEYS.questions,
     )
     if (defaultQuestions) {

@@ -28,7 +28,9 @@ describe('survey question banks', () => {
 
     test('question ids are sequential 1–66 with matching types', () => {
       for (let index = 0; index < nextGenGiftQuestions.length; index++) {
-        const question = nextGenGiftQuestions[index]!
+        const question = nextGenGiftQuestions[index]
+        expect(question).toBeDefined()
+        if (!question) continue
         expect(question.id).toBe(index + 1)
         expect(question.type).toBe(index % 22)
         expect(question.text.length).toBeGreaterThan(0)
