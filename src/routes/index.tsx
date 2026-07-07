@@ -44,11 +44,8 @@ function Home() {
   return (
     <div className="flex min-h-screen w-full flex-col bg-gray-50">
       <header className="border-b border-gray-200 bg-white px-4 py-6 text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-500">
-          Công Cụ Khảo Sát
-        </p>
         <h1 className="mt-1 text-xl font-bold text-gray-900 sm:text-2xl">
-          Website khảo sát
+          Công cụ khảo sát
         </h1>
       </header>
 
