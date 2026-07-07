@@ -9,19 +9,10 @@ type GiftResultPanelProps = {
   rows: GiftScoreRow[]
 }
 
-function giftProfileLabel(rows: GiftScoreRow[], maxTotal: number): string {
-  if (maxTotal <= 0) return '—'
-  return sortGiftRowsByScore(rows)
-    .filter((row) => row.total === maxTotal)
-    .map((row) => row.giftTitle)
-    .join(' · ')
-}
-
 export function GiftResultPanel({ rows }: GiftResultPanelProps) {
   const ranked = sortGiftRowsByScore(rows)
   const maxTotal = ranked[0]?.total ?? 0
   const blend = getGiftBlend(rows)
-  const profile = giftProfileLabel(rows, maxTotal)
   const primaryScore = blend.primary[0]?.total ?? 0
   const secondaryScore = blend.secondary[0]?.total ?? 0
 
@@ -71,15 +62,8 @@ export function GiftResultPanel({ rows }: GiftResultPanelProps) {
         </div>
       </div>
 
-      <p className="text-center text-sm text-gray-600">
-        Tổ hợp ân tứ nổi bật:{' '}
-        <span className="font-semibold text-orange-700">{profile}</span>
-      </p>
-
       <div className="space-y-3">
-        <h3 className="font-semibold">
-          Biểu đồ điểm số (trên {GIFT_MAX_SCORE})
-        </h3>
+        <h3 className="font-semibold">Kết quả khảo sát</h3>
         {ranked.map((row) => {
           const percent = Math.round((row.total / GIFT_MAX_SCORE) * 100)
           const isTop = row.total === maxTotal && maxTotal > 0

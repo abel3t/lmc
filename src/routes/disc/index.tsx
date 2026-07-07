@@ -8,7 +8,6 @@ import {
   DISC_MAX_SECTION_SCORE,
   type DiscResultRecord,
   getDiscBlend,
-  getDiscProfile,
 } from '@/lib/disc-scoring'
 import { readSurveyStorage } from '@/lib/survey-storage'
 import { printWithoutBrowserHeader } from '@/lib/utils'
@@ -36,7 +35,6 @@ function DiscResults() {
   }, [])
 
   const sectionScores = result ? aggregateDiscScores(result) : []
-  const profile = result ? getDiscProfile(sectionScores) : ''
   const maxTotal = sectionScores.length
     ? Math.max(...sectionScores.map((s) => s.total))
     : 0
@@ -113,17 +111,8 @@ function DiscResults() {
             </div>
           </div>
 
-          <p className="text-center text-sm text-gray-600">
-            Tổ hợp tính cách của bạn:{' '}
-            <span className="font-semibold text-emerald-700">
-              {profile || '—'}
-            </span>
-          </p>
-
           <div className="space-y-3">
-            <h3 className="font-semibold">
-              Biểu đồ điểm số (trên {DISC_MAX_SECTION_SCORE})
-            </h3>
+            <h3 className="font-semibold">Kết quả khảo sát</h3>
             {sectionScores.map((section) => {
               const percent = Math.round(
                 (section.total / DISC_MAX_SECTION_SCORE) * 100,

@@ -16,7 +16,7 @@ const surveys = [
   },
   {
     to: '/an-tu-thuoc-linh-next-gen',
-    title: 'Ân tứ thuộc linh (Next Gen)',
+    title: 'Ân tứ thuộc linh (Thiếu niên)',
     subtitle: 'Dành cho thiếu niên',
     description: '66 câu hỏi · 22 nhóm ân tứ',
     accent: 'border-l-orange-400',
@@ -45,7 +45,7 @@ function Home() {
     <div className="flex min-h-screen w-full flex-col bg-gray-50">
       <header className="border-b border-gray-200 bg-white px-4 py-6 text-center">
         <p className="text-xs font-semibold uppercase tracking-widest text-gray-500">
-          Môn Kỹ Năng Mục Vụ
+          Công Cụ Khảo Sát
         </p>
         <h1 className="mt-1 text-xl font-bold text-gray-900 sm:text-2xl">
           Website khảo sát
@@ -83,7 +83,7 @@ function Home() {
       </main>
 
       <footer className="border-t border-gray-200 bg-white px-4 py-4 text-center text-xs text-gray-500">
-        Kỹ Năng Mục Vụ · Khảo sát trực tuyến
+        Công Cụ Khảo Sát · Khảo sát trực tuyến
       </footer>
     </div>
   )

@@ -50,10 +50,10 @@ export const GIFT_SCALE_LABELS = [
 ] as const
 
 export const NEXT_GEN_GIFT_SCALE_LABELS = [
-  { value: 0, label: 'Không giống em' },
-  { value: 1, label: 'Hơi giống' },
-  { value: 2, label: 'Khá giống' },
-  { value: 3, label: 'Rất giống em' },
+  { value: 0, label: 'Không đúng' },
+  { value: 1, label: 'Thỉnh thoảng' },
+  { value: 2, label: 'Thường đúng' },
+  { value: 3, label: 'Luôn đúng' },
 ] as const
 
 export const GIFT_STORAGE_KEYS = {

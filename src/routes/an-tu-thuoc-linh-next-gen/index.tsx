@@ -1,26 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
+import { NextGenGiftResultPanel } from '@/components/NextGenGiftResultPanel'
 import { SurveyResultLayout } from '@/components/SurveyResultLayout'
 import { Skeleton } from '@/components/ui/skeleton'
+import { NEXT_GEN_GIFT_STORAGE_KEYS } from '@/constant'
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
-import {
-  NEXT_GEN_GIFT_STORAGE_KEYS,
-  NextGenGiftTitle,
-  type NextGenGiftType,
-} from '@/constant'
-import {
-  aggregateNextGenGiftScores,
-  type NextGenGiftAggregate,
+  buildNextGenGiftMatrixRows,
   type NextGenGiftResultRecord,
+  type NextGenGiftScoreRow,
 } from '@/lib/next-gen-gift-scoring'
 import { readSurveyStorage } from '@/lib/survey-storage'
+import { printWithoutBrowserHeader } from '@/lib/utils'
 
 export const Route = createFileRoute('/an-tu-thuoc-linh-next-gen/')({
   component: NextGenGiftTab,
@@ -28,7 +18,9 @@ export const Route = createFileRoute('/an-tu-thuoc-linh-next-gen/')({
 
 function NextGenGiftTab() {
   const [isLoaded, setIsLoaded] = useState(false)
-  const [result, setResult] = useState<NextGenGiftAggregate[] | null>(null)
+  const [matrixRows, setMatrixRows] = useState<NextGenGiftScoreRow[] | null>(
+    null,
+  )
 
   useEffect(() => {
     const storageResult = readSurveyStorage<NextGenGiftResultRecord>(
@@ -36,67 +28,50 @@ function NextGenGiftTab() {
     )
 
     if (storageResult && Object.keys(storageResult).length > 0) {
-      setResult(aggregateNextGenGiftScores(storageResult))
+      setMatrixRows(buildNextGenGiftMatrixRows(storageResult))
     }
 
     setIsLoaded(true)
   }, [])
 
+  const handlePrint = () => printWithoutBrowserHeader()
+
   return (
     <SurveyResultLayout
       surveyTo="/an-tu-thuoc-linh-next-gen/khao-sat"
-      hasResult={!!result}
+      hasResult={!!matrixRows}
       tone="orange"
     >
       {!isLoaded && (
         <div className="mb-3 space-y-2">
           <Skeleton height={20} className="w-full" />
-          <Skeleton height={50} className="w-full" />
-          <Skeleton height={150} className="w-full" />
+          <Skeleton height={80} className="w-full" />
+          <Skeleton height={120} className="w-full" />
         </div>
       )}
 
-      {isLoaded && !result && (
+      {isLoaded && !matrixRows && (
         <div className="mb-5">Chưa có kết quả. Làm khảo sát ngay nhé!</div>
       )}
 
-      {isLoaded && result && (
-        <div>
-          <p className="mb-5 font-bold">Kết quả của bạn</p>
-          <NextGenGiftResultTable result={result} />
+      {isLoaded && matrixRows && (
+        <div className="space-y-8 [print-color-adjust:exact]">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-xl font-bold sm:text-2xl">
+              Kết quả ân tứ thuộc linh của em
+            </h2>
+            <button
+              type="button"
+              onClick={handlePrint}
+              className="rounded-md bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600 print:hidden"
+            >
+              In kết quả
+            </button>
+          </div>
+
+          <NextGenGiftResultPanel rows={matrixRows} />
         </div>
       )}
     </SurveyResultLayout>
-  )
-}
-
-function NextGenGiftResultTable({
-  result,
-}: {
-  result: NextGenGiftAggregate[]
-}) {
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>ID</TableHead>
-          <TableHead>Tên ân tứ</TableHead>
-          <TableHead>Điểm</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {[...result]
-          .sort((a, b) => b.mark - a.mark)
-          .map((row, index) => (
-            <TableRow key={row.type} className="odd:bg-gray-50">
-              <TableCell>{index + 1}</TableCell>
-              <TableCell>
-                {NextGenGiftTitle[row.type as NextGenGiftType]}
-              </TableCell>
-              <TableCell>{row.mark}</TableCell>
-            </TableRow>
-          ))}
-      </TableBody>
-    </Table>
   )
 }

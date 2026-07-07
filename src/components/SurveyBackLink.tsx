@@ -9,7 +9,7 @@ type SurveyBackLinkProps = {
 
 export function SurveyBackLink({
   to,
-  label = 'Quay về',
+  label = 'Quay lại',
   className = '',
 }: SurveyBackLinkProps) {
   return (

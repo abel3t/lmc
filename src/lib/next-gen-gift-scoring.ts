@@ -72,3 +72,63 @@ export function getNextGenQuestionIdsForType(
     .filter((question) => question.type === giftType)
     .map((question) => question.id)
 }
+
+export type NextGenGiftScoreRow = {
+  giftType: NextGenGiftType
+  giftTitle: string
+  questionIds: number[]
+  scores: number[]
+  total: number
+}
+
+export function buildNextGenGiftMatrixRows(
+  result: NextGenGiftResultRecord,
+): NextGenGiftScoreRow[] {
+  const scoresById = new Map<number, number>()
+  for (const [id, entry] of Object.entries(result)) {
+    scoresById.set(Number(id), entry.mark)
+  }
+
+  return Array.from({ length: NEXT_GEN_GIFT_CATEGORY_COUNT }, (_, index) => {
+    const giftType = index as NextGenGiftType
+    const questionIds = getNextGenQuestionIdsForType(giftType)
+    const scores = questionIds.map((id) => scoresById.get(id) ?? 0)
+    const total = scores.reduce((sum, score) => sum + score, 0)
+
+    return {
+      giftType,
+      giftTitle: NextGenGiftTitle[giftType],
+      questionIds,
+      scores,
+      total,
+    }
+  })
+}
+
+export function sortNextGenGiftRowsByScore(
+  rows: NextGenGiftScoreRow[],
+): NextGenGiftScoreRow[] {
+  return [...rows].sort((a, b) => b.total - a.total || a.giftType - b.giftType)
+}
+
+export type NextGenGiftBlend = {
+  primary: NextGenGiftScoreRow[]
+  secondary: NextGenGiftScoreRow[]
+}
+
+/** Splits ranked rows into top-scoring (primary) and next-tier (secondary) groups. */
+export function getNextGenGiftBlend(
+  rows: NextGenGiftScoreRow[],
+): NextGenGiftBlend {
+  const ranked = sortNextGenGiftRowsByScore(rows)
+  if (ranked.length === 0) return { primary: [], secondary: [] }
+
+  const primaryScore = ranked[0]?.total ?? 0
+  const primary = ranked.filter((row) => row.total === primaryScore)
+  const lower = ranked.filter((row) => row.total < primaryScore)
+  if (lower.length === 0) return { primary, secondary: [] }
+
+  const secondaryScore = lower[0]?.total ?? 0
+  const secondary = lower.filter((row) => row.total === secondaryScore)
+  return { primary, secondary }
+}

@@ -16,7 +16,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'initial-scale=1, width=device-width' },
-      { title: 'Kỹ Năng Mục Vụ' },
+      { title: 'Công Cụ Khảo Sát' },
     ],
   }),
   component: RootComponent,
@@ -33,7 +33,7 @@ function NotFound() {
         Không tìm thấy trang
       </h1>
       <p className="mt-2 max-w-md text-sm text-gray-600 sm:text-base">
-        Đường dẫn này không tồn tại. Quay về trang chủ để chọn khảo sát.
+        Đường dẫn này không tồn tại. Quay lại trang chủ để chọn khảo sát.
       </p>
       <Link
         to="/"

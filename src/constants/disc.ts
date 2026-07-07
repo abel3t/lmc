@@ -21,7 +21,7 @@ export const discSections = [
       'Tôi là người quyết đoán, mạnh mẽ và dứt khoát.',
       'Tôi phát huy tốt trong môi trường nhiều thử thách.',
       'Tôi tập trung vào công việc hơn là cảm xúc con người.',
-      'Những từ như “mạnh mẽ” và “táo bạo” mô tả đúng về tôi.',
+      'Những từ như “mạnh mẽ” và “gan dạ” mô tả đúng về tôi.',
       'Tôi được thúc đẩy bởi thành tựu và thẩm quyền lãnh đạo.',
     ],
   },

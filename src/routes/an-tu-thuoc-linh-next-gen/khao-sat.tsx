@@ -143,7 +143,7 @@ function NextGenGiftAssessment() {
         <div className="space-y-3 p-4 text-sm sm:p-5">
           <p>
             Em hãy đọc từng nhận định và chọn mức độ{' '}
-            <span className="font-medium">giống với em</span> theo thang bên
+            <span className="font-medium">đúng với em</span> theo thang bên
             dưới.
           </p>
           <SurveyScaleLegend
