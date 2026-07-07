@@ -63,7 +63,7 @@ function DiscResults() {
       )}
 
       {isLoaded && result && (
-        <div className="space-y-8 [print-color-adjust:exact]">
+        <div className="disc-result-print space-y-8 [print-color-adjust:exact]">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-xl font-bold sm:text-2xl">
               Kết quả DISC của bạn

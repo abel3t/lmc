@@ -55,8 +55,10 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 100% !important;
   }
 
-  /* Isolate print content and break out of narrow page containers */
-  body * {
+  /* Isolate print content and break out of narrow page containers.
+     Scoped to pages with a .gift-result-print element — other survey
+     result pages print their normal on-screen content as-is. */
+  :where(body:has(.gift-result-print)) * {
     visibility: hidden;
   }
 
@@ -106,5 +108,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
   .gift-result-print thead {
     display: table-header-group;
+  }
+
+  /* Shrink the DISC result page so it fits on a single printed sheet. */
+  .disc-result-print {
+    zoom: 0.9;
   }
 }
