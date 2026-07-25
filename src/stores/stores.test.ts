@@ -122,9 +122,9 @@ describe('next gen gift store', () => {
     useNextGenGiftStore.setState({ questions: reset })
   })
 
-  test('initializes all 66 questions', () => {
+  test('initializes all 57 questions', () => {
     expect(Object.keys(useNextGenGiftStore.getState().questions)).toHaveLength(
-      66,
+      57,
     )
   })
 

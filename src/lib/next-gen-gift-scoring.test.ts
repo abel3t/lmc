@@ -11,14 +11,14 @@ import {
 } from '@/lib/next-gen-gift-scoring'
 
 describe('next-gen-gift-scoring', () => {
-  test('aggregates 66 answers into 22 gift types with max 9 each', () => {
+  test('aggregates 57 answers into 19 gift types with max 9 each', () => {
     const answers = Object.fromEntries(
       nextGenGiftQuestions.map((question) => [String(question.id), 3]),
     )
     const result = buildNextGenGiftResultFromAnswers(answers)
     const aggregates = aggregateNextGenGiftScores(result)
 
-    expect(Object.keys(result)).toHaveLength(66)
+    expect(Object.keys(result)).toHaveLength(57)
     expect(aggregates).toHaveLength(NEXT_GEN_GIFT_CATEGORY_COUNT)
     expect(
       aggregates.every((row) => row.mark === NEXT_GEN_GIFT_MAX_SCORE),
@@ -30,7 +30,7 @@ describe('next-gen-gift-scoring', () => {
     for (const type of [
       NextGenGiftType.A,
       NextGenGiftType.B,
-      NextGenGiftType.V,
+      NextGenGiftType.S,
     ]) {
       const ids = getNextGenQuestionIdsForType(type)
       answers[String(ids[0])] = 3
@@ -43,20 +43,20 @@ describe('next-gen-gift-scoring', () => {
     )
     const typeA = aggregates.find((row) => row.type === NextGenGiftType.A)
     const typeB = aggregates.find((row) => row.type === NextGenGiftType.B)
-    const typeV = aggregates.find((row) => row.type === NextGenGiftType.V)
+    const typeS = aggregates.find((row) => row.type === NextGenGiftType.S)
 
     expect(typeA?.mark).toBe(6)
     expect(typeB?.mark).toBe(6)
-    expect(typeV?.mark).toBe(6)
+    expect(typeS?.mark).toBe(6)
   })
 
   test('preserves gift type on each answer entry', () => {
-    const answers = { '1': 2, '23': 1, '45': 0 }
+    const answers = { '1': 2, '20': 1, '39': 0 }
     const result = buildNextGenGiftResultFromAnswers(answers)
 
     expect(result['1']).toEqual({ type: NextGenGiftType.A, mark: 2 })
-    expect(result['23']).toEqual({ type: NextGenGiftType.A, mark: 1 })
-    expect(result['45']).toEqual({ type: NextGenGiftType.A, mark: 0 })
+    expect(result['20']).toEqual({ type: NextGenGiftType.A, mark: 1 })
+    expect(result['39']).toEqual({ type: NextGenGiftType.A, mark: 0 })
   })
 
   test('isNextGenGiftSurveyComplete requires every question (0 is valid)', () => {

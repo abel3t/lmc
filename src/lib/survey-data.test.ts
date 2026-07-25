@@ -12,11 +12,11 @@ import { getNextGenQuestionIdsForType } from '@/lib/next-gen-gift-scoring'
 describe('survey question banks', () => {
   // Spiritual gift mapping (133 × 19 matrix) is fully covered in gift-mapping.test.ts
 
-  describe('next gen gift (66 questions, 22 categories)', () => {
-    test('has 3 questions per gift type A–V', () => {
-      expect(nextGenGiftQuestions).toHaveLength(66)
+  describe('next gen gift (57 questions, 19 categories)', () => {
+    test('has 3 questions per gift type A–S', () => {
+      expect(nextGenGiftQuestions).toHaveLength(57)
 
-      for (let type = 0; type < 22; type++) {
+      for (let type = 0; type < 19; type++) {
         const ids = getNextGenQuestionIdsForType(type as NextGenGiftType)
         expect(ids).toHaveLength(3)
         for (const id of ids) {
@@ -26,13 +26,13 @@ describe('survey question banks', () => {
       }
     })
 
-    test('question ids are sequential 1–66 with matching types', () => {
+    test('question ids are sequential 1–57 with matching types', () => {
       for (let index = 0; index < nextGenGiftQuestions.length; index++) {
         const question = nextGenGiftQuestions[index]
         expect(question).toBeDefined()
         if (!question) continue
         expect(question.id).toBe(index + 1)
-        expect(question.type).toBe(index % 22)
+        expect(question.type).toBe(index % 19)
         expect(question.text.length).toBeGreaterThan(0)
       }
     })

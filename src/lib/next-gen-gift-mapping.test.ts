@@ -10,9 +10,9 @@ import {
   NEXT_GEN_QUESTIONS_PER_GIFT,
 } from '@/lib/next-gen-gift-scoring'
 
-describe('next gen gift mapping (66 × 22 matrix)', () => {
-  test('has 66 sequential ids with type = (id - 1) % 22', () => {
-    expect(nextGenGiftQuestions).toHaveLength(66)
+describe('next gen gift mapping (57 × 19 matrix)', () => {
+  test('has 57 sequential ids with type = (id - 1) % 19', () => {
+    expect(nextGenGiftQuestions).toHaveLength(57)
 
     for (let index = 0; index < nextGenGiftQuestions.length; index++) {
       const question = nextGenGiftQuestions[index]
@@ -39,10 +39,10 @@ describe('next gen gift mapping (66 × 22 matrix)', () => {
       }
     }
 
-    expect(seen.size).toBe(66)
+    expect(seen.size).toBe(57)
   })
 
-  test('question ids for each type follow stride 22', () => {
+  test('question ids for each type follow stride 19', () => {
     for (let type = 0; type < NEXT_GEN_GIFT_CATEGORY_COUNT; type++) {
       const ids = getNextGenQuestionIdsForType(type)
       expect(ids).toEqual([
@@ -53,7 +53,7 @@ describe('next gen gift mapping (66 × 22 matrix)', () => {
     }
   })
 
-  test('titles cover all 22 gift types', () => {
+  test('titles cover all 19 gift types', () => {
     for (let type = 0; type < NEXT_GEN_GIFT_CATEGORY_COUNT; type++) {
       expect(
         NextGenGiftTitle[type as keyof typeof NextGenGiftTitle].length,
