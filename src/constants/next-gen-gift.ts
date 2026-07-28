@@ -1,4 +1,4 @@
 export const NEXT_GEN_GIFT_STORAGE_KEYS = {
-  questions: 'nextGenGiftQuestions',
-  result: 'nextGenGiftResult',
+  questions: 'nextGenGiftQuestionsV2',
+  result: 'nextGenGiftResultV2',
 } as const

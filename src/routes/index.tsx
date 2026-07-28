@@ -18,7 +18,7 @@ const surveys = [
     to: '/an-tu-thuoc-linh-next-gen',
     title: 'Ân tứ thuộc linh (Thiếu niên)',
     subtitle: 'Dành cho thiếu niên',
-    description: '66 câu hỏi · 22 nhóm ân tứ',
+    description: '57 câu hỏi · 19 nhóm ân tứ',
     accent: 'border-l-orange-400',
     hover: 'hover:border-orange-300 hover:bg-orange-50/50',
   },
