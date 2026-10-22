@@ -1,16 +1,33 @@
 import { describe, expect, test } from 'bun:test'
-import { LoveLanguageType } from '@/constant'
+import { LoveLanguageQuestions, LoveLanguageType } from '@/constant'
 import {
   aggregateLoveLanguageScores,
   buildLoveLanguageResultFromQuestions,
-  buildSampleLoveLanguageQuestions,
-  getExpectedLoveLanguageTypes,
   isLoveLanguageGroupValid,
   isLoveLanguageRank,
   isLoveLanguageSurveyComplete,
   LOVE_LANGUAGE_GROUP_COUNT,
   LOVE_LANGUAGE_MAX_TOTAL_SCORE,
+  LOVE_LANGUAGE_TYPES_PER_GROUP,
+  type LoveLanguageQuestionsRecord,
 } from '@/lib/love-language-scoring'
+
+/** Builds a valid submission where type T gets mark (5 - type) in every group. */
+function buildSampleLoveLanguageQuestions(): LoveLanguageQuestionsRecord {
+  const questions: LoveLanguageQuestionsRecord = {}
+
+  for (const question of LoveLanguageQuestions) {
+    questions[String(question.id)] = {
+      id: question.id,
+      answers: question.answers.map((answer) => ({
+        type: answer.type,
+        mark: LOVE_LANGUAGE_TYPES_PER_GROUP - answer.type,
+      })),
+    }
+  }
+
+  return questions
+}
 
 describe('love-language-scoring', () => {
   test('validates whole-number marks 1–5 only', () => {
@@ -127,16 +144,6 @@ describe('love-language-scoring', () => {
     }
     expect(isLoveLanguageSurveyComplete(invalid)).toBe(false)
     expect(Object.keys(invalid)).toHaveLength(LOVE_LANGUAGE_GROUP_COUNT)
-  })
-
-  test('getExpectedLoveLanguageTypes lists A through E', () => {
-    expect(getExpectedLoveLanguageTypes()).toEqual([
-      LoveLanguageType.A,
-      LoveLanguageType.B,
-      LoveLanguageType.C,
-      LoveLanguageType.D,
-      LoveLanguageType.E,
-    ])
   })
 
   test('sum of all type totals equals sum of marks', () => {

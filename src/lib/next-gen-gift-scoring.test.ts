@@ -1,13 +1,14 @@
 import { describe, expect, test } from 'bun:test'
 import { NextGenGiftType, nextGenGiftQuestions } from '@/constant'
 import {
-  aggregateNextGenGiftScores,
+  buildNextGenGiftMatrixRows,
   buildNextGenGiftResultFromAnswers,
   getNextGenQuestionIdsForType,
   isNextGenGiftSurveyComplete,
   NEXT_GEN_GIFT_CATEGORY_COUNT,
   NEXT_GEN_GIFT_MAX_SCORE,
   NEXT_GEN_QUESTIONS_PER_GIFT,
+  sortNextGenGiftRowsByScore,
 } from '@/lib/next-gen-gift-scoring'
 
 describe('next-gen-gift-scoring', () => {
@@ -16,12 +17,14 @@ describe('next-gen-gift-scoring', () => {
       nextGenGiftQuestions.map((question) => [String(question.id), 3]),
     )
     const result = buildNextGenGiftResultFromAnswers(answers)
-    const aggregates = aggregateNextGenGiftScores(result)
+    const aggregates = sortNextGenGiftRowsByScore(
+      buildNextGenGiftMatrixRows(result),
+    )
 
     expect(Object.keys(result)).toHaveLength(57)
     expect(aggregates).toHaveLength(NEXT_GEN_GIFT_CATEGORY_COUNT)
     expect(
-      aggregates.every((row) => row.mark === NEXT_GEN_GIFT_MAX_SCORE),
+      aggregates.every((row) => row.total === NEXT_GEN_GIFT_MAX_SCORE),
     ).toBe(true)
   })
 
@@ -38,16 +41,16 @@ describe('next-gen-gift-scoring', () => {
       answers[String(ids[2])] = 1
     }
 
-    const aggregates = aggregateNextGenGiftScores(
-      buildNextGenGiftResultFromAnswers(answers),
+    const aggregates = sortNextGenGiftRowsByScore(
+      buildNextGenGiftMatrixRows(buildNextGenGiftResultFromAnswers(answers)),
     )
-    const typeA = aggregates.find((row) => row.type === NextGenGiftType.A)
-    const typeB = aggregates.find((row) => row.type === NextGenGiftType.B)
-    const typeS = aggregates.find((row) => row.type === NextGenGiftType.S)
+    const typeA = aggregates.find((row) => row.giftType === NextGenGiftType.A)
+    const typeB = aggregates.find((row) => row.giftType === NextGenGiftType.B)
+    const typeS = aggregates.find((row) => row.giftType === NextGenGiftType.S)
 
-    expect(typeA?.mark).toBe(6)
-    expect(typeB?.mark).toBe(6)
-    expect(typeS?.mark).toBe(6)
+    expect(typeA?.total).toBe(6)
+    expect(typeB?.total).toBe(6)
+    expect(typeS?.total).toBe(6)
   })
 
   test('preserves gift type on each answer entry', () => {

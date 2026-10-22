@@ -13,7 +13,6 @@ import {
   GIFT_MAX_SCORE,
   type GiftAnswers,
   getGiftBlend,
-  getGiftIndexForQuestion,
   getQuestionIdsForGift,
   isGiftSurveyComplete,
   QUESTIONS_PER_GIFT,
@@ -41,12 +40,6 @@ describe('spiritual gift question mapping (133 × 19 matrix)', () => {
       const question = giftQuestionsRaw.find((item) => item.id === id)
       expect(question).toBeDefined()
       expect(question?.text.trim().length).toBeGreaterThan(10)
-    }
-  })
-
-  test('assigns each question id to matrix column (id - 1) % 19', () => {
-    for (let id = 1; id <= 133; id++) {
-      expect(getGiftIndexForQuestion(id)).toBe((id - 1) % GIFT_CATEGORY_COUNT)
     }
   })
 

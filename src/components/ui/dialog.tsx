@@ -3,8 +3,6 @@ import type { ComponentProps } from 'react'
 import { cn } from '@/lib/utils'
 
 export const Dialog = BaseDialog.Root
-export const DialogTrigger = BaseDialog.Trigger
-export const DialogClose = BaseDialog.Close
 
 export function DialogContent({
   className,

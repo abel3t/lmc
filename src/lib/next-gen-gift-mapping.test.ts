@@ -1,13 +1,14 @@
 import { describe, expect, test } from 'bun:test'
 import { NextGenGiftTitle, nextGenGiftQuestions } from '@/constant'
 import {
-  aggregateNextGenGiftScores,
+  buildNextGenGiftMatrixRows,
   buildNextGenGiftResultFromAnswers,
   getNextGenQuestionIdsForType,
   isNextGenGiftSurveyComplete,
   NEXT_GEN_GIFT_CATEGORY_COUNT,
   NEXT_GEN_GIFT_MAX_SCORE,
   NEXT_GEN_QUESTIONS_PER_GIFT,
+  sortNextGenGiftRowsByScore,
 } from '@/lib/next-gen-gift-scoring'
 
 describe('next gen gift mapping (57 × 19 matrix)', () => {
@@ -71,12 +72,12 @@ describe('next gen gift mapping (57 × 19 matrix)', () => {
       ]),
     )
 
-    const aggregates = aggregateNextGenGiftScores(
-      buildNextGenGiftResultFromAnswers(answers),
+    const aggregates = sortNextGenGiftRowsByScore(
+      buildNextGenGiftMatrixRows(buildNextGenGiftResultFromAnswers(answers)),
     )
 
-    expect(aggregates[0]?.type).toBe(targetType)
-    expect(aggregates[0]?.mark).toBe(NEXT_GEN_GIFT_MAX_SCORE)
+    expect(aggregates[0]?.giftType).toBe(targetType)
+    expect(aggregates[0]?.total).toBe(NEXT_GEN_GIFT_MAX_SCORE)
     expect(isNextGenGiftSurveyComplete(answers)).toBe(true)
   })
 
@@ -88,9 +89,11 @@ describe('next gen gift mapping (57 × 19 matrix)', () => {
       ]),
     )
     const result = buildNextGenGiftResultFromAnswers(answers)
-    const aggregates = aggregateNextGenGiftScores(result)
+    const aggregates = sortNextGenGiftRowsByScore(
+      buildNextGenGiftMatrixRows(result),
+    )
 
-    const typeSum = aggregates.reduce((sum, row) => sum + row.mark, 0)
+    const typeSum = aggregates.reduce((sum, row) => sum + row.total, 0)
     const answerSum = Object.values(result).reduce(
       (sum, entry) => sum + entry.mark,
       0,

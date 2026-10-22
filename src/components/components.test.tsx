@@ -8,7 +8,7 @@ import { LikertRating } from '@/components/LikertRating'
 import { SurveyPageShell } from '@/components/SurveyPageShell'
 import { SurveyScaleLegend } from '@/components/SurveyScaleLegend'
 import { SurveyTitleBar } from '@/components/SurveyTitleBar'
-import { Button, ButtonLink, buttonClass } from '@/components/ui/button'
+import { Button, buttonClass } from '@/components/ui/button'
 import { GiftType } from '@/constants/gift'
 import {
   buildGiftMatrixFromScores,
@@ -32,17 +32,6 @@ describe('UI components', () => {
   test('Button renders with tone class', () => {
     render(<Button tone="green">Submit</Button>)
     expect(screen.getByRole('button', { name: 'Submit' })).toBeTruthy()
-  })
-
-  test('ButtonLink renders anchor with tone class', () => {
-    render(
-      <ButtonLink tone="rose" href="/test">
-        Link
-      </ButtonLink>,
-    )
-    const link = screen.getByRole('link', { name: 'Link' })
-    expect(link.getAttribute('href')).toBe('/test')
-    expect(link.className).toContain('bg-rose-600')
   })
 
   test('SurveyTitleBar renders title with tone', () => {

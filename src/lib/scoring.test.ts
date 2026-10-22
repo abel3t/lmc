@@ -5,13 +5,8 @@ import {
   buildDiscResultFromAnswers,
   DISC_MAX_SECTION_SCORE,
   getDiscBlend,
-  getDiscProfile,
 } from '@/lib/disc-scoring'
-import {
-  isDiscScore,
-  isGiftScore,
-  isSurveyAnswered,
-} from '@/lib/survey-validation'
+import { isSurveyAnswered } from '@/lib/survey-validation'
 
 describe('survey-validation', () => {
   test('treats 0 as a valid gift answer', () => {
@@ -19,20 +14,6 @@ describe('survey-validation', () => {
     expect(isSurveyAnswered(undefined)).toBe(false)
     expect(isSurveyAnswered(null)).toBe(false)
     expect(isSurveyAnswered('')).toBe(false)
-  })
-
-  test('validates score ranges for every allowed value', () => {
-    for (const value of [0, 1, 2, 3]) {
-      expect(isGiftScore(value)).toBe(true)
-    }
-    expect(isGiftScore(-1)).toBe(false)
-    expect(isGiftScore(4)).toBe(false)
-
-    for (const value of [1, 2, 3, 4, 5]) {
-      expect(isDiscScore(value)).toBe(true)
-    }
-    expect(isDiscScore(0)).toBe(false)
-    expect(isDiscScore(6)).toBe(false)
   })
 })
 
@@ -83,7 +64,6 @@ describe('disc-scoring', () => {
     expect(scores.find((row) => row.type === DiscType.D)?.total).toBe(
       DISC_MAX_SECTION_SCORE,
     )
-    expect(getDiscProfile(scores)).toBe('D')
   })
 
   test('each section can reach the documented max score of 25', () => {
@@ -95,17 +75,6 @@ describe('disc-scoring', () => {
       const scores = aggregateDiscScores(buildDiscResultFromAnswers(answers))
       expect(scores.find((row) => row.type === section.type)?.total).toBe(25)
     }
-  })
-
-  test('includes tied letters in profile result', () => {
-    const scores = [
-      { type: DiscType.D, title: 'D', total: 20 },
-      { type: DiscType.I, title: 'I', total: 20 },
-      { type: DiscType.S, title: 'S', total: 10 },
-      { type: DiscType.C, title: 'C', total: 5 },
-    ]
-
-    expect(getDiscProfile(scores)).toBe('DI')
   })
 
   test('getDiscBlend splits primary and secondary (minor) character', () => {
@@ -145,15 +114,5 @@ describe('disc-scoring edge cases', () => {
 
   test('getDiscBlend returns empty groups for no scores', () => {
     expect(getDiscBlend([])).toEqual({ primary: [], secondary: [] })
-  })
-
-  test('getDiscProfile includes all tied letters at the maximum score', () => {
-    const scores = [
-      { type: DiscType.D, title: 'D', total: 0 },
-      { type: DiscType.I, title: 'I', total: 0 },
-      { type: DiscType.S, title: 'S', total: 0 },
-      { type: DiscType.C, title: 'C', total: 0 },
-    ]
-    expect(getDiscProfile(scores)).toBe('DISC')
   })
 })

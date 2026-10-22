@@ -6,7 +6,6 @@ import {
   nextGenGiftQuestions,
 } from '@/constant'
 import { discSections } from '@/constants/disc'
-import { getExpectedLoveLanguageTypes } from '@/lib/love-language-scoring'
 import { getNextGenQuestionIdsForType } from '@/lib/next-gen-gift-scoring'
 
 describe('survey question banks', () => {
@@ -53,7 +52,13 @@ describe('survey question banks', () => {
 
   describe('love languages (5 groups, 5 types each)', () => {
     test('each group lists all five love language types once', () => {
-      const expectedTypes = getExpectedLoveLanguageTypes()
+      const expectedTypes = [
+        LoveLanguageType.A,
+        LoveLanguageType.B,
+        LoveLanguageType.C,
+        LoveLanguageType.D,
+        LoveLanguageType.E,
+      ]
       expect(LoveLanguageQuestions).toHaveLength(5)
 
       for (const group of LoveLanguageQuestions) {

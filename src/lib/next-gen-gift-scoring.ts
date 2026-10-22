@@ -15,12 +15,6 @@ export type NextGenGiftAnswerEntry = {
 
 export type NextGenGiftResultRecord = Record<string, NextGenGiftAnswerEntry>
 
-export type NextGenGiftAggregate = {
-  type: NextGenGiftType
-  title: string
-  mark: number
-}
-
 export type NextGenGiftAnswers = Record<string, number | undefined>
 
 export function buildNextGenGiftResultFromAnswers(
@@ -37,24 +31,6 @@ export function buildNextGenGiftResultFromAnswers(
   }
 
   return result
-}
-
-export function aggregateNextGenGiftScores(
-  result: NextGenGiftResultRecord,
-): NextGenGiftAggregate[] {
-  const totals = new Map<NextGenGiftType, number>()
-
-  for (const entry of Object.values(result)) {
-    totals.set(entry.type, (totals.get(entry.type) ?? 0) + entry.mark)
-  }
-
-  return Array.from(totals.entries())
-    .map(([type, mark]) => ({
-      type,
-      title: NextGenGiftTitle[type],
-      mark,
-    }))
-    .sort((a, b) => b.mark - a.mark || a.type - b.type)
 }
 
 export function isNextGenGiftSurveyComplete(

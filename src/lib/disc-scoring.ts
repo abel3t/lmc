@@ -1,7 +1,5 @@
 import { DiscType, discSections } from '@/constant'
 
-export const DISC_SCALE_MIN = 1
-export const DISC_SCALE_MAX = 5
 export const DISC_MAX_SECTION_SCORE = 25
 
 export type DiscAnswerEntry = {
@@ -37,19 +35,6 @@ export function aggregateDiscScores(
     title: section.title,
     total: totals[section.type],
   }))
-}
-
-/** Returns dominant DISC letter(s); ties are all included, ordered D-I-S-C. */
-export function getDiscProfile(scores: DiscSectionScore[]): string {
-  const max = Math.max(...scores.map((s) => s.total))
-  const order: DiscType[] = [DiscType.D, DiscType.I, DiscType.S, DiscType.C]
-  const letters = ['D', 'I', 'S', 'C']
-
-  return order
-    .map((type, index) =>
-      scores.find((s) => s.type === type)?.total === max ? letters[index] : '',
-    )
-    .join('')
 }
 
 export type DiscBlend = {

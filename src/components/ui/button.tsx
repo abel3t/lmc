@@ -1,4 +1,4 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
+import type { ButtonHTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
 
 export type ButtonTone = 'primary' | 'orange' | 'green' | 'rose' | 'neutral'
@@ -26,25 +26,10 @@ export function buttonClass(tone: ButtonTone = 'primary', className?: string) {
   return cn(base, tones[tone], className)
 }
 
-/** Kept for existing usages; defaults to the primary tone. */
-export const buttonClassName = buttonClass('primary')
-
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   tone?: ButtonTone
 }
 
 export function Button({ className, tone = 'primary', ...props }: ButtonProps) {
   return <button className={buttonClass(tone, className)} {...props} />
-}
-
-type ButtonLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
-  tone?: ButtonTone
-}
-
-export function ButtonLink({
-  className,
-  tone = 'primary',
-  ...props
-}: ButtonLinkProps) {
-  return <a className={buttonClass(tone, className)} {...props} />
 }

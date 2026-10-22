@@ -27,10 +27,6 @@ export function getQuestionIdsForGift(giftIndex: number): number[] {
   )
 }
 
-export function getGiftIndexForQuestion(questionId: number): number {
-  return (questionId - 1) % GIFT_CATEGORY_COUNT
-}
-
 export function buildGiftMatrixRows(result: GiftResultRecord): GiftScoreRow[] {
   const scoresById = new Map<number, number>()
   for (const [id, entry] of Object.entries(result)) {

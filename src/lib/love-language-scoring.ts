@@ -1,8 +1,4 @@
-import {
-  LoveLanguageQuestions,
-  LoveLanguageTitle,
-  LoveLanguageType,
-} from '@/constant'
+import { LoveLanguageTitle, type LoveLanguageType } from '@/constant'
 
 export const LOVE_LANGUAGE_GROUP_COUNT = 5
 export const LOVE_LANGUAGE_TYPES_PER_GROUP = 5
@@ -97,31 +93,4 @@ export function isLoveLanguageSurveyComplete(
   if (groups.length !== LOVE_LANGUAGE_GROUP_COUNT) return false
 
   return groups.every((group) => isLoveLanguageGroupValid(group.answers))
-}
-
-export function getExpectedLoveLanguageTypes(): LoveLanguageType[] {
-  return [
-    LoveLanguageType.A,
-    LoveLanguageType.B,
-    LoveLanguageType.C,
-    LoveLanguageType.D,
-    LoveLanguageType.E,
-  ]
-}
-
-/** Builds a valid submission where type T gets mark (5 - type) in every group. */
-export function buildSampleLoveLanguageQuestions(): LoveLanguageQuestionsRecord {
-  const questions: LoveLanguageQuestionsRecord = {}
-
-  for (const question of LoveLanguageQuestions) {
-    questions[String(question.id)] = {
-      id: question.id,
-      answers: question.answers.map((answer) => ({
-        type: answer.type,
-        mark: LOVE_LANGUAGE_TYPES_PER_GROUP - answer.type,
-      })),
-    }
-  }
-
-  return questions
 }
