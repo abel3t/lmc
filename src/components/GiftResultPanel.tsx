@@ -15,6 +15,8 @@ export function GiftResultPanel({ rows }: GiftResultPanelProps) {
   const blend = getGiftBlend(rows)
   const primaryScore = blend.primary[0]?.total ?? 0
   const secondaryScore = blend.secondary[0]?.total ?? 0
+  // All-zero answers tie every gift at 0, which is not a meaningful highlight.
+  const hasPrimary = blend.primary.length > 0 && primaryScore > 0
 
   return (
     <div className="space-y-8 print:hidden">
@@ -23,7 +25,7 @@ export function GiftResultPanel({ rows }: GiftResultPanelProps) {
           <p className="text-xs font-semibold uppercase tracking-wide text-orange-700">
             Ân tứ nổi bật
           </p>
-          {blend.primary.length > 0 ? (
+          {hasPrimary ? (
             <>
               <p className="mt-2 text-2xl font-extrabold leading-snug text-orange-700 sm:text-3xl">
                 {blend.primary.map((row) => row.giftTitle).join(' · ')}
@@ -54,9 +56,11 @@ export function GiftResultPanel({ rows }: GiftResultPanelProps) {
             </>
           ) : (
             <p className="mt-3 text-sm text-gray-500">
-              {blend.primary.length > 1
-                ? 'Các ân tứ có điểm bằng nhau ở nhóm cao nhất.'
-                : 'Không có nhóm điểm thấp hơn rõ rệt.'}
+              {!hasPrimary
+                ? '—'
+                : blend.primary.length > 1
+                  ? 'Các ân tứ có điểm bằng nhau ở nhóm cao nhất.'
+                  : 'Không có nhóm điểm thấp hơn rõ rệt.'}
             </p>
           )}
         </div>

@@ -36,11 +36,13 @@ test.describe('Spiritual Gift survey', () => {
     await page.goto(SURVEY_URL)
     await expect(page.getByText('Bảng đánh giá ân tứ thuộc linh')).toBeVisible()
 
-    await page.getByRole('button', { name: 'Tiếp tục' }).click()
-
-    await expect(
-      page.getByText('Hãy trả lời tất cả câu hỏi nào!'),
-    ).toBeVisible()
+    // Retry the click: the SSR button can be clicked before React hydrates.
+    await expect(async () => {
+      await page.getByRole('button', { name: 'Tiếp tục' }).click()
+      await expect(
+        page.getByText('Hãy trả lời tất cả câu hỏi nào!'),
+      ).toBeVisible({ timeout: 1_000 })
+    }).toPass()
   })
 
   test('persists answers across a reload', async ({ page }) => {
