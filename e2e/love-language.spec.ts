@@ -1,10 +1,16 @@
 import { expect, test } from '@playwright/test'
 
-import { LOVE_LANGUAGE_STORAGE_KEYS } from '../src/constants/love-language'
+import {
+  envelope,
+  loveLanguageAnswers,
+  readStorage,
+  SURVEY_STORAGE,
+  seedEveryLoad,
+} from './storage-helpers'
 
 const SURVEY_URL = '/ngon-ngu-yeu-thuong/khao-sat'
 const RESULT_URL = '/ngon-ngu-yeu-thuong'
-const STORAGE_KEYS = LOVE_LANGUAGE_STORAGE_KEYS
+const STORAGE_KEY = SURVEY_STORAGE.loveLanguage.key
 
 test.describe('Love Language survey', () => {
   test('blocks submit when groups are incomplete', async ({ page }) => {
@@ -113,6 +119,12 @@ test.describe('Love Language survey', () => {
     await expect(
       page.getByRole('cell', { name: '25/25' }).first(),
     ).toBeVisible()
+
+    // Input order is A…E, so A got 1 … E got 5 in every group.
+    const marks = { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 }
+    expect(await readStorage(page, STORAGE_KEY)).toEqual(
+      envelope({ '1': marks, '2': marks, '3': marks, '4': marks, '5': marks }),
+    )
   })
 })
 
@@ -125,21 +137,10 @@ test.describe('Love Language result page', () => {
   })
 
   test('renders totals from seeded answers', async ({ page }) => {
-    await page.addInitScript(
-      ({ key }) => {
-        localStorage.setItem(
-          key,
-          JSON.stringify({
-            '0': { type: 0, mark: 25 },
-            '1': { type: 1, mark: 20 },
-            '2': { type: 2, mark: 15 },
-            '3': { type: 3, mark: 10 },
-            '4': { type: 4, mark: 5 },
-          }),
-        )
-      },
-      { key: STORAGE_KEYS.result },
-    )
+    // A = 5 … E = 1 in every group → A 25, B 20, C 15, D 10, E 5.
+    await seedEveryLoad(page, {
+      [STORAGE_KEY]: envelope(loveLanguageAnswers()),
+    })
 
     await page.goto(RESULT_URL)
     await expect(page.getByText('Ngôn ngữ nổi bật')).toBeVisible()

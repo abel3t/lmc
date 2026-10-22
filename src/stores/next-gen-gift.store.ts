@@ -1,7 +1,8 @@
 import { create } from 'zustand'
 import { type NextGenGiftType, nextGenGiftQuestions } from '@/constant'
+import type { NextGenGiftAnswers } from '@/lib/next-gen-gift-scoring'
 
-export type NextGenGiftQuestionState = {
+type NextGenGiftQuestionState = {
   id: number
   text: string
   type: NextGenGiftType
@@ -9,14 +10,14 @@ export type NextGenGiftQuestionState = {
   hasError?: boolean
 }
 
-export type NextGenGiftQuestionsRecord = Record<
-  string,
-  NextGenGiftQuestionState
->
+type NextGenGiftQuestionsRecord = Record<string, NextGenGiftQuestionState>
 
-const buildInitial = (): NextGenGiftQuestionsRecord =>
+/** Store questions with saved answers filled in (empty when none). */
+export const buildNextGenGiftQuestions = (
+  answers: NextGenGiftAnswers = {},
+): NextGenGiftQuestionsRecord =>
   nextGenGiftQuestions.reduce<NextGenGiftQuestionsRecord>((acc, current) => {
-    acc[current.id] = { ...current }
+    acc[current.id] = { ...current, value: answers[String(current.id)] }
     return acc
   }, {})
 
@@ -30,7 +31,7 @@ type NextGenGiftStore = {
 }
 
 export const useNextGenGiftStore = create<NextGenGiftStore>((set) => ({
-  questions: buildInitial(),
+  questions: buildNextGenGiftQuestions(),
   setQuestions: (questions) => set({ questions }),
   updateQuestion: (id, patch) =>
     set((state) =>

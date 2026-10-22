@@ -1,12 +1,17 @@
 import { expect, test } from '@playwright/test'
 
-import { GIFT_STORAGE_KEYS } from '../src/constants/gift'
-
 import { ADMINISTRATION_QUESTION_IDS } from '../src/lib/gift-matrix.fixtures'
+import {
+  envelope,
+  idAnswers,
+  readStorage,
+  SURVEY_STORAGE,
+  seedEveryLoad,
+} from './storage-helpers'
 
 const SURVEY_URL = '/an-tu-thuoc-linh/khao-sat'
 const RESULT_URL = '/an-tu-thuoc-linh'
-const STORAGE_KEY = GIFT_STORAGE_KEYS.answers
+const STORAGE_KEY = SURVEY_STORAGE.gift.key
 const TOTAL_QUESTIONS = 133
 const PER_PAGE = 10
 const TOTAL_PAGES = Math.ceil(TOTAL_QUESTIONS / PER_PAGE)
@@ -54,11 +59,10 @@ test.describe('Spiritual Gift survey', () => {
     // Advancing triggers persistence to localStorage.
     await page.getByRole('button', { name: 'Tiếp tục' }).click()
 
-    const stored = await page.evaluate(
-      (key) => localStorage.getItem(key),
-      STORAGE_KEY,
+    // The first page (questions 1–10) is saved, versioned, as id → score.
+    expect(await readStorage(page, STORAGE_KEY)).toEqual(
+      envelope(idAnswers(PER_PAGE, () => 2)),
     )
-    expect(stored).toContain('"1":2')
 
     await page.reload()
     await expect(
@@ -91,6 +95,9 @@ test.describe('Spiritual Gift survey', () => {
       GIFT_CATEGORIES,
     )
     await expect(page.locator('table tbody tr')).toHaveCount(GIFT_CATEGORIES)
+    expect(await readStorage(page, STORAGE_KEY)).toEqual(
+      envelope(idAnswers(TOTAL_QUESTIONS, () => 2)),
+    )
   })
 })
 
@@ -103,14 +110,9 @@ test.describe('Spiritual Gift result page', () => {
   })
 
   test('renders the matrix from seeded answers', async ({ page }) => {
-    await page.addInitScript(
-      ({ key, total }) => {
-        const answers: Record<string, number> = {}
-        for (let i = 1; i <= total; i++) answers[String(i)] = 2
-        localStorage.setItem(key, JSON.stringify(answers))
-      },
-      { key: STORAGE_KEY, total: TOTAL_QUESTIONS },
-    )
+    await seedEveryLoad(page, {
+      [STORAGE_KEY]: envelope(idAnswers(TOTAL_QUESTIONS, () => 2)),
+    })
 
     await page.goto(RESULT_URL)
 
@@ -124,20 +126,13 @@ test.describe('Spiritual Gift result page', () => {
   test('ranks Quản trị first when only administration questions score highest', async ({
     page,
   }) => {
-    await page.addInitScript(
-      ({ key, adminIds, total }) => {
-        const answers: Record<string, number> = {}
-        for (let i = 1; i <= total; i++) {
-          answers[String(i)] = adminIds.includes(i) ? 3 : 0
-        }
-        localStorage.setItem(key, JSON.stringify(answers))
-      },
-      {
-        key: STORAGE_KEY,
-        adminIds: ADMINISTRATION_QUESTION_IDS,
-        total: TOTAL_QUESTIONS,
-      },
-    )
+    await seedEveryLoad(page, {
+      [STORAGE_KEY]: envelope(
+        idAnswers(TOTAL_QUESTIONS, (id) =>
+          ADMINISTRATION_QUESTION_IDS.includes(id) ? 3 : 0,
+        ),
+      ),
+    })
 
     await page.goto(RESULT_URL)
 

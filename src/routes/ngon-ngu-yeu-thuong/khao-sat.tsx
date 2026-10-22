@@ -8,18 +8,15 @@ import { SurveyScaleLegend } from '@/components/SurveyScaleLegend'
 import { SurveyTitleBar } from '@/components/SurveyTitleBar'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { LOVE_LANGUAGE_SCALE_LABELS, LoveLanguageQuestions } from '@/constant'
 import {
-  LOVE_LANGUAGE_SCALE_LABELS,
-  LOVE_LANGUAGE_STORAGE_KEYS,
-  LoveLanguageQuestions,
-} from '@/constant'
-import {
-  buildLoveLanguageResultFromQuestions,
   isLoveLanguageSurveyComplete,
+  toLoveLanguageAnswers,
 } from '@/lib/love-language-scoring'
+import { loveLanguageStorage } from '@/lib/survey-persistence'
 import { readSurveyStorage, writeSurveyStorage } from '@/lib/survey-storage'
 import {
-  type LoveLanguageQuestionsRecord,
+  buildLoveLanguageQuestions,
   useLoveLanguageStore,
 } from '@/stores/love-language.store'
 
@@ -38,11 +35,9 @@ function LoveLanguageAssessment() {
   const isSurveyComplete = isLoveLanguageSurveyComplete(questions)
 
   useEffect(() => {
-    const defaultQuestions = readSurveyStorage<LoveLanguageQuestionsRecord>(
-      LOVE_LANGUAGE_STORAGE_KEYS.questions,
-    )
-    if (defaultQuestions) {
-      setQuestions(defaultQuestions)
+    const saved = readSurveyStorage(loveLanguageStorage)
+    if (saved) {
+      setQuestions(buildLoveLanguageQuestions(saved))
     }
   }, [setQuestions])
 
@@ -65,9 +60,7 @@ function LoveLanguageAssessment() {
     }
 
     if (!hasError && isLoveLanguageSurveyComplete(questions)) {
-      const result = buildLoveLanguageResultFromQuestions(questions)
-      writeSurveyStorage(LOVE_LANGUAGE_STORAGE_KEYS.questions, questions)
-      writeSurveyStorage(LOVE_LANGUAGE_STORAGE_KEYS.result, result)
+      writeSurveyStorage(loveLanguageStorage, toLoveLanguageAnswers(questions))
       window.open('/ngon-ngu-yeu-thuong', '_self')
     } else {
       setIsSubmit(false)

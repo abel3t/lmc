@@ -4,12 +4,12 @@ export const GIFT_CATEGORY_COUNT = 19
 export const QUESTIONS_PER_GIFT = 7
 export const GIFT_MAX_SCORE = QUESTIONS_PER_GIFT * 3
 
-export type GiftAnswerEntry = {
+type GiftAnswerEntry = {
   type: GiftType
   mark: number
 }
 
-export type GiftResultRecord = Record<string, GiftAnswerEntry>
+type GiftResultRecord = Record<string, GiftAnswerEntry>
 
 export type GiftScoreRow = {
   giftType: GiftType
@@ -27,7 +27,7 @@ export function getQuestionIdsForGift(giftIndex: number): number[] {
   )
 }
 
-export function buildGiftMatrixRows(result: GiftResultRecord): GiftScoreRow[] {
+function buildGiftMatrixRows(result: GiftResultRecord): GiftScoreRow[] {
   const scoresById = new Map<number, number>()
   for (const [id, entry] of Object.entries(result)) {
     scoresById.set(Number(id), entry.mark)
@@ -49,7 +49,7 @@ export function buildGiftMatrixRows(result: GiftResultRecord): GiftScoreRow[] {
   })
 }
 
-export type GiftBlend = {
+type GiftBlend = {
   primary: GiftScoreRow[]
   secondary: GiftScoreRow[]
 }

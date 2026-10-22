@@ -56,8 +56,4 @@ export const NEXT_GEN_GIFT_SCALE_LABELS = [
   { value: 3, label: 'Luôn đúng' },
 ] as const
 
-export const GIFT_STORAGE_KEYS = {
-  answers: 'giftAnswers',
-} as const
-
 export const GIFT_REQUIRED_MESSAGE = 'Câu hỏi này là bắt buộc'

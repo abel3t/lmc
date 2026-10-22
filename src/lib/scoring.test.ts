@@ -4,7 +4,9 @@ import {
   aggregateDiscScores,
   buildDiscResultFromAnswers,
   DISC_MAX_SECTION_SCORE,
+  discAnswerKey,
   getDiscBlend,
+  isDiscSurveyComplete,
 } from '@/lib/disc-scoring'
 import { isSurveyAnswered } from '@/lib/survey-validation'
 
@@ -114,5 +116,24 @@ describe('disc-scoring edge cases', () => {
 
   test('getDiscBlend returns empty groups for no scores', () => {
     expect(getDiscBlend([])).toEqual({ primary: [], secondary: [] })
+  })
+
+  test('discAnswerKey joins section type and statement index', () => {
+    expect(discAnswerKey(DiscType.D, 0)).toBe('0-0')
+    expect(discAnswerKey(DiscType.C, 4)).toBe('3-4')
+  })
+
+  test('isDiscSurveyComplete requires all 20 statements', () => {
+    const answers: Record<string, number> = {}
+    for (const section of discSections) {
+      section.statements.forEach((_, index) => {
+        answers[discAnswerKey(section.type, index)] = 3
+      })
+    }
+    expect(isDiscSurveyComplete(answers)).toBe(true)
+
+    delete answers['2-3']
+    expect(isDiscSurveyComplete(answers)).toBe(false)
+    expect(isDiscSurveyComplete({})).toBe(false)
   })
 })

@@ -14,7 +14,6 @@ import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import {
   GIFT_REQUIRED_MESSAGE,
   GIFT_SCALE_LABELS,
-  GIFT_STORAGE_KEYS,
   giftQuestions,
 } from '@/constant'
 import {
@@ -22,6 +21,7 @@ import {
   type GiftAnswers,
   isGiftSurveyComplete,
 } from '@/lib/gift-scoring'
+import { giftStorage } from '@/lib/survey-persistence'
 import { readSurveyStorage, writeSurveyStorage } from '@/lib/survey-storage'
 import { isSurveyAnswered } from '@/lib/survey-validation'
 
@@ -37,7 +37,7 @@ type FormValues = Record<string, number | undefined>
 const fieldName = (id: number | string) => `q${id}`
 
 function loadStoredAnswers(): GiftAnswers {
-  return readSurveyStorage<GiftAnswers>(GIFT_STORAGE_KEYS.answers) ?? {}
+  return readSurveyStorage(giftStorage) ?? {}
 }
 
 function toAnswers(values: FormValues): GiftAnswers {
@@ -148,7 +148,7 @@ function GiftAssessmentForm({ initialValues }: { initialValues: FormValues }) {
 
   const persist = () => {
     const answers = { ...storedAnswers, ...toAnswers(formValues) }
-    writeSurveyStorage(GIFT_STORAGE_KEYS.answers, answers)
+    writeSurveyStorage(giftStorage, answers)
     setStoredAnswers(answers)
   }
 
@@ -184,7 +184,7 @@ function GiftAssessmentForm({ initialValues }: { initialValues: FormValues }) {
     const answers = { ...storedAnswers, ...toAnswers(formValues) }
 
     if (pageValid && isGiftSurveyComplete(answers)) {
-      writeSurveyStorage(GIFT_STORAGE_KEYS.answers, answers)
+      writeSurveyStorage(giftStorage, answers)
       setStoredAnswers(answers)
       window.open('/an-tu-thuoc-linh', '_self')
     } else {

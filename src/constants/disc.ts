@@ -59,8 +59,3 @@ export const discSections = [
     ],
   },
 ] as const
-
-export const DISC_STORAGE_KEYS = {
-  answers: 'discAnswers',
-  result: 'discResult',
-} as const

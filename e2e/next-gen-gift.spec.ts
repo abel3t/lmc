@@ -1,10 +1,16 @@
 import { expect, test } from '@playwright/test'
 
-import { NEXT_GEN_GIFT_STORAGE_KEYS } from '../src/constants/next-gen-gift'
+import {
+  envelope,
+  idAnswers,
+  readStorage,
+  SURVEY_STORAGE,
+  seedEveryLoad,
+} from './storage-helpers'
 
 const SURVEY_URL = '/an-tu-thuoc-linh-next-gen/khao-sat'
 const RESULT_URL = '/an-tu-thuoc-linh-next-gen'
-const STORAGE_KEY = NEXT_GEN_GIFT_STORAGE_KEYS.result
+const STORAGE_KEY = SURVEY_STORAGE.nextGenGift.key
 const TOTAL_QUESTIONS = 57
 const PER_PAGE = 10
 const TOTAL_PAGES = Math.ceil(TOTAL_QUESTIONS / PER_PAGE)
@@ -13,11 +19,7 @@ const RESULT_CARD = '[data-testid="next-gen-gift-result-card"]'
 
 async function gotoSurveyPage(page: import('@playwright/test').Page) {
   await page.goto(SURVEY_URL)
-  await page.evaluate((keys) => {
-    for (const key of keys) {
-      localStorage.removeItem(key)
-    }
-  }, Object.values(NEXT_GEN_GIFT_STORAGE_KEYS))
+  await page.evaluate(() => localStorage.clear())
   await page.reload()
   await page
     .locator('input[type="radio"]')
@@ -78,6 +80,11 @@ test.describe('Next Gen Gift survey', () => {
     await expect(page.locator(RESULT_CARD)).toHaveCount(GIFT_CATEGORIES)
     // Every answer = 2 → 3 questions × 2 = 6 per gift.
     await expect(page.locator(RESULT_CARD).first()).toContainText('6/9')
+
+    // Only answers are saved, versioned, under the namespaced key.
+    expect(await readStorage(page, STORAGE_KEY)).toEqual(
+      envelope(idAnswers(TOTAL_QUESTIONS, () => 2)),
+    )
   })
 })
 
@@ -90,16 +97,9 @@ test.describe('Next Gen Gift result page', () => {
   })
 
   test('renders aggregates from seeded answers', async ({ page }) => {
-    await page.addInitScript(
-      ({ key, total }) => {
-        const result: Record<string, { type: number; mark: number }> = {}
-        for (let i = 1; i <= total; i++) {
-          result[String(i)] = { type: (i - 1) % 19, mark: 3 }
-        }
-        localStorage.setItem(key, JSON.stringify(result))
-      },
-      { key: STORAGE_KEY, total: TOTAL_QUESTIONS },
-    )
+    await seedEveryLoad(page, {
+      [STORAGE_KEY]: envelope(idAnswers(TOTAL_QUESTIONS, () => 3)),
+    })
 
     await page.goto(RESULT_URL)
     await expect(page.locator(RESULT_CARD)).toHaveCount(GIFT_CATEGORIES)

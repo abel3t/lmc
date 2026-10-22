@@ -1,4 +1,4 @@
-export type GiftQuestionRaw = {
+type GiftQuestionRaw = {
   id: number
   text: string
   giftIndex: number

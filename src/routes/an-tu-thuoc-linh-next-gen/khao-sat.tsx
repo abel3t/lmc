@@ -8,20 +8,16 @@ import { SurveyScaleLegend } from '@/components/SurveyScaleLegend'
 import { SurveyTitleBar } from '@/components/SurveyTitleBar'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { NEXT_GEN_GIFT_SCALE_LABELS, nextGenGiftQuestions } from '@/constant'
 import {
-  NEXT_GEN_GIFT_SCALE_LABELS,
-  NEXT_GEN_GIFT_STORAGE_KEYS,
-  nextGenGiftQuestions,
-} from '@/constant'
-import {
-  buildNextGenGiftResultFromAnswers,
   isNextGenGiftSurveyComplete,
   NEXT_GEN_GIFT_CATEGORY_COUNT,
 } from '@/lib/next-gen-gift-scoring'
+import { nextGenGiftStorage } from '@/lib/survey-persistence'
 import { readSurveyStorage, writeSurveyStorage } from '@/lib/survey-storage'
 import { isSurveyAnswered } from '@/lib/survey-validation'
 import {
-  type NextGenGiftQuestionsRecord,
+  buildNextGenGiftQuestions,
   useNextGenGiftStore,
 } from '@/stores/next-gen-gift.store'
 
@@ -64,11 +60,9 @@ function NextGenGiftAssessment() {
   }, [currentPage])
 
   useEffect(() => {
-    const defaultQuestions = readSurveyStorage<NextGenGiftQuestionsRecord>(
-      NEXT_GEN_GIFT_STORAGE_KEYS.questions,
-    )
-    if (defaultQuestions) {
-      setQuestions(defaultQuestions)
+    const saved = readSurveyStorage(nextGenGiftStorage)
+    if (saved) {
+      setQuestions(buildNextGenGiftQuestions(saved))
     }
   }, [setQuestions])
 
@@ -114,11 +108,7 @@ function NextGenGiftAssessment() {
       )
 
       if (isNextGenGiftSurveyComplete(answers)) {
-        writeSurveyStorage(NEXT_GEN_GIFT_STORAGE_KEYS.questions, questions)
-        writeSurveyStorage(
-          NEXT_GEN_GIFT_STORAGE_KEYS.result,
-          buildNextGenGiftResultFromAnswers(answers),
-        )
+        writeSurveyStorage(nextGenGiftStorage, answers)
         window.open('/an-tu-thuoc-linh-next-gen', '_self')
       } else {
         setShowErrorDialog(true)

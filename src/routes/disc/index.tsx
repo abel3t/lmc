@@ -2,13 +2,16 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { SurveyResultLayout } from '@/components/SurveyResultLayout'
 import { Skeleton } from '@/components/ui/skeleton'
-import { DISC_STORAGE_KEYS, discSections } from '@/constant'
+import { discSections } from '@/constant'
 import {
   aggregateDiscScores,
+  buildDiscResultFromAnswers,
   DISC_MAX_SECTION_SCORE,
   type DiscResultRecord,
   getDiscBlend,
+  isDiscSurveyComplete,
 } from '@/lib/disc-scoring'
+import { discStorage } from '@/lib/survey-persistence'
 import { readSurveyStorage } from '@/lib/survey-storage'
 import { printWithoutBrowserHeader } from '@/lib/utils'
 
@@ -23,12 +26,10 @@ function DiscResults() {
   const [result, setResult] = useState<DiscResultRecord | null>(null)
 
   useEffect(() => {
-    const storageResult = readSurveyStorage<DiscResultRecord>(
-      DISC_STORAGE_KEYS.result,
-    )
+    const answers = readSurveyStorage(discStorage)
 
-    if (storageResult) {
-      setResult(storageResult)
+    if (answers && isDiscSurveyComplete(answers)) {
+      setResult(buildDiscResultFromAnswers(answers))
     }
 
     setIsLoaded(true)

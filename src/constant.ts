@@ -152,23 +152,17 @@ import { giftQuestionsRaw } from '@/data/gift-questions'
 
 export {
   DISC_SCALE_LABELS,
-  DISC_STORAGE_KEYS,
   DiscType,
   discSections,
 } from '@/constants/disc'
 export {
   GIFT_REQUIRED_MESSAGE,
   GIFT_SCALE_LABELS,
-  GIFT_STORAGE_KEYS,
   GiftTitle,
   GiftType,
   NEXT_GEN_GIFT_SCALE_LABELS,
 } from '@/constants/gift'
-export {
-  LOVE_LANGUAGE_SCALE_LABELS,
-  LOVE_LANGUAGE_STORAGE_KEYS,
-} from '@/constants/love-language'
-export { NEXT_GEN_GIFT_STORAGE_KEYS } from '@/constants/next-gen-gift'
+export { LOVE_LANGUAGE_SCALE_LABELS } from '@/constants/love-language'
 
 import type { GiftType } from '@/constants/gift'
 

@@ -8,11 +8,12 @@ import { SurveyPageShell } from '@/components/SurveyPageShell'
 import { SurveyTitleBar } from '@/components/SurveyTitleBar'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
-import { DISC_STORAGE_KEYS, type DiscType, discSections } from '@/constant'
-import { buildDiscResultFromAnswers } from '@/lib/disc-scoring'
+import { type DiscType, discSections } from '@/constant'
+import { type DiscAnswers, discAnswerKey } from '@/lib/disc-scoring'
+import { discStorage } from '@/lib/survey-persistence'
 import { readSurveyStorage, writeSurveyStorage } from '@/lib/survey-storage'
 import { isSurveyAnswered } from '@/lib/survey-validation'
-import { type DiscSectionState, useDiscStore } from '@/stores/disc.store'
+import { buildDiscSections, useDiscStore } from '@/stores/disc.store'
 
 export const Route = createFileRoute('/disc/khao-sat')({
   component: DiscAssessment,
@@ -27,11 +28,9 @@ function DiscAssessment() {
   const updateStatement = useDiscStore((s) => s.updateStatement)
 
   useEffect(() => {
-    const saved = readSurveyStorage<DiscSectionState[]>(
-      DISC_STORAGE_KEYS.answers,
-    )
+    const saved = readSurveyStorage(discStorage)
     if (saved) {
-      setSections(saved)
+      setSections(buildDiscSections(saved))
     }
   }, [setSections])
 
@@ -59,15 +58,15 @@ function DiscAssessment() {
   const onClickSubmit = () => {
     setIsSubmit(true)
     let hasError = false
-    const flatAnswers: Record<string, number | undefined> = {}
+    const flatAnswers: DiscAnswers = {}
 
     sections.forEach((section) => {
       const sectionMeta = discSections.find(
         (item) => item.type === section.type,
       )
       section.statements.forEach((statement, statementIndex) => {
-        const key = `${section.type}-${statementIndex}`
-        flatAnswers[key] = statement.value
+        flatAnswers[discAnswerKey(section.type, statementIndex)] =
+          statement.value
         if (!isSurveyAnswered(statement.value)) {
           hasError = true
           updateStatement(section.type, statementIndex, { hasError: true })
@@ -79,9 +78,7 @@ function DiscAssessment() {
     })
 
     if (!hasError) {
-      const result = buildDiscResultFromAnswers(flatAnswers)
-      writeSurveyStorage(DISC_STORAGE_KEYS.answers, sections)
-      writeSurveyStorage(DISC_STORAGE_KEYS.result, result)
+      writeSurveyStorage(discStorage, flatAnswers)
       window.open('/disc', '_self')
     } else {
       setShowErrorDialog(true)

@@ -2,18 +2,17 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { SurveyResultLayout } from '@/components/SurveyResultLayout'
 import { Skeleton } from '@/components/ui/skeleton'
-import {
-  LOVE_LANGUAGE_STORAGE_KEYS,
-  LoveLanguageTitle,
-  type LoveLanguageType,
-} from '@/constant'
+import { LoveLanguageTitle, type LoveLanguageType } from '@/constant'
 import {
   aggregateLoveLanguageScores,
+  buildLoveLanguageResultFromQuestions,
+  isLoveLanguageSurveyComplete,
   LOVE_LANGUAGE_MAX_TOTAL_SCORE as LOVE_LANGUAGE_MAX_SCORE,
   type LoveLanguageAggregate,
-  type LoveLanguageResultRecord,
 } from '@/lib/love-language-scoring'
+import { loveLanguageStorage } from '@/lib/survey-persistence'
 import { readSurveyStorage } from '@/lib/survey-storage'
+import { buildLoveLanguageQuestions } from '@/stores/love-language.store'
 
 export const Route = createFileRoute('/ngon-ngu-yeu-thuong/')({
   component: LoveLanguageTab,
@@ -24,12 +23,15 @@ function LoveLanguageTab() {
   const [result, setResult] = useState<LoveLanguageAggregate[] | null>(null)
 
   useEffect(() => {
-    const storageResult = readSurveyStorage<LoveLanguageResultRecord>(
-      LOVE_LANGUAGE_STORAGE_KEYS.result,
-    )
+    const answers = readSurveyStorage(loveLanguageStorage)
+    const questions = answers ? buildLoveLanguageQuestions(answers) : null
 
-    if (storageResult && Object.keys(storageResult).length > 0) {
-      setResult(aggregateLoveLanguageScores(storageResult))
+    if (questions && isLoveLanguageSurveyComplete(questions)) {
+      setResult(
+        aggregateLoveLanguageScores(
+          buildLoveLanguageResultFromQuestions(questions),
+        ),
+      )
     }
 
     setIsLoaded(true)

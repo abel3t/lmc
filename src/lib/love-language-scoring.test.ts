@@ -10,6 +10,7 @@ import {
   LOVE_LANGUAGE_MAX_TOTAL_SCORE,
   LOVE_LANGUAGE_TYPES_PER_GROUP,
   type LoveLanguageQuestionsRecord,
+  toLoveLanguageAnswers,
 } from '@/lib/love-language-scoring'
 
 /** Builds a valid submission where type T gets mark (5 - type) in every group. */
@@ -162,5 +163,19 @@ describe('love-language-scoring', () => {
     }
     expect(typeSum).toBe(pointSum)
     expect(typeSum).toBe(75)
+  })
+
+  test('toLoveLanguageAnswers keeps only valid marks, per group and type', () => {
+    const questions = buildSampleLoveLanguageQuestions()
+    const group1 = questions['1']
+    if (group1?.answers[0] && group1.answers[1]) {
+      group1.answers[0].mark = undefined
+      group1.answers[1].mark = 1.5
+    }
+
+    const answers = toLoveLanguageAnswers(questions)
+    expect(Object.keys(answers)).toHaveLength(LOVE_LANGUAGE_GROUP_COUNT)
+    expect(answers['1']).toEqual({ '2': 3, '3': 2, '4': 1 })
+    expect(answers['2']).toEqual({ '0': 5, '1': 4, '2': 3, '3': 2, '4': 1 })
   })
 })

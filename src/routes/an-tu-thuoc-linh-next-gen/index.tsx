@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react'
 import { NextGenGiftResultPanel } from '@/components/NextGenGiftResultPanel'
 import { SurveyResultLayout } from '@/components/SurveyResultLayout'
 import { Skeleton } from '@/components/ui/skeleton'
-import { NEXT_GEN_GIFT_STORAGE_KEYS } from '@/constant'
 import {
   buildNextGenGiftMatrixRows,
-  type NextGenGiftResultRecord,
+  buildNextGenGiftResultFromAnswers,
+  isNextGenGiftSurveyComplete,
   type NextGenGiftScoreRow,
 } from '@/lib/next-gen-gift-scoring'
+import { nextGenGiftStorage } from '@/lib/survey-persistence'
 import { readSurveyStorage } from '@/lib/survey-storage'
 import { printWithoutBrowserHeader } from '@/lib/utils'
 
@@ -23,12 +24,12 @@ function NextGenGiftTab() {
   )
 
   useEffect(() => {
-    const storageResult = readSurveyStorage<NextGenGiftResultRecord>(
-      NEXT_GEN_GIFT_STORAGE_KEYS.result,
-    )
+    const answers = readSurveyStorage(nextGenGiftStorage)
 
-    if (storageResult && Object.keys(storageResult).length > 0) {
-      setMatrixRows(buildNextGenGiftMatrixRows(storageResult))
+    if (answers && isNextGenGiftSurveyComplete(answers)) {
+      setMatrixRows(
+        buildNextGenGiftMatrixRows(buildNextGenGiftResultFromAnswers(answers)),
+      )
     }
 
     setIsLoaded(true)

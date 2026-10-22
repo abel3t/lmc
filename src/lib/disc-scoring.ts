@@ -10,7 +10,7 @@ export type DiscAnswerEntry = {
 
 export type DiscResultRecord = Record<string, DiscAnswerEntry>
 
-export type DiscSectionScore = {
+type DiscSectionScore = {
   type: DiscType
   title: string
   total: number
@@ -37,7 +37,7 @@ export function aggregateDiscScores(
   }))
 }
 
-export type DiscBlend = {
+type DiscBlend = {
   /** Highest-scoring type(s). Ties are all included. */
   primary: DiscSectionScore[]
   /** Next-highest distinct score below the primary. Empty when everything ties. */
@@ -63,14 +63,30 @@ export function getDiscBlend(scores: DiscSectionScore[]): DiscBlend {
   return { primary, secondary }
 }
 
+/** Saved DISC answers keyed by `${sectionType}-${statementIndex}`. */
+export type DiscAnswers = Record<string, number | undefined>
+
+export function discAnswerKey(sectionType: DiscType, statementIndex: number) {
+  return `${sectionType}-${statementIndex}`
+}
+
+export function isDiscSurveyComplete(answers: DiscAnswers): boolean {
+  return discSections.every((section) =>
+    section.statements.every(
+      (_, index) =>
+        typeof answers[discAnswerKey(section.type, index)] === 'number',
+    ),
+  )
+}
+
 export function buildDiscResultFromAnswers(
-  answers: Record<string, number | undefined>,
+  answers: DiscAnswers,
 ): DiscResultRecord {
   const result: DiscResultRecord = {}
 
   for (const section of discSections) {
     section.statements.forEach((_, statementIndex) => {
-      const key = `${section.type}-${statementIndex}`
+      const key = discAnswerKey(section.type, statementIndex)
       result[key] = {
         section: section.type,
         statementIndex,

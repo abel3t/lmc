@@ -1,12 +1,13 @@
 import { create } from 'zustand'
 import { type DiscType, discSections } from '@/constant'
+import { type DiscAnswers, discAnswerKey } from '@/lib/disc-scoring'
 
-export type DiscStatementState = {
+type DiscStatementState = {
   value?: number
   hasError?: boolean
 }
 
-export type DiscSectionState = {
+type DiscSectionState = {
   type: DiscType
   statements: DiscStatementState[]
 }
@@ -21,14 +22,20 @@ type DiscStore = {
   ) => void
 }
 
-const buildInitial = (): DiscSectionState[] =>
+/** Store sections with saved answers filled in (empty when none). */
+export const buildDiscSections = (
+  answers: DiscAnswers = {},
+): DiscSectionState[] =>
   discSections.map((section) => ({
     type: section.type,
-    statements: section.statements.map(() => ({})),
+    statements: section.statements.map((_, index) => {
+      const value = answers[discAnswerKey(section.type, index)]
+      return value === undefined ? {} : { value }
+    }),
   }))
 
 export const useDiscStore = create<DiscStore>((set) => ({
-  sections: buildInitial(),
+  sections: buildDiscSections(),
   setSections: (sections) => set({ sections }),
   updateStatement: (sectionType, statementIndex, patch) =>
     set((state) => ({

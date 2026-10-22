@@ -4,14 +4,13 @@ import { GiftResultMatrix } from '@/components/GiftResultMatrix'
 import { GiftResultPanel } from '@/components/GiftResultPanel'
 import { SurveyResultLayout } from '@/components/SurveyResultLayout'
 import { Skeleton } from '@/components/ui/skeleton'
-import { GIFT_STORAGE_KEYS } from '@/constant'
 import {
   buildGiftMatrixFromScores,
-  type GiftAnswers,
   type GiftScoreRow,
   isGiftSurveyComplete,
   sortGiftRowsByScore,
 } from '@/lib/gift-scoring'
+import { giftStorage } from '@/lib/survey-persistence'
 import { readSurveyStorage } from '@/lib/survey-storage'
 import { printWithoutBrowserHeader } from '@/lib/utils'
 
@@ -24,7 +23,7 @@ function GiftTab() {
   const [matrixRows, setMatrixRows] = useState<GiftScoreRow[] | null>(null)
 
   useEffect(() => {
-    const stored = readSurveyStorage<GiftAnswers>(GIFT_STORAGE_KEYS.answers)
+    const stored = readSurveyStorage(giftStorage)
 
     if (stored && isGiftSurveyComplete(stored)) {
       setMatrixRows(buildGiftMatrixFromScores(stored))

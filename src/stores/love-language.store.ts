@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { LoveLanguageQuestions, type LoveLanguageType } from '@/constant'
+import type { LoveLanguageAnswers } from '@/lib/love-language-scoring'
 
 export type LoveLanguageAnswerState = {
   type: LoveLanguageType
@@ -17,14 +18,21 @@ export type LoveLanguageQuestionState = {
   hasError?: boolean
 }
 
-export type LoveLanguageQuestionsRecord = Record<
-  string,
-  LoveLanguageQuestionState
->
+type LoveLanguageQuestionsRecord = Record<string, LoveLanguageQuestionState>
 
-const buildInitial = (): LoveLanguageQuestionsRecord =>
+/** Store groups with saved marks filled in (empty when none). */
+export const buildLoveLanguageQuestions = (
+  answers: LoveLanguageAnswers = {},
+): LoveLanguageQuestionsRecord =>
   LoveLanguageQuestions.reduce<LoveLanguageQuestionsRecord>((acc, current) => {
-    acc[current.id] = { ...current }
+    const marks = answers[String(current.id)] ?? {}
+    acc[current.id] = {
+      ...current,
+      answers: current.answers.map((answer) => ({
+        ...answer,
+        mark: marks[String(answer.type)],
+      })),
+    }
     return acc
   }, {})
 
@@ -38,7 +46,7 @@ type LoveLanguageStore = {
 }
 
 export const useLoveLanguageStore = create<LoveLanguageStore>((set) => ({
-  questions: buildInitial(),
+  questions: buildLoveLanguageQuestions(),
   setQuestions: (questions) => set({ questions }),
   updateQuestion: (id, patch) =>
     set((state) =>

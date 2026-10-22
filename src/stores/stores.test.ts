@@ -1,8 +1,19 @@
 import { beforeEach, describe, expect, test } from 'bun:test'
+import { LoveLanguageQuestions, nextGenGiftQuestions } from '@/constant'
 import { DiscType } from '@/constants/disc'
-import { useDiscStore } from '@/stores/disc.store'
-import { useLoveLanguageStore } from '@/stores/love-language.store'
-import { useNextGenGiftStore } from '@/stores/next-gen-gift.store'
+import {
+  isLoveLanguageSurveyComplete,
+  toLoveLanguageAnswers,
+} from '@/lib/love-language-scoring'
+import { buildDiscSections, useDiscStore } from '@/stores/disc.store'
+import {
+  buildLoveLanguageQuestions,
+  useLoveLanguageStore,
+} from '@/stores/love-language.store'
+import {
+  buildNextGenGiftQuestions,
+  useNextGenGiftStore,
+} from '@/stores/next-gen-gift.store'
 
 describe('disc store', () => {
   beforeEach(() => {
@@ -151,5 +162,64 @@ describe('next gen gift store', () => {
     const before = useNextGenGiftStore.getState().questions
     useNextGenGiftStore.getState().updateQuestion(999, { value: 3 })
     expect(useNextGenGiftStore.getState().questions).toEqual(before)
+  })
+})
+
+describe('store builders from saved answers', () => {
+  test('buildDiscSections fills saved values and leaves the rest empty', () => {
+    const sections = buildDiscSections({ '0-0': 5, '3-4': 1 })
+    expect(sections).toHaveLength(4)
+    expect(sections[0]?.statements[0]).toEqual({ value: 5 })
+    expect(sections[0]?.statements[1]).toEqual({})
+    expect(sections[3]?.statements[4]).toEqual({ value: 1 })
+  })
+
+  test('buildDiscSections with no answers matches the initial store', () => {
+    expect(buildDiscSections()).toEqual(
+      buildDiscSections({}).map((section) => ({
+        ...section,
+        statements: section.statements.map(() => ({})),
+      })),
+    )
+  })
+
+  test('buildNextGenGiftQuestions keeps question text and fills values', () => {
+    const questions = buildNextGenGiftQuestions({ '1': 0, '57': 3 })
+    expect(Object.keys(questions)).toHaveLength(57)
+    expect(questions['1']?.value).toBe(0)
+    expect(questions['57']?.value).toBe(3)
+    expect(questions['2']?.value).toBeUndefined()
+    expect(questions['1']?.text).toBe(nextGenGiftQuestions[0]?.text)
+  })
+
+  test('buildLoveLanguageQuestions maps group → type → mark onto answers', () => {
+    const questions = buildLoveLanguageQuestions({
+      '1': { '0': 5, '4': 1 },
+    })
+    const group = questions['1']
+    expect(group?.answers.find((a) => a.type === 0)?.mark).toBe(5)
+    expect(group?.answers.find((a) => a.type === 4)?.mark).toBe(1)
+    expect(group?.answers.find((a) => a.type === 1)?.mark).toBeUndefined()
+    expect(questions['2']?.answers.every((a) => a.mark === undefined)).toBe(
+      true,
+    )
+    // Text always comes from the current question bank, never from storage.
+    expect(group?.answers[0]?.text).toBe(
+      LoveLanguageQuestions[0]?.answers[0]?.text,
+    )
+  })
+
+  test('love language answers survive store → answers → store', () => {
+    const answers = Object.fromEntries(
+      LoveLanguageQuestions.map((group) => [
+        String(group.id),
+        Object.fromEntries(
+          group.answers.map((answer) => [String(answer.type), answer.type + 1]),
+        ),
+      ]),
+    )
+    const questions = buildLoveLanguageQuestions(answers)
+    expect(toLoveLanguageAnswers(questions)).toEqual(answers)
+    expect(isLoveLanguageSurveyComplete(questions)).toBe(true)
   })
 })

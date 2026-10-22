@@ -1,10 +1,15 @@
 import { expect, test } from '@playwright/test'
 
-import { DISC_STORAGE_KEYS } from '../src/constants/disc'
+import {
+  discAnswers,
+  envelope,
+  SURVEY_STORAGE,
+  seedEveryLoad,
+} from './storage-helpers'
 
 const SURVEY_URL = '/disc/khao-sat'
 const RESULT_URL = '/disc'
-const STORAGE_KEYS = DISC_STORAGE_KEYS
+const STORAGE_KEY = SURVEY_STORAGE.disc.key
 
 test.describe('DISC survey', () => {
   test('blocks submit when statements are unanswered', async ({ page }) => {
@@ -57,42 +62,12 @@ test.describe('DISC result page', () => {
   })
 
   test('renders profile from seeded answers', async ({ page }) => {
-    await page.addInitScript(
-      ({ keys }) => {
-        const sections = [
-          {
-            type: 0,
-            statements: Array.from({ length: 5 }, () => ({ value: 5 })),
-          },
-          {
-            type: 1,
-            statements: Array.from({ length: 5 }, () => ({ value: 1 })),
-          },
-          {
-            type: 2,
-            statements: Array.from({ length: 5 }, () => ({ value: 3 })),
-          },
-          {
-            type: 3,
-            statements: Array.from({ length: 5 }, () => ({ value: 2 })),
-          },
-        ]
-        localStorage.setItem(keys.answers, JSON.stringify(sections))
-
-        const result: Record<string, unknown> = {}
-        sections.forEach((section) => {
-          section.statements.forEach((statement, index) => {
-            result[`${section.type}-${index}`] = {
-              section: section.type,
-              statementIndex: index,
-              value: statement.value,
-            }
-          })
-        })
-        localStorage.setItem(keys.result, JSON.stringify(result))
-      },
-      { keys: STORAGE_KEYS },
-    )
+    // D = 5, I = 1, S = 3, C = 2 on every statement.
+    await seedEveryLoad(page, {
+      [STORAGE_KEY]: envelope(
+        discAnswers((section) => [5, 1, 3, 2][section] ?? 1),
+      ),
+    })
 
     await page.goto(RESULT_URL)
     await expect(page.getByText('Kết quả DISC của bạn')).toBeVisible()
@@ -103,42 +78,11 @@ test.describe('DISC result page', () => {
   test('shows D profile at 25/25 when only D section scores highest', async ({
     page,
   }) => {
-    await page.addInitScript(
-      ({ keys }) => {
-        const sections = [
-          {
-            type: 0,
-            statements: Array.from({ length: 5 }, () => ({ value: 5 })),
-          },
-          {
-            type: 1,
-            statements: Array.from({ length: 5 }, () => ({ value: 1 })),
-          },
-          {
-            type: 2,
-            statements: Array.from({ length: 5 }, () => ({ value: 1 })),
-          },
-          {
-            type: 3,
-            statements: Array.from({ length: 5 }, () => ({ value: 1 })),
-          },
-        ]
-        localStorage.setItem(keys.answers, JSON.stringify(sections))
-
-        const result: Record<string, unknown> = {}
-        sections.forEach((section) => {
-          section.statements.forEach((statement, index) => {
-            result[`${section.type}-${index}`] = {
-              section: section.type,
-              statementIndex: index,
-              value: statement.value,
-            }
-          })
-        })
-        localStorage.setItem(keys.result, JSON.stringify(result))
-      },
-      { keys: STORAGE_KEYS },
-    )
+    await seedEveryLoad(page, {
+      [STORAGE_KEY]: envelope(
+        discAnswers((section) => (section === 0 ? 5 : 1)),
+      ),
+    })
 
     await page.goto(RESULT_URL)
     await expect(page.getByText('25/25').first()).toBeVisible()

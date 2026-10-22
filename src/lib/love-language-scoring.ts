@@ -5,7 +5,7 @@ export const LOVE_LANGUAGE_TYPES_PER_GROUP = 5
 /** Max score per type: 5 groups × 5 points (5 = thích nhất). */
 export const LOVE_LANGUAGE_MAX_TOTAL_SCORE = 25
 
-export type LoveLanguageAnswerInput = {
+type LoveLanguageAnswerInput = {
   type: LoveLanguageType
   mark?: number
   hasError?: boolean
@@ -28,10 +28,30 @@ export type LoveLanguageAggregate = {
   mark: number
 }
 
-export type LoveLanguageResultRecord = Record<
+type LoveLanguageResultRecord = Record<
   string,
   { type: LoveLanguageType; mark: number }
 >
+
+/** Saved marks: group id → love language type → mark (1–5). */
+export type LoveLanguageAnswers = Record<string, Record<string, number>>
+
+export function toLoveLanguageAnswers(
+  questions: LoveLanguageQuestionsRecord,
+): LoveLanguageAnswers {
+  const answers: LoveLanguageAnswers = {}
+
+  for (const question of Object.values(questions)) {
+    const marks: Record<string, number> = {}
+    for (const answer of question.answers) {
+      if (isLoveLanguageRank(answer.mark))
+        marks[String(answer.type)] = answer.mark
+    }
+    answers[String(question.id)] = marks
+  }
+
+  return answers
+}
 
 export function isLoveLanguageRank(value: unknown): value is number {
   return (

@@ -8,12 +8,12 @@ export const NEXT_GEN_GIFT_CATEGORY_COUNT = 19
 export const NEXT_GEN_QUESTIONS_PER_GIFT = 3
 export const NEXT_GEN_GIFT_MAX_SCORE = NEXT_GEN_QUESTIONS_PER_GIFT * 3
 
-export type NextGenGiftAnswerEntry = {
+type NextGenGiftAnswerEntry = {
   type: NextGenGiftType
   mark: number
 }
 
-export type NextGenGiftResultRecord = Record<string, NextGenGiftAnswerEntry>
+type NextGenGiftResultRecord = Record<string, NextGenGiftAnswerEntry>
 
 export type NextGenGiftAnswers = Record<string, number | undefined>
 
@@ -87,7 +87,7 @@ export function sortNextGenGiftRowsByScore(
   return [...rows].sort((a, b) => b.total - a.total || a.giftType - b.giftType)
 }
 
-export type NextGenGiftBlend = {
+type NextGenGiftBlend = {
   primary: NextGenGiftScoreRow[]
   secondary: NextGenGiftScoreRow[]
 }
