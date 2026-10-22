@@ -1,6 +1,6 @@
-import { describe, expect, test } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { describe, expect, test } from 'vitest'
 import { DiscScaleLegend } from '@/components/DiscScaleLegend'
 import { GiftResultMatrix } from '@/components/GiftResultMatrix'
 import { GiftResultPanel } from '@/components/GiftResultPanel'

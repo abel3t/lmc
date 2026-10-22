@@ -1,6 +1,6 @@
 # LMC — Khảo sát tâm linh
 
-Vietnamese spiritual assessment surveys built with [TanStack Start](https://tanstack.com/start), React 19, Vite, and Bun.
+Vietnamese spiritual assessment surveys built with [TanStack Start](https://tanstack.com/start), React 19, Vite, and pnpm.
 
 ## Surveys
 
@@ -15,19 +15,20 @@ Answers and results are stored in the browser (`localStorage`) only — there is
 
 ## Requirements
 
-- [Bun](https://bun.sh) 1.2+
+- [Node.js](https://nodejs.org) 22+
+- [pnpm](https://pnpm.io) 10+
 
 ## Scripts
 
 ```bash
-bun install          # install dependencies
-bun run dev          # dev server at http://localhost:3000
-bun run build        # production build
-bun run preview      # preview production build
-bun start            # run Nitro server (.output/server)
-bun run check        # Biome lint + format check
-bun test src         # unit tests (Bun test runner)
-bun run test:e2e     # Playwright E2E (builds first)
+pnpm install         # install dependencies
+pnpm dev             # dev server at http://localhost:3000
+pnpm build           # production build
+pnpm preview         # preview production build
+pnpm start           # run Nitro server (.output/server)
+pnpm check           # Biome lint + format check
+pnpm test            # unit tests (Vitest)
+pnpm test:e2e        # Playwright E2E (builds first)
 ```
 
 ## Project layout
@@ -49,4 +50,4 @@ e2e/                # Playwright specs
 - **Build:** Vite 8, Nitro (SSR output)
 - **Styling:** Tailwind CSS 4
 - **State:** Zustand, TanStack Form (Adult Gift), TanStack React Store
-- **Quality:** Biome, Bun test, Playwright
+- **Quality:** Biome, Vitest, Playwright

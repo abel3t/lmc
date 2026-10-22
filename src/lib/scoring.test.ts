@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'bun:test'
+import { describe, expect, test } from 'vitest'
 import { DiscType, discSections } from '@/constants/disc'
 import {
   aggregateDiscScores,

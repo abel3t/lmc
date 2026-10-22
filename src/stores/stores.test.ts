@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from 'bun:test'
+import { beforeEach, describe, expect, test } from 'vitest'
 import { LoveLanguageQuestions, nextGenGiftQuestions } from '@/constant'
 import { DiscType } from '@/constants/disc'
 import {

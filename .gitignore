@@ -24,6 +24,9 @@ yarn-error.log*
 # deploy
 .vercel
 
+# test output
+/coverage
+
 # playwright
 /test-results
 /playwright-report

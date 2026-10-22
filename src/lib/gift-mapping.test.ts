@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'bun:test'
+import { describe, expect, test } from 'vitest'
 import { GiftTitle, GiftType, giftQuestions } from '@/constant'
 import { giftQuestionsRaw } from '@/data/gift-questions'
 import {

@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, mock, test } from 'bun:test'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 import { cn, printWithoutBrowserHeader } from '@/lib/utils'
 
 describe('utils', () => {
@@ -11,12 +11,12 @@ describe('utils', () => {
 
   describe('printWithoutBrowserHeader', () => {
     afterEach(() => {
-      mock.restore()
+      vi.restoreAllMocks()
     })
 
     test('clears document title for print and restores it', () => {
       document.title = 'Kết quả khảo sát'
-      const printMock = mock(() => {})
+      const printMock = vi.fn()
       window.print = printMock
 
       printWithoutBrowserHeader()
@@ -30,7 +30,7 @@ describe('utils', () => {
 
     test('restores title via timeout when afterprint is not fired', async () => {
       document.title = 'Original'
-      window.print = mock(() => {})
+      window.print = vi.fn()
 
       printWithoutBrowserHeader()
       expect(document.title.trim()).toBe('')
