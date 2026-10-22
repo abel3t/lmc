@@ -4,7 +4,7 @@ test.describe('Smoke', () => {
   test('home lists the available surveys and links work', async ({ page }) => {
     await page.goto('/')
     await expect(
-      page.getByRole('heading', { name: 'Website khảo sát' }),
+      page.getByRole('heading', { name: 'Công cụ khảo sát' }),
     ).toBeVisible()
 
     await expect(

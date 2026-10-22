@@ -1,6 +1,7 @@
 import { CircleAlert } from 'lucide-react'
-import type { ChangeEvent } from 'react'
+import type { ChangeEvent, KeyboardEvent } from 'react'
 import { Input } from '@/components/ui/input'
+import { isLoveLanguageRank } from '@/lib/love-language-scoring'
 import {
   type LoveLanguageAnswerState,
   type LoveLanguageQuestionState,
@@ -18,6 +19,14 @@ export default function LoveLanguageQuestion({
 }: LoveLanguageProps) {
   const updateQuestion = useLoveLanguageStore((s) => s.updateQuestion)
 
+  const isDuplicateMark = (answer: LoveLanguageAnswerState) =>
+    isLoveLanguageRank(answer.mark) &&
+    question.answers.filter((a) => a.mark === answer.mark).length > 1
+  const hasInvalidMark = question.answers.some(
+    (answer) => answer.mark != null && !isLoveLanguageRank(answer.mark),
+  )
+  const hasDuplicateMark = question.answers.some(isDuplicateMark)
+
   const handleChange = (
     aIndex: number,
     event: ChangeEvent<HTMLInputElement>,
@@ -25,20 +34,29 @@ export default function LoveLanguageQuestion({
     const answers: LoveLanguageAnswerState[] = question.answers.map(
       (answer) => ({ ...answer }),
     )
-    const value = Number.parseInt(event.target.value, 10)
-    answers[aIndex].mark = value
+    const raw = event.target.value.trim()
+    // Keep non-integers (e.g. pasted 4.5) so they show as invalid instead of
+    // being silently truncated.
+    answers[aIndex].mark = raw === '' ? undefined : Number(raw)
 
-    const answerMarks = answers.map((answer) => answer.mark)
-
-    for (let i = 0; i < answers.length; i++) {
-      const idx = answerMarks.indexOf(answers[i].mark)
-      answers[i].hasError = !!answers[i].mark && idx >= 0 && idx !== i
+    // Flag every answer sharing a mark (not just the later one) so both show red.
+    for (const answer of answers) {
+      if (answer.mark == null) {
+        answer.hasError = false
+        continue
+      }
+      const sameMarkCount = answers.filter((a) => a.mark === answer.mark).length
+      answer.hasError = sameMarkCount > 1 || !isLoveLanguageRank(answer.mark)
     }
 
-    answers[aIndex].hasError =
-      !!answers[aIndex].hasError || value <= 0 || value > 5
-
     updateQuestion(question.id, { ...question, answers, hasError: false })
+  }
+
+  // Only whole numbers: block decimal separators, exponent and sign keys.
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (['.', ',', 'e', 'E', '+', '-'].includes(event.key)) {
+      event.preventDefault()
+    }
   }
 
   return (
@@ -62,10 +80,16 @@ export default function LoveLanguageQuestion({
               type="number"
               min={1}
               max={5}
-              value={answer.mark || ''}
+              step={1}
+              inputMode="numeric"
+              value={answer.mark ?? ''}
               error={!!answer.hasError}
+              aria-invalid={!!answer.hasError}
               onChange={(event) => handleChange(aIndex, event)}
-              className="w-[45px] text-center"
+              onKeyDown={handleKeyDown}
+              className={`w-[45px] text-center ${
+                answer.hasError ? 'font-bold text-red-600' : ''
+              }`}
             />
 
             <div className="ml-5 font-semibold">
@@ -80,6 +104,20 @@ export default function LoveLanguageQuestion({
           </div>
         ))}
       </div>
+
+      {hasInvalidMark && (
+        <p className="mt-2 flex items-center text-xs text-red-600">
+          <CircleAlert className="mr-2 h-4 w-4" />
+          Chỉ nhập số nguyên từ 1 đến 5
+        </p>
+      )}
+
+      {hasDuplicateMark && (
+        <p className="mt-2 flex items-center text-xs text-red-600">
+          <CircleAlert className="mr-2 h-4 w-4" />
+          Mỗi số điểm từ 1 đến 5 chỉ được dùng một lần trong nhóm
+        </p>
+      )}
 
       {question.hasError && (
         <p className="mt-2 flex items-center text-xs text-red-600">

@@ -32,11 +32,11 @@ export const LoveLanguageQuestions = [
         type: LoveLanguageType.C,
       },
       {
-        text: 'Một ai đó thể hiện cảm xúc phù hợp khi nghe những gì bạn chia sẻ.',
+        text: 'Một ai đó thể hiện cảm xúc phù hợp khi nghe bạn chia sẻ.',
         type: LoveLanguageType.D,
       },
       {
-        text: 'Một ai đó tìm cách ôm bạn hay bắt tay bạn trước khi đi ra ngoài.',
+        text: 'Một ai đó chào đón hoặc tạm biệt bạn bằng một cái bắt tay, cái ôm hoặc cử chỉ gần gũi phù hợp.',
         type: LoveLanguageType.E,
       },
     ],
@@ -51,14 +51,14 @@ export const LoveLanguageQuestions = [
       },
       {
         textMale:
-          'Nam:  Một ai đó tự nguyện đi sửa xe hay giặt đồ cho bạn và bảo bạn hãy nghỉ ngơi.',
+          'Nam: Một ai đó tự nguyện đi sửa xe hay giặt đồ cho bạn và bảo bạn hãy nghỉ ngơi.',
         textFemale:
-          'Nữ:  Một ai đó xung phong rửa chén giùm bạn và bảo bạn hãy nghỉ ngơi.',
+          'Nữ: Một ai đó xung phong rửa chén giùm bạn và bảo bạn hãy nghỉ ngơi.',
         type: LoveLanguageType.B,
       },
       {
-        textMale: 'Nam:  Một ai đó mua món ăn đặc biệt về cho bạn.',
-        textFemale: 'Nữ:  Một ai đó tặng quà để thể hiện sự quan tâm đến bạn.',
+        textMale: 'Nam: Một ai đó mua món ăn đặc biệt về cho bạn.',
+        textFemale: 'Nữ: Một ai đó tặng quà để thể hiện sự quan tâm đến bạn.',
         type: LoveLanguageType.C,
       },
       {
@@ -66,7 +66,7 @@ export const LoveLanguageQuestions = [
         type: LoveLanguageType.D,
       },
       {
-        text: 'Một ai đó ôm bạn, đụng vào bạn hoặc quàng vai khi có dịp đi ngang qua bạn.',
+        text: 'Một ai đó vỗ vai hoặc ôm để khích lệ bạn.',
         type: LoveLanguageType.E,
       },
     ],
@@ -88,11 +88,11 @@ export const LoveLanguageQuestions = [
         type: LoveLanguageType.C,
       },
       {
-        text: 'Một ai đó luôn ngưng Facebook, điện thoại… để lắng nghe bạn khi bạn cần họ.',
+        text: 'Một ai đó luôn ngưng dùng điện thoại và các hoạt động khác để lắng nghe bạn khi bạn cần họ.',
         type: LoveLanguageType.D,
       },
       {
-        text: 'Một ai đó quàng vai bạn, dựa vào, cầm tay khi đi trong siêu thị hay ở nơi công cộng.',
+        text: 'Một ai đó quàng vai, khoác tay bạn khi đi trong siêu thị hay ở nơi công cộng.',
         type: LoveLanguageType.E,
       },
     ],
@@ -118,7 +118,7 @@ export const LoveLanguageQuestions = [
         type: LoveLanguageType.D,
       },
       {
-        text: 'Một ai đó thân mật nói chuyện với bạn – “tay bắt mặt mừng” thay vì đứng xa xa trò chuyện.',
+        text: 'Một ai đó ngồi gần trò chuyện, thể hiện sự gần gũi khiến bạn cảm thấy được quan tâm.',
         type: LoveLanguageType.E,
       },
     ],
@@ -132,15 +132,15 @@ export const LoveLanguageQuestions = [
         type: LoveLanguageType.A,
       },
       {
-        text: 'Một ai đó dành thời gian để giúp bạn hoàn tất một công việc rất phức tạp mà bạn mong gắng  làm xong trong đêm.',
+        text: 'Một ai đó dành thời gian để giúp bạn hoàn tất một công việc rất phức tạp mà bạn đang cố gắng hoàn tất trong đêm.',
         type: LoveLanguageType.B,
       },
       {
-        text: 'Một ai đó gởi cho bạn một món quà đặc biệt, chuyển đến tận nhà.',
+        text: 'Một ai đó gửi cho bạn một món quà đặc biệt, chuyển đến tận nhà.',
         type: LoveLanguageType.C,
       },
       {
-        text: 'Một ai đó “bắt cóc” bạn đi ăn trưa và đưa bạn đến nhà hàng bạn yêu thích nhất.',
+        text: 'Một ai đó bất ngờ mời bạn đi ăn và chọn nơi bạn yêu thích.',
         type: LoveLanguageType.D,
       },
       { text: 'Một ai đó mát-xa cho bạn.', type: LoveLanguageType.E },

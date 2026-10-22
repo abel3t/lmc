@@ -38,6 +38,54 @@ test.describe('Love Language survey', () => {
     ).toBeDisabled()
   })
 
+  test('highlights both duplicated marks in red', async ({ page }) => {
+    await page.goto(SURVEY_URL)
+
+    const inputs = page.locator('input[type="number"]')
+    await inputs.first().waitFor({ state: 'visible' })
+
+    await expect(async () => {
+      await inputs.nth(0).fill('3')
+      await inputs.nth(1).fill('3')
+      await expect(inputs.nth(0)).toHaveAttribute('aria-invalid', 'true', {
+        timeout: 1_000,
+      })
+    }).toPass()
+    await expect(inputs.nth(1)).toHaveAttribute('aria-invalid', 'true')
+    await expect(
+      page.getByText('Mỗi số điểm từ 1 đến 5 chỉ được dùng một lần trong nhóm'),
+    ).toBeVisible()
+
+    await inputs.nth(1).fill('4')
+    await expect(inputs.nth(0)).toHaveAttribute('aria-invalid', 'false')
+    await expect(inputs.nth(1)).toHaveAttribute('aria-invalid', 'false')
+  })
+
+  test('accepts whole numbers only', async ({ page }) => {
+    await page.goto(SURVEY_URL)
+
+    const inputs = page.locator('input[type="number"]')
+    await inputs.first().waitFor({ state: 'visible' })
+
+    // Typing a decimal separator is blocked: "4.5" becomes "45" → out of range.
+    await expect(async () => {
+      await inputs.nth(0).fill('')
+      await inputs.nth(0).pressSequentially('4.5')
+      await expect(inputs.nth(0)).toHaveValue('45', { timeout: 1_000 })
+    }).toPass()
+    await expect(inputs.nth(0)).toHaveAttribute('aria-invalid', 'true')
+
+    // A pasted decimal is kept visible and flagged, not truncated to 4.
+    await inputs.nth(0).fill('4.5')
+    await expect(inputs.nth(0)).toHaveValue('4.5')
+    await expect(inputs.nth(0)).toHaveAttribute('aria-invalid', 'true')
+    await expect(page.getByText('Chỉ nhập số nguyên từ 1 đến 5')).toBeVisible()
+
+    await inputs.nth(0).fill('4')
+    await expect(inputs.nth(0)).toHaveAttribute('aria-invalid', 'false')
+    await expect(page.getByText('Chỉ nhập số nguyên từ 1 đến 5')).toHaveCount(0)
+  })
+
   test('completes all five groups with unique ranks and shows results', async ({
     page,
   }) => {

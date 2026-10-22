@@ -10,16 +10,29 @@ import {
   isLoveLanguageSurveyComplete,
   LOVE_LANGUAGE_GROUP_COUNT,
   LOVE_LANGUAGE_MAX_TOTAL_SCORE,
-  loveLanguageRankToPoints,
 } from '@/lib/love-language-scoring'
 
 describe('love-language-scoring', () => {
-  test('validates ranks 1–5 only', () => {
+  test('validates whole-number marks 1–5 only', () => {
     expect(isLoveLanguageRank(1)).toBe(true)
     expect(isLoveLanguageRank(5)).toBe(true)
     expect(isLoveLanguageRank(0)).toBe(false)
     expect(isLoveLanguageRank(6)).toBe(false)
     expect(isLoveLanguageRank(undefined)).toBe(false)
+    expect(isLoveLanguageRank(1.5)).toBe(false)
+    expect(isLoveLanguageRank(Number.NaN)).toBe(false)
+  })
+
+  test('rejects a group containing a decimal mark', () => {
+    expect(
+      isLoveLanguageGroupValid([
+        { type: LoveLanguageType.A, mark: 1.5 },
+        { type: LoveLanguageType.B, mark: 2 },
+        { type: LoveLanguageType.C, mark: 3 },
+        { type: LoveLanguageType.D, mark: 4 },
+        { type: LoveLanguageType.E, mark: 5 },
+      ]),
+    ).toBe(false)
   })
 
   test('requires unique ranks 1–5 within each group', () => {
@@ -44,11 +57,6 @@ describe('love-language-scoring', () => {
     ).toBe(false)
   })
 
-  test('converts rank 1 to 5 points and rank 5 to 1 point', () => {
-    expect(loveLanguageRankToPoints(1)).toBe(5)
-    expect(loveLanguageRankToPoints(5)).toBe(1)
-  })
-
   test('sums points across five groups into five love language totals', () => {
     const questions = buildSampleLoveLanguageQuestions()
     expect(isLoveLanguageSurveyComplete(questions)).toBe(true)
@@ -59,7 +67,7 @@ describe('love-language-scoring', () => {
     expect(Object.keys(result)).toHaveLength(5)
     expect(aggregates).toHaveLength(5)
 
-    // Type A gets rank 1 in every group → 25 points.
+    // Type A gets mark 5 (thích nhất) in every group → 25 points.
     expect(
       aggregates.find((row) => row.type === LoveLanguageType.A)?.mark,
     ).toBe(LOVE_LANGUAGE_MAX_TOTAL_SCORE)
@@ -68,13 +76,13 @@ describe('love-language-scoring', () => {
     ).toBe(5)
   })
 
-  test('rank 1 on words of affirmation beats rank 5 in a single group', () => {
+  test('mark 5 on words of affirmation beats mark 1 in a single group', () => {
     const questions = buildSampleLoveLanguageQuestions()
     const group1 = questions['1']
     expect(group1).toBeDefined()
     if (group1) {
       for (const answer of group1.answers) {
-        answer.mark = answer.type === LoveLanguageType.A ? 1 : 5
+        answer.mark = answer.type === LoveLanguageType.A ? 5 : 1
       }
     }
 
@@ -87,7 +95,7 @@ describe('love-language-scoring', () => {
     const group1 = questions['1']
     expect(group1).toBeDefined()
     if (group1) {
-      const marks = [5, 4, 3, 2, 1]
+      const marks = [1, 2, 3, 4, 5]
       group1.answers.forEach((answer, index) => {
         answer.mark = marks[index]
       })
@@ -95,7 +103,7 @@ describe('love-language-scoring', () => {
 
     const result = buildLoveLanguageResultFromQuestions(questions)
 
-    // Group 1: A=5 pts, E=1 pt; groups 2–5 still rank A as 1 (5 pts each).
+    // Group 1: A=1 pt, E=5 pts; groups 2–5 still give A 5 pts and E 1 pt.
     expect(result['0']?.mark).toBe(21)
     expect(result['4']?.mark).toBe(9)
   })
@@ -131,7 +139,7 @@ describe('love-language-scoring', () => {
     ])
   })
 
-  test('sum of all type totals equals sum of converted points', () => {
+  test('sum of all type totals equals sum of marks', () => {
     const questions = buildSampleLoveLanguageQuestions()
     const result = buildLoveLanguageResultFromQuestions(questions)
     const aggregates = aggregateLoveLanguageScores(result)
@@ -141,7 +149,7 @@ describe('love-language-scoring', () => {
     for (const group of Object.values(questions)) {
       for (const answer of group.answers) {
         if (answer.mark !== undefined) {
-          pointSum += loveLanguageRankToPoints(answer.mark)
+          pointSum += answer.mark
         }
       }
     }

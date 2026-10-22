@@ -9,6 +9,7 @@ import {
 } from '@/constant'
 import {
   aggregateLoveLanguageScores,
+  LOVE_LANGUAGE_MAX_TOTAL_SCORE as LOVE_LANGUAGE_MAX_SCORE,
   type LoveLanguageAggregate,
   type LoveLanguageResultRecord,
 } from '@/lib/love-language-scoring'
@@ -17,8 +18,6 @@ import { readSurveyStorage } from '@/lib/survey-storage'
 export const Route = createFileRoute('/ngon-ngu-yeu-thuong/')({
   component: LoveLanguageTab,
 })
-
-const LOVE_LANGUAGE_MAX_SCORE = 25
 
 function LoveLanguageTab() {
   const [isLoaded, setIsLoaded] = useState(false)

@@ -5,10 +5,11 @@ import { NEXT_GEN_GIFT_STORAGE_KEYS } from '../src/constants/next-gen-gift'
 const SURVEY_URL = '/an-tu-thuoc-linh-next-gen/khao-sat'
 const RESULT_URL = '/an-tu-thuoc-linh-next-gen'
 const STORAGE_KEY = NEXT_GEN_GIFT_STORAGE_KEYS.result
-const TOTAL_QUESTIONS = 66
+const TOTAL_QUESTIONS = 57
 const PER_PAGE = 10
 const TOTAL_PAGES = Math.ceil(TOTAL_QUESTIONS / PER_PAGE)
-const GIFT_CATEGORIES = 22
+const GIFT_CATEGORIES = 19
+const RESULT_CARD = '[data-testid="next-gen-gift-result-card"]'
 
 async function gotoSurveyPage(page: import('@playwright/test').Page) {
   await page.goto(SURVEY_URL)
@@ -46,10 +47,13 @@ test.describe('Next Gen Gift survey', () => {
     await gotoSurveyPage(page)
     await expect(page.getByText('Ân tứ thuộc linh')).toBeVisible()
 
-    await page.getByRole('button', { name: 'Tiếp tục' }).click()
-    await expect(
-      page.getByText('Hãy trả lời tất cả câu hỏi nào!'),
-    ).toBeVisible()
+    // Retry the click: the SSR button can be clicked before React hydrates.
+    await expect(async () => {
+      await page.getByRole('button', { name: 'Tiếp tục' }).click()
+      await expect(
+        page.getByText('Hãy trả lời tất cả câu hỏi nào!'),
+      ).toBeVisible({ timeout: 1_000 })
+    }).toPass()
   })
 
   test('completes the full flow and shows ranked results', async ({ page }) => {
@@ -68,9 +72,12 @@ test.describe('Next Gen Gift survey', () => {
     }
 
     await page.waitForURL(`**${RESULT_URL}`)
-    await expect(page.getByText('Kết quả của bạn')).toBeVisible()
-    await expect(page.locator('table tbody tr')).toHaveCount(GIFT_CATEGORIES)
-    await expect(page.getByText('6').first()).toBeVisible()
+    await expect(
+      page.getByText('Kết quả ân tứ thuộc linh của em'),
+    ).toBeVisible()
+    await expect(page.locator(RESULT_CARD)).toHaveCount(GIFT_CATEGORIES)
+    // Every answer = 2 → 3 questions × 2 = 6 per gift.
+    await expect(page.locator(RESULT_CARD).first()).toContainText('6/9')
   })
 })
 
@@ -87,7 +94,7 @@ test.describe('Next Gen Gift result page', () => {
       ({ key, total }) => {
         const result: Record<string, { type: number; mark: number }> = {}
         for (let i = 1; i <= total; i++) {
-          result[String(i)] = { type: (i - 1) % 22, mark: 3 }
+          result[String(i)] = { type: (i - 1) % 19, mark: 3 }
         }
         localStorage.setItem(key, JSON.stringify(result))
       },
@@ -95,7 +102,7 @@ test.describe('Next Gen Gift result page', () => {
     )
 
     await page.goto(RESULT_URL)
-    await expect(page.locator('table tbody tr')).toHaveCount(GIFT_CATEGORIES)
-    await expect(page.getByRole('cell', { name: '9' }).first()).toBeVisible()
+    await expect(page.locator(RESULT_CARD)).toHaveCount(GIFT_CATEGORIES)
+    await expect(page.locator(RESULT_CARD).first()).toContainText('9/9')
   })
 })

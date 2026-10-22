@@ -1,12 +1,12 @@
 export const LOVE_LANGUAGE_STORAGE_KEYS = {
-  questions: 'loveLanguageQuestions',
-  result: 'loveLanguageResult',
+  questions: 'loveLanguageQuestionsV2',
+  result: 'loveLanguageResultV2',
 } as const
 
 export const LOVE_LANGUAGE_SCALE_LABELS = [
-  { value: 1, label: 'Quan trọng nhất' },
-  { value: 2, label: 'Khá quan trọng' },
-  { value: 3, label: 'Trung bình' },
-  { value: 4, label: 'Ít quan trọng' },
-  { value: 5, label: 'Ít quan trọng nhất' },
+  { value: 5, label: 'Thích nhất' },
+  { value: 4, label: 'Khá thích' },
+  { value: 3, label: 'Cũng thích' },
+  { value: 2, label: 'Ít thích' },
+  { value: 1, label: 'Không thích' },
 ] as const

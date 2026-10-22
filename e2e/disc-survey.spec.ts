@@ -96,7 +96,7 @@ test.describe('DISC result page', () => {
 
     await page.goto(RESULT_URL)
     await expect(page.getByText('Kết quả DISC của bạn')).toBeVisible()
-    await expect(page.getByText('Tổ hợp tính cách của bạn:')).toBeVisible()
+    await expect(page.getByText('Cá tính chính')).toBeVisible()
     await expect(page.getByText('D', { exact: true }).first()).toBeVisible()
   })
 

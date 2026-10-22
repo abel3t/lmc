@@ -84,13 +84,13 @@ function LoveLanguageAssessment() {
         <SurveyTitleBar tone="rose">Ngôn ngữ yêu thương</SurveyTitleBar>
         <div className="space-y-3 p-4 text-sm sm:p-5">
           <p>
-            Hãy đọc từng câu trong mỗi nhóm và xếp hạng mức độ{' '}
-            <span className="font-medium">quan trọng với bạn</span> theo thang
-            bên dưới.
+            Hãy đọc từng câu trong mỗi nhóm và chấm điểm theo mức độ bạn{' '}
+            <span className="font-medium">cảm nhận được yêu thương</span> khi ai
+            đó làm điều này cho mình.
           </p>
           <SurveyScaleLegend
             tone="rose"
-            title="Thứ tự ưu tiên (1 → 5)"
+            title="Thang điểm 1 đến 5"
             labels={LOVE_LANGUAGE_SCALE_LABELS}
           />
           <p className="text-gray-600">
@@ -98,8 +98,8 @@ function LoveLanguageAssessment() {
             <span className="font-medium text-gray-800">
               {LoveLanguageQuestions.length} nhóm
             </span>{' '}
-            · mỗi nhóm 5 câu, không được trùng số trong cùng nhóm. Chọn ngay —
-            đừng suy nghĩ quá lâu.
+            · mỗi nhóm 5 câu, không chấm trùng số điểm trong một nhóm. Chọn ngay
+            — đừng suy nghĩ quá lâu.
           </p>
         </div>
       </div>
